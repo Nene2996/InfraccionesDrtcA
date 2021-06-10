@@ -7,12 +7,12 @@ use Livewire\Component;
 
 class Welcome extends Component
 {
-    public $search;
+    public $search = '';
     public $typeSearch;
 
     public function mount()
     {
-
+  
     }
     public function render()
     {

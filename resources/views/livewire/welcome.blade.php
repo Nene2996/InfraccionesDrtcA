@@ -42,7 +42,7 @@
                         <div class="">
                             <table class="">
                                 <thead>
-                                    <tr class="bg-gray-200">
+                                    <tr class="bg-gray-200 text-sm">
                                         <th class="border px-3">NRO. ACTA</th>
                                         <th class="border px-3">NOMBRE</th>
                                         <th class="border px-3">NRO DE LICENCIA</th>
@@ -50,6 +50,7 @@
                                         <th class="border px-3">FECHA PAPELETA</th>
                                         <th class="border px-3">NRO. BOLETA/VAUCHER</th>
                                         <th class="border px-3">SEDE</th>
+                                        <th class="border px-3">OPCIONES</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -57,13 +58,14 @@
                                     @forelse ($ballots as $ballot)
                                     <div>
                                         <tr>
-                                            <td class="border px-3">{{ $ballot->nro_acta }}</p></td>
-                                            <td class="border px-3">{{ $ballot->nombre_conductor }}</td>
-                                            <td class="border px-3">{{ $ballot->nro_licencia }}</td>
-                                            <td class="border px-3">{{ $ballot->estado_actual }}</td>
-                                            <td class="border px-3">{{ date('d-m-Y', strtotime($ballot->fecha_infraccion)) }}</td>
-                                            <td class="border px-3">{{ $ballot->nro_boleta_pago }}</td>
-                                            <td class="border px-3">{{ $ballot->sede_infraccion }}</td>
+                                            <td class="border px-3 text-xs">{{ $ballot->nro_acta }}</p></td>
+                                            <td class="border px-3 text-xs">{{ $ballot->nombre_conductor }}</td>
+                                            <td class="border px-3 text-xs">{{ $ballot->nro_licencia }}</td>
+                                            <td class="border px-3 text-xs">{{ $ballot->estado_actual }}</td>
+                                            <td class="border px-3 text-xs">{{ date('d-m-Y', strtotime($ballot->fecha_infraccion)) }}</td>
+                                            <td class="border px-3 text-xs">{{ $ballot->nro_boleta_pago }}</td>
+                                            <td class="border px-3 text-xs">{{ $ballot->sede_infraccion }}</td>
+                                            <td class="border px-3 text-xs"><button class="bg-blue-500  text-white font-bold py-2 px-4 rounded">VER +</button></td>
                                         </tr>
                                     </div>
                                     @empty
