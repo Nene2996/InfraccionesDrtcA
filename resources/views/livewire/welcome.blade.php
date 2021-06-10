@@ -13,7 +13,7 @@
                 <div class="overflow-hidden shadow-xl sm:rounded-lg">
                     
                     <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-                        <h3 class="text-gray-600 text-lg font-semibold">Tipo de busqueda:</h3>
+                        <h3 class="text-gray-600 font-semibold">Tipo de busqueda:</h3>
                         <ul>
                             <li>
                                 <label class="mr-10 text-gray-700">
@@ -28,7 +28,7 @@
                             </li>
                         </ul>
                         <div class="flex relative mt-4">
-                            <x-jet-input wire:model="search" type="text" class="" placeholder="Escribe el dato a buscar"/>
+                            <x-jet-input wire:model="search" type="text" class="xs" placeholder="Escribe el dato a buscar"/>
                         </div>
                     </div>
                 </div>
@@ -38,7 +38,9 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-5">
                 <div class="overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-
+                        @if ($isModalOpen)
+                        @include('components.show')
+                        @endif
                         <div class="">
                             <table class="">
                                 <thead>
@@ -65,7 +67,7 @@
                                             <td class="border px-3 text-xs">{{ date('d-m-Y', strtotime($ballot->fecha_infraccion)) }}</td>
                                             <td class="border px-3 text-xs">{{ $ballot->nro_boleta_pago }}</td>
                                             <td class="border px-3 text-xs">{{ $ballot->sede_infraccion }}</td>
-                                            <td class="border px-3 text-xs"><button class="bg-blue-500  text-white font-bold py-2 px-4 rounded">VER +</button></td>
+                                            <td class="border px-3 text-xs"><button wire:click="show({{ $ballot->id }})" class="bg-blue-500  text-white font-bold py-2 px-4 rounded">VER +</button></td>
                                         </tr>
                                     </div>
                                     @empty
