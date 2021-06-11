@@ -27,6 +27,8 @@ module.exports = {
                 '175%': '175%',
                 '195%': '195%'
               },
+            backgroundColor: ['checked'],
+            borderColor: ['checked'],
         },
         
     },
