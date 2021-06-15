@@ -56,7 +56,7 @@ class Welcome extends Component
 
             if(strlen($this->lastName) > 5)
             {
-                $ballots = Ballot::where('nombre_conductor', 'LIKE' , '%' . $this->lastName. '%')->get();
+                $ballots = Ballot::where('nombre_apellidos', 'LIKE' , '%' . $this->lastName. '%')->get();
                 return view('livewire.welcome', [ 'ballots' => $ballots]);
             }else
             {
