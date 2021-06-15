@@ -8,13 +8,14 @@
             <table>
                 <thead></thead>
                 <tbody>
+                    
                     <tr>
-                        <td class="font-bold bg-gray-200 pl-3">ADMINISTRADO</td>
-                        <td class="text-sm bg-gray-200 pl-3">{{ $nombre_conductor }}</td>
+                        <td class="font-bold bg-gray-200 pl-3">APELLIDOS Y NOMBRES</td>
+                        <td class="text-sm bg-gray-200 pl-3">{{ $nombre_apellidos }}</td>
                     </tr>
                     <tr>
-                        <td class="font-bold pl-3">APELLIDOS Y NOMBRES / RAZÓN SOCIAL</td>
-                        <td class="text-sm pl-3">{{ $nombre_razon_social }}</td>
+                        <td class="font-bold  pl-3">DNI</td>
+                        <td class="text-sm pl-3">{{ $dni }}</td>
                     </tr>
                     <tr>
                         <td class="font-bold bg-gray-200 pl-3">DIRECCIÓN / DOMICILIO</td>

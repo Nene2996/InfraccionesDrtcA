@@ -87,7 +87,7 @@
                                     <div>
                                         <tr>
                                             <td class="border px-3 text-xs">{{ $ballot->nro_acta }}</p></td>
-                                            <td class="border px-3 text-xs">{{ $ballot->nombre_conductor }}</td>
+                                            <td class="border px-3 text-xs">{{ $ballot->nombre_apellidos }}</td>
                                             <td class="border px-3 text-xs">{{ $ballot->nro_licencia }}</td>
                                             <td class="border px-3 text-xs">{{ $ballot->estado_actual }}</td>
                                             <td class="border px-3 text-xs">{{ date('d-m-Y', strtotime($ballot->fecha_infraccion)) }}</td>
