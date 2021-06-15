@@ -2,7 +2,7 @@
     @auth
 
     @else
-    <div class="">
+    <div>
         <div class="flex flex-col text-center bg-195% md:bg-175% pt-10 px-4">
             <div>
                 <h1 class="text-4xl mb-10 font-bold max-w-4xl mx-auto leading-none">CONSULTAR INFRACCIONES AL REGLAMENTO NACIONAL DE TRANSPORTE: </h1>
@@ -24,7 +24,7 @@
                                         <input wire:model='typeSearch' wire:click="resetInput()" onClick="muestra_oculta('divLastName')" type="radio" name="myRadios" class="mr-2" value="1">Por Nro. Licencia
                                     </label>
                                     <label wire:model='typeSearch' class="mr-10">
-                                        <input type="radio" name="myRadios" wire:click="resetInput()" class="mr-2" value="2">Por Nro. Acta
+                                        <input type="radio" name="myRadios" wire:click="resetInput()" class="mr-2" value="2">Por Nro. Acta de Fiscalización
                                     </label>
                                 </li>
                             </ul>

@@ -19,7 +19,7 @@ class Welcome extends Component
     public $numberLicence = '';
     public $numberActa = '';
 
-    public $lugar_intervencion, $nombre_razon_social, $placa_vehiculo, $origen, $destino, $nombre_conductor, $direccion_infractor, $nro_licencia, $fecha_infraccion, $hora_infraccion, $clase_categoria_licencia, $nro_tarjeta_vehicular, $manifestacion_usuario, $nro_acta, $servicio, $estado_actual, $sede_infraccion;
+    public $lugar_intervencion, $nombre_razon_social, $placa_vehiculo, $origen, $destino, $nombre_conductor, $direccion_infractor, $nro_licencia, $fecha_infraccion, $hora_infraccion, $clase_categoria_licencia, $nro_tarjeta_vehicular, $manifestacion_usuario, $nro_acta, $servicio, $estado_actual, $sede_infraccion, $id_district, $informacion_adicional, $referencia, $descripcion;
 
     protected $rules = [
         'numberLicence' => 'required|regex:/^[A-Z,a-z]{1}[0-9]{8}$/',
@@ -53,11 +53,14 @@ class Welcome extends Component
             $this->openDivLastName();
             $this->closeDivNumberLicence();
             $this->closeDivNumberAct();
-            if(strlen($this->lastName) > 5){
+
+            if(strlen($this->lastName) > 5)
+            {
                 $ballots = Ballot::where('nombre_conductor', 'LIKE' , '%' . $this->lastName. '%')->get();
                 return view('livewire.welcome', [ 'ballots' => $ballots]);
-            }else{
-                $ballots = Ballot::where('nombre_conductor', 'LIKE' , '%' . '-----'. '%')->get();
+            }else
+            {
+                $ballots = collect();
                 return view('livewire.welcome', [ 'ballots' => $ballots]);
             }
                 

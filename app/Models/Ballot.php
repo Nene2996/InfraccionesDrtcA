@@ -11,8 +11,10 @@ class Ballot extends Model
 
     protected $table = 'papeletas';
     protected $fillable = [
-        'ruc_dni',
-        'nombre_razon_social',
+        'dni',
+        'ruc',
+        'razon_social',
+        'nombre_apellidos',
         'placa_vehiculo',
         'lugar_intervencion',
         'origen',
@@ -34,8 +36,14 @@ class Ballot extends Model
         'nro_boleta_pago',
         'idinspectores',
         'fecha_registro_infraccion',
-        'sede_infraccion'
+        'sede_infraccion',
+        'id_district',
+        'informacion_adicional',
+        'referencia',
+        'descripcion',
+        'calificacion'
         ];
-
+    
+    public $timestamps = false;
     protected $rules = [];
 }
