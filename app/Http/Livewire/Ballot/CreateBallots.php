@@ -123,6 +123,7 @@ class CreateBallots extends Component
     {
         return Infraction::find($this->codigo_infraccion);
     }
+    
     public function save()
     {
         $this->validate();

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Ballot;
+use App\Models\ControlAct;
 use Livewire\Component;
 
 class Welcome extends Component
@@ -33,7 +34,7 @@ class Welcome extends Component
         'numberActa.regex' => 'Solo ingresar valores numéricos',
         'numberActa.required' => 'Es obligatorio ingresar el número de Acta',
         'lastName.required' => 'Es obligatorio ingresar los apellidos y nombres',
-        'lastName.regex' => 'El valor ingresado es válido',
+        'lastName.regex' => 'El valor ingresado no es válido',
     ];
     
 
@@ -56,7 +57,7 @@ class Welcome extends Component
 
             if(strlen($this->lastName) > 5)
             {
-                $ballots = Ballot::where('nombre_apellidos', 'LIKE' , '%' . $this->lastName. '%')->get();
+                $ballots = ControlAct::where('nombre_apellidos', 'LIKE' , '%' . $this->lastName. '%')->get();
                 return view('livewire.welcome', [ 'ballots' => $ballots]);
             }else
             {
@@ -70,7 +71,7 @@ class Welcome extends Component
             $this->closeDivLastName();
             $this->openDivNumberLicence();
 
-            $ballots = Ballot::where('nro_licencia', $this->numberLicence)->get();
+            $ballots = ControlAct::where('nro_licencia', $this->numberLicence)->get();
             return view('livewire.welcome', [ 'ballots' => $ballots]);
         }else
         {
@@ -78,13 +79,13 @@ class Welcome extends Component
             $this->closeDivNumberLicence();
             $this->openDivNumberAct();
 
-            $ballots = Ballot::where('nro_acta', $this->numberActa)->get();
+            $ballots = ControlAct::where('nro_acta', $this->numberActa)->get();
             return view('livewire.welcome', [ 'ballots' => $ballots]);
         }
     }
 
     public function searchId($id){
-        $ballot = Ballot::findOrFail($id);
+        $ballot = ControlAct::findOrFail($id);
         $this->lugar_intervencion = $ballot->lugar_intervencion;
 
         $this->openModalPopover();
@@ -99,7 +100,7 @@ class Welcome extends Component
 
     public function show($id)
     {
-        $ballot = Ballot::findOrFail($id);
+        $ballot = ControlAct::findOrFail($id);
         $this->lugar_intervencion = $ballot->lugar_intervencion;
         $this->nombre_apellidos = $ballot->nombre_apellidos;
         $this->dni = $ballot->dni;

@@ -46,7 +46,6 @@
                             </div>
                             @error('numberLicence') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                         @endif
-                        
                         @if ($isOpendivNumberAct)
                             <div id="divNumberAct" class="md:w-1/4 px-3 mb-6 md:mb-0 mt-3">
                                 <input wire:model="numberActa" class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" id="numberActa" type="text" placeholder="Escribe el numero de acta">
@@ -55,7 +54,6 @@
                                 </div>
                             </div>
                         @endif
-                        
                     </div>
                 </div>
             </div>

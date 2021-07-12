@@ -12,7 +12,23 @@
                 <nav class="flex-1">
                     <ul class="flex justify-end">
                         <li>
-                            <a class="hover:bg-trueGray-400 hover:text-black px-4 py-2 rounded-md" href="{{ route('papeletas.show') }}">Papeletas</a>
+                            <div>
+                                <x-jet-dropdown align="right" width="48">
+                                    <x-slot name="trigger">
+                                        <a class="hover:bg-trueGray-400 hover:text-black px-4 py-2 rounded-md">Papeletas</a>
+                                    </x-slot>
+                
+                                    <x-slot name="content">
+                                        <x-jet-dropdown-link href="{{ route('actasDeCotrol.show') }}">
+                                            {{ __('Actas de Control') }}
+                                        </x-jet-dropdown-link>
+                                        <x-jet-dropdown-link href="{{ route('actasDeFiscalizacion.show') }}">
+                                            {{ __('Actas de Fiscalizacion') }}
+                                        </x-jet-dropdown-link>
+                                        
+                                    </x-slot>
+                                </x-jet-dropdown>
+                            </div>
                         </li>
                         <li>
                             <a class="hover:bg-trueGray-400 hover:text-black px-4 py-2 rounded-md" href="hover:bg-red-200">Tabla de Infracciones</a>
@@ -100,7 +116,9 @@
                             <x-jet-dropdown-link href="{{ route('login') }}">
                                 {{ __('Iniciar Sesion') }}
                             </x-jet-dropdown-link>
-    
+                            <x-jet-dropdown-link href="{{ route('register') }}">
+                                {{ __('Registrarse') }}
+                            </x-jet-dropdown-link>
                             
                         </x-slot>
                     </x-jet-dropdown>

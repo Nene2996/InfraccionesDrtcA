@@ -1,5 +1,5 @@
 <x-app-layout>
     <div>
-        @livewire('ballot.show-ballots')
+        @livewire('inspection-act.show-inspections')
     </div>
 </x-app-layout>

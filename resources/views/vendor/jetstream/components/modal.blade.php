@@ -9,6 +9,9 @@ $maxWidth = [
     'lg' => 'sm:max-w-lg',
     'xl' => 'sm:max-w-xl',
     '2xl' => 'sm:max-w-2xl',
+    '4xl' => 'sm:max-w-4xl',
+    '5xl' => 'sm:max-w-5xl',
+    '6xl' => 'sm:max-w-6xl',
 ][$maxWidth ?? '2xl'];
 @endphp
 
@@ -38,7 +41,7 @@ $maxWidth = [
         }
     })"
     x-on:close.stop="show = false"
-    x-on:keydown.escape.window="show = false"
+    x-on:keydown.escape.window="show = true"
     x-on:keydown.tab.prevent="$event.shiftKey || nextFocusable().focus()"
     x-on:keydown.shift.tab.prevent="prevFocusable().focus()"
     x-show="show"

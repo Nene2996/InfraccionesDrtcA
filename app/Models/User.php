@@ -27,6 +27,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'status',
+        'campus_id'
     ];
 
     /**
@@ -58,4 +61,17 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+
+    //Relacion uno a muchos
+    public function inspections()
+    {
+        return $this->hasMany('App\Models\Inspection');
+    }
+
+    //Relacion uno a muchos inversa
+    public function campus()
+    {
+        return $this->belongsTo('App\Models\Campus');
+    }
 }

@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Department extends Model
 {
     use HasFactory;
+
+    //Relacion uno a muchos
+    public function provinces()
+    {
+        return $this->hasMany('App\Models\Province');
+    }
 }
