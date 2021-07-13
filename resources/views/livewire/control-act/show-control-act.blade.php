@@ -60,6 +60,7 @@
                                 <th class="border px-3">Servicio</th>
                                 <th class="border px-3">Estado Actual</th>
                                 <th class="border px-3">Sede Infracción</th>
+                                <th class="border px-3">Operaciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -73,6 +74,14 @@
                                     <td class="border px-3 text-xs">{{ $controlAct->servicio }}</p></td>
                                     <td class="border px-3 text-xs">{{ $controlAct->estado_actual }}</p></td>
                                     <td class="border px-3 text-xs">{{ $controlAct->sede_infraccion }}</p></td>
+                                    
+                                    <td class="border px-3 text-xs">
+                                        @if (auth()->user()->role == 'Administrador')
+                                            <div class="flex item-center space-x-1">
+                                                <a type="button" class="border-2 border-green-600 rounded-lg px-2 py-1 text-green-600 cursor-pointer hover:bg-green-600 hover:text-green-200 focus:outline-none" href="{{ route('actasDeCotrol.paiment', $controlAct) }} ">Pagar</a>
+                                            </div>
+                                        @endif
+                                    </td>
                                 </tr>
                             @empty
 

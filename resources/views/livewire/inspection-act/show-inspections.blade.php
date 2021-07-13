@@ -102,16 +102,6 @@
                 </div>
                 <div class="px-5 flex justify-end">
                     <div class=" mt-5 p-2">
-                        <a href="{{ route('actasDeCotrol.create') }}" class="flex items-center p-4 bg-blue-200 rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100">
-                            <i class="fas fa-file-alt"></i>
-                            <div>
-                              <p class="text-xs font-medium ml-2">
-                                Registrar Acta de Control
-                              </p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class=" mt-5 p-2">
                         <a href="{{ route('actasDeFiscalizacion.create') }}" class="flex items-center p-4 bg-blue-200 rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100">
                             <i class="fas fa-file-alt"></i>
                             <div>
@@ -155,7 +145,7 @@
                                 <td class="border px-3 text-xs">{{ $inspection->status }}</td>
                                 <td class="border px-3 text-xs">{{ $inspection->campus->alias }}</td>
                                 <td class="border px-3 text-xs">
-                                    <div class="flex item-center justify-center space-x-1">
+                                    <div class="flex item-center space-x-1">
                                         
                                         @if (auth()->user()->campus->campus_name == $inspection->campus->campus_name)
                                         
@@ -174,9 +164,16 @@
                                         <button wire:click="loadModelId({{ $inspection->id }})" class="md:w-auto border-2 border-gray-800 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-800 hover:text-gray-200 focus:outline-none">
                                             Detalles
                                         </button>
+                                        @if (auth()->user()->role == 'Asistente de Caja')
+                                            @if ($inspection->status == 'PENDIENTE DE PAGO')
+                                                <a type="button" class="border-2 border-green-600 rounded-lg px-2 py-1 text-green-600 cursor-pointer hover:bg-green-600 hover:text-green-200 focus:outline-none" href="{{ route('actasDeFiscalizacion.paiment', $inspection) }} ">Pagar</a>
+                                            @endif
+                                        @endif
                                         @if (auth()->user()->role == 'Administrador')
+                                            @if ($inspection->status == 'PENDIENTE DE PAGO')
+                                                <a type="button" class="border-2 border-green-600 rounded-lg px-2 py-1 text-green-600 cursor-pointer hover:bg-green-600 hover:text-green-200 focus:outline-none" href="{{ route('actasDeFiscalizacion.paiment', $inspection) }} ">Pagar</a>
+                                            @endif
                                             
-                                            <a type="button" class="border-2 border-green-600 rounded-lg px-2 py-1 text-green-600 cursor-pointer hover:bg-green-600 hover:text-green-200 focus:outline-none" href="{{ route('actasDeFiscalizacion.paiment', $inspection) }} ">Pagar</a>
                                         @endif
                                     </div>
                                 </td>

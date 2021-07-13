@@ -3,6 +3,7 @@
 use App\Http\Controllers\BallotController;
 use App\Http\Livewire\ControlAct\CreateControlAct;
 use App\Http\Livewire\ControlAct\EditControlAct;
+use App\Http\Livewire\ControlAct\PaimentControlAct;
 use App\Http\Livewire\ControlAct\ShowControlAct;
 use App\Http\Livewire\InspectionAct\CreateInspection;
 use App\Http\Livewire\InspectionAct\EditInspection;
@@ -27,3 +28,4 @@ Route::get('/actas-de-control', ShowControlAct::class)->name('actasDeCotrol.show
 Route::get('/acta-de-control/create', CreateControlAct::class)->name('actasDeCotrol.create')->middleware('auth');
 
 Route::get('/pago-acta-fiscalizacion/{inspection}', PaimentInspection::class)->name('actasDeFiscalizacion.paiment')->middleware('auth');
+Route::get('/pago-acta-control/{control}', PaimentControlAct::class)->name('actasDeCotrol.paiment')->middleware('auth');

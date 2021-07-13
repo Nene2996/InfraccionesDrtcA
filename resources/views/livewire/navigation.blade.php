@@ -116,9 +116,11 @@
                             <x-jet-dropdown-link href="{{ route('login') }}">
                                 {{ __('Iniciar Sesion') }}
                             </x-jet-dropdown-link>
+                            <!---
                             <x-jet-dropdown-link href="{{ route('register') }}">
                                 {{ __('Registrarse') }}
                             </x-jet-dropdown-link>
+                            -->
                             
                         </x-slot>
                     </x-jet-dropdown>

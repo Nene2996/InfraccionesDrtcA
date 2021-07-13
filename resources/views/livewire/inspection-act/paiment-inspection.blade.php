@@ -45,15 +45,17 @@
                         <label for="">Sancion Administrativa:</label>
                         <h3 class="px-3 py-2 rounded-md bg-gray-300">{{ $administrative_sanction }}</h3>
                     </div>
+
+                    <div class="grid grid-cols-1">
+                        <label for="">Fecha de la Infracción:</label>
+                        <h3 class="px-3 py-2 rounded-md bg-gray-300">{{ date('d-m-Y', strtotime($date_infraction)) }}</h3>
+                    </div>
                     
                     <div class="grid grid-cols-1">
                         <label for="">Descuento 5 dias:</label>
                         <h3 class="px-3 py-2 rounded-md bg-gray-300">{{ $discount_five_days }}</h3>
                     </div>
-                    <div class="grid grid-cols-1">
-                        <label for="">Descuento despues de la notificacion:</label>
-                        <h3 class="px-3 py-2 rounded-md bg-gray-300">{{ $discount_fifteen_days }}</h3>
-                    </div>
+                    
                 </div>
                 <div class="grid grid-cols-3 gap-3 my-2">
                     <div class="grid grid-cols-1">
@@ -62,33 +64,36 @@
                     </div>
                 </div>
                 <div class="grid grid-cols-3 gap-3 my-2">
-                    <div class="grid grid-cols-1">
+                    <div class="h-auto grid grid-cols-1">
                         <label for="">Fecha de Pago:</label>
                         <input type="date" class="rounded-md" wire:model="date_payment">
                         @error('date_payment') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                     </div>
-                     <div class="grid grid-cols-1">
+                     <div class="h-auto grid grid-cols-1">
                         <label for="">Selecciona el Comprobante Pago:</label>
                          <select name="" id="" class="rounded-md" wire:model="type_proof_id">
                             <option value="" disabled>Selecciona</option>
                               @foreach ($type_proofs as $type_proof)
-                                    
                                     <option value="{{ $type_proof->id }}">{{ $type_proof->type }}</option>
                               @endforeach
                          </select>
                          @error('type_proof_id') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                      </div>
-                     <div class="grid grid-cols-1">
+                     <div class="h-auto grid grid-cols-1">
                         <label for="">Numero de comprobante Pago:</label>
                         <input type="text" class="rounded-md" wire:model="proof_number">
                         @error('proof_number') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                     </div>
                 </div>
                 <div class="grid grid-cols-3 gap-3 my-2">
-                    <div class="grid grid-cols-1">
+                    <div class="h-auto grid grid-cols-1">
                         <label for="">Monto Pagado:</label>
                         <input type="text" class="rounded-md" wire:model="total_amount">
                         @error('total_amount') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="h-6 grid grid-cols-1">
+                        <label for="">Personal de la Oficina de Caja:</label>
+                        <h3 class="px-3 py-2 rounded-md bg-gray-300">{{ $cashier }}</h3>
                     </div>
                 </div>
                 <div>
@@ -98,6 +103,7 @@
                         wire:click="savePaiment">
                         Procesar Pago
                     </x-jet-button>
+                    <a type="button" href="{{ route('actasDeFiscalizacion.show') }}" class="inline-flex items-center px-4 py-2 bg-gray-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">Regresar</a>
                 </div>
             </div>
         </div>
