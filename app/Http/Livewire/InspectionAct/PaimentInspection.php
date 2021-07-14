@@ -28,7 +28,7 @@ class PaimentInspection extends Component
     public function mount(Inspection $inspection)
     {
         $this->inspection = $inspection;
-        //dd($inspection);
+        dd($inspection);
 
         $this->inspection_act_id = $inspection->id;
         $this->act_number = $inspection->act_number;

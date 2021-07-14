@@ -264,7 +264,7 @@ class CreateInspection extends Component
         ]);
 
         session()->flash('message', 'Infraccion con acta numero '.$this->act_number.' registrada correctamente.');
-        return redirect('/papeletas');
+        return redirect('/actas-de-fiscalizacion');
         
 
         

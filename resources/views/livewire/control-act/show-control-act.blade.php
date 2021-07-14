@@ -2,6 +2,22 @@
     <div class="py-12">
         <div class="mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                @if (session()->has('message'))
+                    <div class="mx-16 mt-8 p-2">
+                        <div x-data="{ show: true }" x-show="show"
+                        class="flex justify-between items-center bg-green-200 relative text-green-700 py-3 px-3 rounded-lg border border-green-400">
+                            <div>
+                                <span class="font-semibold text-gray-800">Bien echo !!!</span>
+                                {{ session('message') }}
+                            </div>
+                            <div>
+                                <button type="button" @click="show = false" class=" text-green-700">
+                                    <span class="text-2xl">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 <div class="flex">
                     <div class="flex-col w-4/6 px-8 pt-8">
                         <div class="">
@@ -77,9 +93,19 @@
                                     
                                     <td class="border px-3 text-xs">
                                         @if (auth()->user()->role == 'Administrador')
-                                            <div class="flex item-center space-x-1">
-                                                <a type="button" class="border-2 border-green-600 rounded-lg px-2 py-1 text-green-600 cursor-pointer hover:bg-green-600 hover:text-green-200 focus:outline-none" href="{{ route('actasDeCotrol.paiment', $controlAct) }} ">Pagar</a>
-                                            </div>
+                                            @if ($controlAct->estado_actual == 'FALTA CANCELAR' )
+                                                <div class="flex item-center space-x-1">
+                                                    <a type="button" class="border-2 border-green-600 rounded-lg px-2 py-1 text-green-600 cursor-pointer hover:bg-green-600 hover:text-green-200 focus:outline-none" href="{{ route('actasDeCotrol.paiment', $controlAct) }} ">Pagar</a>
+                                                </div>
+                                            @endif
+                                        @endif
+                                        @if (auth()->user()->role == 'Asistente de Caja')
+                                            @if ($controlAct->estado_actual  == 'FALTA CANCELAR')
+                                                <div class="flex item-center space-x-1">
+                                                    <a type="button" class="border-2 border-green-600 rounded-lg px-2 py-1 text-green-600 cursor-pointer hover:bg-green-600 hover:text-green-200 focus:outline-none" href="{{ route('actasDeCotrol.paiment', $controlAct) }} ">Pagar</a>
+                                                </div>
+                                            @endif
+                                            
                                         @endif
                                     </td>
                                 </tr>
