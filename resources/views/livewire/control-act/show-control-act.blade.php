@@ -39,10 +39,10 @@
                             @if ($isOpendivLastName)
                                 <div class="mt-5 flex-col w-2/6">
                                     <div>
-                                        <input wire:model='radio_names_business_name' type="text" class="rounded-md w-full text-sm" placeholder="Ingresa el nombre y apellidos">
+                                        <input wire:model='searchName' type="text" class="rounded-md w-full text-sm" placeholder="Ingresa apellidos y nombres">
                                     </div>
                                     <div>
-                                        @error('radio_names_business_name')
+                                        @error('searchName')
                                             <span class="text-red-500 text-sm italic">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -63,8 +63,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="flex items-center mx-8 text-sm">
+                    <span>Mostrar</span>
+                    <select wire:model="cant" name="" id="" class="mx-2 rounded-md text-sm">
+                        <option value="10">10</option>
+                        <option value="30">30</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                    <span>registros</span>
+                </div>
                 
-                <div class="pb-6 px-5 bg-white mt-10 flex justify-center">
+                <div class="py-2 px-5 bg-white flex justify-center">
                     <table>
                         <thead>
                             <tr class="bg-gray-200 text-xs">
@@ -119,9 +129,11 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="pb-6 px-5 bg-white my-6">
-                    {{ $controlActs->links() }}
-                </div>
+                @if ($controlActs->hasPages())
+                    <div class="pb-6 px-5 bg-white my-6">
+                        {{ $controlActs->links() }}
+                    </div> 
+                @endif
             </div>
         </div>
     </div>

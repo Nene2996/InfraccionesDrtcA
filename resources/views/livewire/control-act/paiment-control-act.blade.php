@@ -34,7 +34,7 @@
                     <div class="grid grid-col-1" >
                         <label for="">Monto Uit:</label>
                         @error('campus_id') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
-                        <h3 class="px-3 py-2 rounded-md bg-gray-300">105</h3>
+                        <h3 class="px-3 py-2 rounded-md bg-gray-300">{{ $monto_uit }}</h3>
                     </div>
                 </div>
                 <div class="grid grid-cols-1 gap-3 mt-3">

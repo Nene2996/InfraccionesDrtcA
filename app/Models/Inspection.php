@@ -90,6 +90,6 @@ class Inspection extends Model
     }
 
     public function paiments(){
-        return $this->hasMany('App\Models\Paiment', 'inspection_act_id');
+        return $this->hasOne('App\Models\Paiment', 'inspection_act_id', 'id');
     }
 }

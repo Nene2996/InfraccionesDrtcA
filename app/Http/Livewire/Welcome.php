@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Ballot;
 use App\Models\ControlAct;
+use App\Models\Inspection;
 use Livewire\Component;
 
 class Welcome extends Component
@@ -19,6 +20,8 @@ class Welcome extends Component
     public $lastName = '';
     public $numberLicence = '';
     public $numberActa = '';
+
+    public $selectValue = '';
 
     public $lugar_intervencion, $nombre_apellidos, $placa_vehiculo, $origen, $destino, $nombre_conductor, $direccion_infractor, $nro_licencia, $fecha_infraccion, $hora_infraccion, $clase_categoria_licencia, $nro_tarjeta_vehicular, $manifestacion_usuario, $nro_acta, $servicio, $estado_actual, $sede_infraccion, $id_district, $informacion_adicional, $referencia, $descripcion, $ruc, $dni;
 
@@ -49,6 +52,9 @@ class Welcome extends Component
 
     public function render()
     {
+
+        
+        
         if(($this->typeSearch == 0))
         {
             $this->openDivLastName();
@@ -57,8 +63,17 @@ class Welcome extends Component
 
             if(strlen($this->lastName) > 5)
             {
-                $ballots = ControlAct::where('nombre_apellidos', 'LIKE' , '%' . $this->lastName. '%')->get();
-                return view('livewire.welcome', [ 'ballots' => $ballots]);
+                if($this->selectValue == 1){
+                    $ballots = ControlAct::where('nombre_apellidos', 'LIKE' , '%' . $this->lastName. '%')->get();
+                    return view('livewire.welcome', [ 'ballots' => $ballots]);
+                }else{
+                    //$ballots = Inspection::has('paiments')->get();
+                    //$ballots = Inspection::find(4);
+                    $ballots = Inspection::where('names_business_name', 'LIKE', '%' . $this->lastName. '%')->get();
+                    //dd($ballots->paiment->type_proof_id);
+                    return view('livewire.welcome', [ 'ballots' => $ballots]);
+                }
+                
             }else
             {
                 $ballots = collect();
@@ -116,6 +131,27 @@ class Welcome extends Component
         $this->sede_infraccion = $ballot->sede_infraccion;
 
         $this->openModalPopover();
+    }
+
+    public function showInspection($id)
+    {
+        $inspection = Inspection::findOrFail($id);
+        $this->lugar_intervencion = $inspection->place;
+        $this->nombre_apellidos = $inspection->names_business_name;
+        $this->dni = $inspection->document_number;
+        $this->direccion_infractor = $inspection->address;
+        $this->nro_licencia = $inspection->licence_number;
+        $this->fecha_infraccion = $inspection->date_infraction;
+        $this->hora_infraccion = $inspection->hour_infraction;
+        $this->clase_categoria_licencia = '';
+        $this->nro_tarjeta_vehicular = $inspection->vehicle->identification_card_number;
+        $this->manifestacion_usuario = $inspection->observation;
+        $this->nro_acta = $inspection->act_number;
+        $this->estado_actual = $inspection->status;
+        $this->sede_infraccion = $inspection->campus->campus_name;
+
+        $this->openModalPopover();
+
     }
 
     public function openModalPopover()

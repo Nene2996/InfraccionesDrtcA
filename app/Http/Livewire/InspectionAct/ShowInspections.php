@@ -4,9 +4,12 @@ namespace App\Http\Livewire\InspectionAct;
 
 use App\Models\Inspection;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ShowInspections extends Component
 {
+    use WithPagination;
+
     public  $names_business_name,
             $document_number,
             $licence_number,
@@ -69,6 +72,21 @@ class ShowInspections extends Component
         $this->closeDivNumberLicence();
         $this->closeDivNumberAct();
         
+    }
+
+    public function updatingRadioNamesBusinessName()
+    {
+        $this->resetPage(); 
+    }
+
+    public function updatingRadioDniNumber()
+    {
+        $this->resetPage(); 
+    }
+
+    public function updatingRadioActNumber()
+    {
+        $this->resetPage(); 
     }
 
     public function updated($propertyRadio_names_business_name)

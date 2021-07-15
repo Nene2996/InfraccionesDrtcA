@@ -211,7 +211,7 @@
                             Actualizar datos
                         </x-jet-button>
 
-                        <a href="{{ route('papeletas.show') }}" class="flex items-center p-4 px-7 bg-blue-200 rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100 mx-4">
+                        <a href="{{ route('actasDeFiscalizacion.show') }}" class="flex items-center p-4 px-7 bg-blue-200 rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100 mx-4">
                             <div>
                               <p class="text-xs font-medium ml-2">
                                 CANCELAR

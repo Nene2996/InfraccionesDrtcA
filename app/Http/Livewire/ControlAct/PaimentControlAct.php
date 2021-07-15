@@ -10,7 +10,7 @@ class PaimentControlAct extends Component
 {
     
     public $controlAct;
-    public $type_proofs, $nro_acta, $nombre_apellidos, $nro_licencia, $fecha_infraccion, $codigo_infraccion, $estado_actual;
+    public $type_proofs, $nro_acta, $nombre_apellidos, $nro_licencia, $fecha_infraccion, $codigo_infraccion, $estado_actual, $monto_uit;
 
     public $fecha_pago, $numero_comprobante, $monto_pagado, $usuario_id, $cajero_nombres;
 
@@ -30,6 +30,8 @@ class PaimentControlAct extends Component
         $this->nro_licencia = $controlAct->nro_licencia;
         $this->fecha_infraccion = $controlAct->fecha_infraccion;
         $this->codigo_infraccion = $controlAct->infractions->code;
+        $this->monto_uit = $controlAct->infractions->pecuniary_sanction;
+
         $this->estado_actual = $controlAct->estado_actual;
         $this->cajero_nombres = auth()->user()->name;
 

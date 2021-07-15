@@ -175,6 +175,7 @@
                                             @endif
                                             
                                         @endif
+                                       
                                     </div>
                                 </td>
                             </tr>
@@ -185,9 +186,12 @@
                             @endforelse
                         </tbody>
                     </table>
-                    <div class="my-3">
-                        {{ $inspections->links() }}
-                    </div>
+                    @if ($inspections->hasPages())
+                        <div class="my-3">
+                            {{ $inspections->links() }}
+                        </div>
+                    @endif
+                    
                     @if ($isModalWarnigOpen == true)
                     <x-jet-confirmation-modal>
                         <x-slot name="title">

@@ -19,7 +19,7 @@ class Paiment extends Model
 
     public function inspection()
     {
-        return $this->belongsTo('App\Models\Inspection', 'inspection_act_id');
+        return $this->belongsTo('App\Models\Inspection', 'inspection_act_id', 'id');
     }
     
 }

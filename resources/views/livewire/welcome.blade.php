@@ -12,7 +12,16 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="overflow-hidden shadow-xl sm:rounded-lg">
                     
+                    
                     <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
+                        <div class="flex flex-col mb-3 md:w-1/2">
+                            <span class="text-gray-600 font-semibold">Seleccional el tipo de Acta:</span>
+                            <select wire:model="selectValue" name="" id="" class="rounded-md">
+                                <option value="" selected disabled>-----selecciona-----</option>
+                                <option value="1">Acta de Control</option>
+                                <option value="2">Acta de Fiscalizacion</option>
+                            </select>
+                        </div>
                         <div>
                             <h3 class="text-gray-600 font-semibold">Tipo de busqueda:</h3>
                             <ul>
@@ -80,25 +89,46 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if ($selectValue == 1)
+                                        @forelse ($ballots as $ballot)
+                                        <div>
+                                            <tr>
+                                                <td class="border px-3 text-xs">{{ $ballot->nro_acta }}</p></td>
+                                                <td class="border px-3 text-xs">{{ $ballot->nombre_apellidos }}</td>
+                                                <td class="border px-3 text-xs">{{ $ballot->nro_licencia }}</td>
+                                                <td class="border px-3 text-xs">{{ $ballot->estado_actual }}</td>
+                                                <td class="border px-3 text-xs">{{ date('d-m-Y', strtotime($ballot->fecha_infraccion)) }}</td>
+                                                <td class="border px-3 text-xs">{{ $ballot->nro_boleta_pago }}</td>
+                                                <td class="border px-3 text-xs">{{ $ballot->sede_infraccion }}</td>
+                                                <td class="border px-3 text-xs"><button wire:click="show({{ $ballot->id }})" class="bg-blue-500  text-white font-bold py-1 px-4 rounded">VER +</button></td>
+                                            </tr>
+                                        </div>
+                                        @empty
+                                            <tr class="text-center">
+                                                <td colspan="4" class="py-3 italic">No hay información</td>
+                                            </tr>
+                                        @endforelse
+                                    @elseif($selectValue == 2)
+                                        @forelse ($ballots as $ballot)
+                                        <div>
+                                            <tr>
+                                                <td class="border px-3 text-xs">{{ $ballot->act_number }}</p></td>
+                                                <td class="border px-3 text-xs">{{ $ballot->names_business_name }}</td>
+                                                <td class="border px-3 text-xs">{{ $ballot->licence_number }}</td>
+                                                <td class="border px-3 text-xs">{{ $ballot->status }}</td>
+                                                <td class="border px-3 text-xs">{{ date('d-m-Y', strtotime($ballot->date_infraction)) }}</td>
+                                                <td class="border px-3 text-xs"></td>
+                                                <td class="border px-3 text-xs">{{ $ballot->campus->campus_name }}</td>
+                                                <td class="border px-3 text-xs"><button wire:click="showInspection({{ $ballot->id }})" class="bg-blue-500  text-white font-bold py-1 px-4 rounded">VER +</button></td>
+                                            </tr>
+                                        </div>
+                                        @empty
+                                            <tr class="text-center">
+                                                <td colspan="4" class="py-3 italic">No hay información</td>
+                                            </tr>
+                                        @endforelse
+                                    @endif
                                     
-                                    @forelse ($ballots as $ballot)
-                                    <div>
-                                        <tr>
-                                            <td class="border px-3 text-xs">{{ $ballot->nro_acta }}</p></td>
-                                            <td class="border px-3 text-xs">{{ $ballot->nombre_apellidos }}</td>
-                                            <td class="border px-3 text-xs">{{ $ballot->nro_licencia }}</td>
-                                            <td class="border px-3 text-xs">{{ $ballot->estado_actual }}</td>
-                                            <td class="border px-3 text-xs">{{ date('d-m-Y', strtotime($ballot->fecha_infraccion)) }}</td>
-                                            <td class="border px-3 text-xs">{{ $ballot->nro_boleta_pago }}</td>
-                                            <td class="border px-3 text-xs">{{ $ballot->sede_infraccion }}</td>
-                                            <td class="border px-3 text-xs"><button wire:click="show({{ $ballot->id }})" class="bg-blue-500  text-white font-bold py-1 px-4 rounded">VER +</button></td>
-                                        </tr>
-                                    </div>
-                                    @empty
-                                        <tr class="text-center">
-                                            <td colspan="4" class="py-3 italic">No hay información</td>
-                                        </tr>
-                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
