@@ -52,9 +52,6 @@ class Welcome extends Component
 
     public function render()
     {
-
-        
-        
         if(($this->typeSearch == 0))
         {
             $this->openDivLastName();
@@ -86,16 +83,28 @@ class Welcome extends Component
             $this->closeDivLastName();
             $this->openDivNumberLicence();
 
-            $ballots = ControlAct::where('nro_licencia', $this->numberLicence)->get();
-            return view('livewire.welcome', [ 'ballots' => $ballots]);
+            if($this->selectValue == 1){
+                $ballots = ControlAct::where('nro_licencia', $this->numberLicence)->get();
+                return view('livewire.welcome', [ 'ballots' => $ballots]);
+            }else{
+                $ballots = Inspection::where('licence_number', $this->numberLicence)->get(); 
+                return view('livewire.welcome', [ 'ballots' => $ballots]);
+            }
+            
         }else
         {
             $this->closeDivLastName();
             $this->closeDivNumberLicence();
             $this->openDivNumberAct();
 
-            $ballots = ControlAct::where('nro_acta', $this->numberActa)->get();
-            return view('livewire.welcome', [ 'ballots' => $ballots]);
+            if($this->selectValue == 1){
+                $ballots = ControlAct::where('nro_acta', $this->numberActa)->get();
+                return view('livewire.welcome', [ 'ballots' => $ballots]);
+            }else{
+                $ballots = Inspection::where('act_number', $this->numberActa)->get();
+                return view('livewire.welcome', [ 'ballots' => $ballots]);
+            }
+            
         }
     }
 
