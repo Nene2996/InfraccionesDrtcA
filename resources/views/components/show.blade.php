@@ -34,14 +34,6 @@
                         <td class="text-sm pl-3">{{ $hora_infraccion }}</td>
                     </tr>
                     <tr>
-                        <td class="font-bold bg-gray-200 pl-3">NÚMERO DE TARJETA VEHICULAR</td>
-                        <td class="text-sm bg-gray-200 pl-3">{{ $nro_tarjeta_vehicular }}</td>
-                    </tr>
-                    <tr>
-                        <td class="font-bold  pl-3">OBSERVACIONES DEL INTERVENIDO</td>
-                        <td class="text-sm  pl-3">{{ $manifestacion_usuario }}</td>
-                    </tr>
-                    <tr>
                         <td class="font-bold bg-gray-200 pl-3">NÚMERO DE ACTA DE FISCALIZACIÓN</td>
                         <td class="text-sm bg-gray-200 pl-3">{{ $nro_acta }}</td>
                     </tr>

@@ -9,42 +9,79 @@ class ControlAct extends Model
 {
     use HasFactory;
     protected $table = 'control_act';
-    public $timestamps = false;
+    //public $timestamps = false;
     protected $fillable = [
         'id',
-        'ruc',
-        'dni',
-        'razon_social',
+        'numero_acta',
+        'ruc_dni',
+        'nro_dni_conductor',
+        'razon_social_nombre',
+        'nro_habilitacion',
         'placa_vehiculo',
         'lugar_intervencion',
         'origen',
         'destino',
-        'nombre_apellidos',
-        'direccion_infractor',
+        'apellidos_nombres_conductor',
         'nro_licencia',
         'fecha_infraccion',
         'hora_infraccion',
         'clase_categoria_licencia',
-        'nro_tarjeta_vehicular',
-        'codigo_infraccion',
-        'observaciones_intervenido',
+        'descripcion_infraccion',
         'manifestacion_usuario',
-        'nro_acta',
-        'servicio',
+        'tipo_servicio',
         'estado_actual',
+        'monto_pagado',
         'nro_boleta_pago',
-        'idinspectores',
+        'fecha_pago_infraccion',
         'fecha_registro_infraccion',
-        'sede_infraccion',
-        'id_district',
-        'informacion_adicional',
-        'referencia',
-        'descripcion',
-        'calificacion'
+        'infraction_id',
+        'inspector_id',
+        'campus_id'
     ];
 
     public function infractions()
     {
-        return $this->belongsTo('App\Models\Infraction', 'codigo_infraccion');
+        return $this->belongsTo('App\Models\Infraction', 'infraction_id');
     }
+
+    //relacion muchos a muchos
+    public function resolutions()
+    {
+        return $this->belongsToMany('App\Models\Resolution', 'control_act_resolution', 'control_act_id', 'resolution_id')->withPivot('control_act_id', 'id', 'date_notification_driver', 'type_act')->withTimestamps()->orderBy('control_act_resolution.created_at','asc');
+    }
+
+    public function hasResolution($idControlAct)
+    {
+        return ControlActResolution::where('control_act_id', $idControlAct)->exists();
+    }
+
+    //relacion uno a uno polimorfica
+    public function file()
+    {
+        return $this->morphOne(File::class, 'fileable');
+    }
+
+    //Relacion muchos a muchos polimorfica
+    public function evidences()
+    {
+        return $this->morphToMany('App\Models\Evidence', 'evidenceable');
+    }
+
+    //Relacion uno a muchos polimorfica
+    public function paiments()
+    {
+        return $this->morphMany('App\Models\Paiment', 'paimentable');
+    }
+
+    public function campus()
+    {
+        return $this->belongsTo('App\Models\Campus', 'campus_id');
+    }
+
+    public function inspector()
+    {
+        return $this->belongsTo('App\Models\Inspector');
+    }
+
+    
 }

@@ -61,13 +61,13 @@ class Welcome extends Component
             if(strlen($this->lastName) > 5)
             {
                 if($this->selectValue == 1){
-                    $ballots = ControlAct::where('nombre_apellidos', 'LIKE' , '%' . $this->lastName. '%')->get();
+                    $ballots = ControlAct::where('nombre_apellidos', 'LIKE' , '%' . $this->lastName. '%')->take(10)->get();
+                    //dd($ballots);
                     return view('livewire.welcome', [ 'ballots' => $ballots]);
                 }else{
-                    //$ballots = Inspection::has('paiments')->get();
-                    //$ballots = Inspection::find(4);
+                    
                     $ballots = Inspection::where('names_business_name', 'LIKE', '%' . $this->lastName. '%')->get();
-                    //dd($ballots->paiment->type_proof_id);
+
                     return view('livewire.welcome', [ 'ballots' => $ballots]);
                 }
                 

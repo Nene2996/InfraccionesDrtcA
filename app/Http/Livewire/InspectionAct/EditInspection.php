@@ -17,16 +17,27 @@ use Livewire\Component;
 
 class EditInspection extends Component
 {
-    public $names_business_names, $inspection, $provinces, $districts, $departments, $infractions, $evidences, $campus, $inspectors, $vehicles, $plate_number, $identification_card_number;
+    public  $names_business_names, 
+            $inspection, 
+            $provinces, 
+            $districts, 
+            $departments, 
+            $infractions, 
+            $evidences, 
+            $campus, 
+            $inspectors, 
+            $vehicles, 
+            $plate_number, 
+            $identification_card_number;
 
-    public $infraction_id;
-    public $province_id;
-    public $evidence_id;
-    public $campus_id;
-    public $campus_inspection;
-    public $inspector_id;
-    public $vehicle_id;
-    public $typeNames_id;
+    public  $infraction_id;
+    public  $province_id;
+    public  $evidence_id;
+    public  $campus_id;
+    public  $campus_inspection;
+    public  $inspector_id;
+    public  $vehicle_id;
+    public  $typeNames_id;
 
 
     protected $rules = [
@@ -74,7 +85,6 @@ class EditInspection extends Component
     public function mount(Inspection $inspection)
     {
         $this->inspection = $inspection;
-        //dd($inspection);
 
         $this->departments = Department::all();
 
@@ -89,7 +99,7 @@ class EditInspection extends Component
         $this->infraction_id = $inspection->infraction->id;
 
         $this->evidences = Evidence::all();
-        $this->evidence_id = $inspection->evidence->id;
+        //$this->evidence_id = $inspection->evidences->id;
 
         
         $this->campus_id = $inspection->campus->id;
@@ -105,6 +115,12 @@ class EditInspection extends Component
         $this->identification_card_number = $inspection->vehicle->identification_card_number;
 
     }
+
+    public function render()
+    {
+        return view('livewire.inspection-act.edit-inspection');
+    }
+    
     public function updatedProvinceId($value)
     {
         $this->districts = District::where('province_id', $value)->get();
@@ -139,15 +155,10 @@ class EditInspection extends Component
         $this->inspection->save();
 
         session()->flash('message', 'La Infraccion con Numero de Acta '.$this->inspection->act_number.' ha sido actualizada correctamente.');
-        return redirect('/papeletas');
+        return redirect('/actas-de-fiscalizacion');
     }
 
-
-
-    public function render()
-    {
-        return view('livewire.inspection-act.edit-inspection');
-    }
+    
 
     
 }

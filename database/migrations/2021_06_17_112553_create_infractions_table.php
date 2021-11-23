@@ -15,12 +15,15 @@ class CreateInfractionsTable extends Migration
     {
         Schema::create('infractions', function (Blueprint $table) {
             $table->id();
-            $table->text('description');
+            $table->text('description', 3000);
+            $table->string('type');
+            $table->string('qualification');
             $table->string('code', 10)->unique();
             $table->string('infringement_agent');
             $table->string('uit_penalty', 30)->nullable();
             $table->integer('pecuniary_sanction')->nullable();
-            $table->string('administrative_sanction')->nullable();
+            $table->string('administrative_sanction', 1000)->nullable();
+            $table->string('preventive_measure', 2000)->nullable();
             $table->integer('discount_five_days')->default(0);
             $table->integer('discount_fifteen_days')->default(0);
             $table->timestamps();

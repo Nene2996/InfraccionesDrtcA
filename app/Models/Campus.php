@@ -30,4 +30,10 @@ class Campus extends Model
     {
         return $this->hasMany('App\Models\User');
     }
+
+    //Relacion uno a uno
+    public function controlAct()
+    {
+    return $this->hasOne('App\Models\ControlAct');
+    }
 }

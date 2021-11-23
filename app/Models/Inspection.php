@@ -74,11 +74,6 @@ class Inspection extends Model
     }
 
     //Relacion uno a muchos (inversa)
-    public function evidence()
-    {
-        return $this->belongsTo('App\Models\Evidence');
-    }
-    //Relacion uno a muchos (inversa)
     public function infraction()
     {
         return $this->belongsTo('App\Models\Infraction');
@@ -89,7 +84,40 @@ class Inspection extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-    public function paiments(){
+    /*
+    public function paiments()
+    {
         return $this->hasOne('App\Models\Paiment', 'inspection_act_id', 'id');
+    }
+    */
+    //Relacion muchos a muchos
+    public function resolutions()
+    {
+        return $this->belongsToMany(Resolution::class, 'inspection_act_resolution', 'inspection_act_id', 'resolution_id')->withPivot('inspection_act_id', 'id', 'date_notification_driver','type_act', 'created_at', 'updated_at')->withTimestamps()->orderBy('inspection_act_resolution.created_at','asc');
+       
+    }
+
+    //verificar si existe la resolución
+    public function hasResolution($idInspection)
+    {
+        return InspectionActResolution::where('inspection_act_id', $idInspection)->exists();
+    }
+
+    //relacion uno a uno polimorfica
+    public function file()
+    {
+        return $this->morphOne(File::class, 'fileable');
+    }
+
+    //Relacion muchos a muchos polimorfica
+    public function evidences()
+    {
+        return $this->morphToMany('App\Models\Evidence', 'evidenceable');
+    }
+
+    //Relacion uno a muchos polimorfica
+    public function paiments()
+    {
+        return $this->morphMany('App\Models\Paiment', 'paimentable');
     }
 }

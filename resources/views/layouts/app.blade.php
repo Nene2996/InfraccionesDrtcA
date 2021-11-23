@@ -13,11 +13,13 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
+        
 
         @livewireStyles
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
@@ -30,7 +32,8 @@
             <main>
                 {{ $slot }}
             </main>
-
+            @stack('styles')
+            @stack('scripts')
             <!-- search guest -->
             @livewire('welcome')
 

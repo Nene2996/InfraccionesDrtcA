@@ -70,17 +70,20 @@
         <div>
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-5">
                 <div class="overflow-hidden shadow-xl sm:rounded-lg">
-                    <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
+                    <div class="py-10 sm:px-2 bg-white border-b border-gray-200">
                         @if ($isModalOpen)
-                        @include('components.show')
+                            @include('components.show')
                         @endif
                         <div class="">
                             <table class="">
                                 <thead>
-                                    <tr class="bg-gray-200 text-sm">
+                                    <tr class="bg-gray-200 text-xs">
                                         <th class="border px-3">NRO. ACTA</th>
                                         <th class="border px-3">NOMBRE</th>
                                         <th class="border px-3">NRO DE LICENCIA</th>
+                                        <th class="border px-3">COD. PAPELETA</th>
+                                        <th class="border px-3">SANCION. PECUNIARIA</th>
+                                        <th class="border px-3">SANCION. ADMINISTRATIVA</th>
                                         <th class="border px-3">ESTADO PAPELETA</th>
                                         <th class="border px-3">FECHA PAPELETA</th>
                                         <th class="border px-3">NRO. BOLETA/VAUCHER</th>
@@ -91,18 +94,25 @@
                                 <tbody>
                                     @if ($selectValue == 1)
                                         @forelse ($ballots as $ballot)
-                                        <div>
-                                            <tr>
-                                                <td class="border px-3 text-xs">{{ $ballot->nro_acta }}</p></td>
-                                                <td class="border px-3 text-xs">{{ $ballot->nombre_apellidos }}</td>
-                                                <td class="border px-3 text-xs">{{ $ballot->nro_licencia }}</td>
-                                                <td class="border px-3 text-xs">{{ $ballot->estado_actual }}</td>
-                                                <td class="border px-3 text-xs">{{ date('d-m-Y', strtotime($ballot->fecha_infraccion)) }}</td>
-                                                <td class="border px-3 text-xs">{{ $ballot->nro_boleta_pago }}</td>
-                                                <td class="border px-3 text-xs">{{ $ballot->sede_infraccion }}</td>
-                                                <td class="border px-3 text-xs"><button wire:click="show({{ $ballot->id }})" class="bg-blue-500  text-white font-bold py-1 px-4 rounded">VER +</button></td>
-                                            </tr>
-                                        </div>
+                                        
+                                            <div>
+                                                <tr class="text-xs">
+                                                    <td class="border px-3">{{ $ballot->nro_acta }}</p></td>
+                                                    <td class="border px-3">{{ $ballot->nombre_apellidos }}</td>
+                                                    <td class="border px-3">{{ $ballot->nro_licencia }}</td>
+                                                    <td class="border px-3">{{ $ballot->infractions->code }}</td>
+                                                    <td class="border px-3">S/. {{ $ballot->infractions->pecuniary_sanction }}</td>
+                                                    <td class="border px-3">{{ $ballot->infractions->administrative_sanction }}</td>
+                                                    <td class="border px-3">{{ $ballot->estado_actual }}</td>
+                                                    <td class="border px-3">{{ date('d-m-Y', strtotime($ballot->fecha_infraccion)) }}</td>
+                                                    <td class="border px-3">{{ $ballot->nro_boleta_pago }}</td>
+                                                    <td class="border px-3">{{ $ballot->sede_infraccion }}</td>
+                                                    <td class="border px-3"><button wire:click="show({{ $ballot->id }})" class="bg-blue-500  text-white font-bold py-1 px-4 rounded">VER +</button></td>
+                                                </tr>
+                                            </div>
+                                        
+                                        
+                                        
                                         @empty
                                             <tr class="text-center">
                                                 <td colspan="4" class="py-3 italic">No hay información</td>
@@ -115,9 +125,16 @@
                                                 <td class="border px-3 text-xs">{{ $ballot->act_number }}</p></td>
                                                 <td class="border px-3 text-xs">{{ $ballot->names_business_name }}</td>
                                                 <td class="border px-3 text-xs">{{ $ballot->licence_number }}</td>
+                                                <td class="border px-3 text-xs">{{ $ballot->infraction->code }}</td>
+                                                <td class="border px-3 text-xs">S/. {{ $ballot->infraction->pecuniary_sanction }}</td>
+                                                <td class="border px-3 text-xs">{{ $ballot->infraction->administrative_sanction }}</td>
                                                 <td class="border px-3 text-xs">{{ $ballot->status }}</td>
                                                 <td class="border px-3 text-xs">{{ date('d-m-Y', strtotime($ballot->date_infraction)) }}</td>
-                                                <td class="border px-3 text-xs"></td>
+                                                @if(isset($ballot->paiments->id))
+                                                    <td class="border px-3 text-xs">{{ $ballot->paiments->proof_number }}</td>
+                                                @else
+                                                    <td class="border px-3 text-xs"></td>
+                                                @endif
                                                 <td class="border px-3 text-xs">{{ $ballot->campus->campus_name }}</td>
                                                 <td class="border px-3 text-xs"><button wire:click="showInspection({{ $ballot->id }})" class="bg-blue-500  text-white font-bold py-1 px-4 rounded">VER +</button></td>
                                             </tr>

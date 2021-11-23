@@ -15,7 +15,7 @@ class CreateInspectorsTable extends Migration
     {
         Schema::create('inspectors', function (Blueprint $table) {
             $table->id();
-            $table->string('surnames_and_names', 50);
+            $table->string('surnames_and_names', 100);
             $table->string('dni', 8);
             $table->boolean('status')->default(0);
             $table->timestamps();

@@ -1,6 +1,6 @@
 <div>
     <div class="py-12">
-        <div class=" mx-auto sm:px-6 lg:px-8">
+        <div class="mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 @if (session()->has('message'))
                     <div class="mx-16 mt-8 p-2">
@@ -19,101 +19,104 @@
                     </div>
                 @endif
                 <div class="p-6 sm:px-20 bg-white border-b border-gray-200 text-sm">
-                    <div>
-                        <h3 class="text-gray-600 font-semibold">Tipo de busqueda:</h3>
-                        <ul class="flex">
-                            <li>
-                                <label class="mr-10 text-gray-700">
-                                    <input wire:model='radioValue' wire:click="resetInput()" type="radio" name="myRadios" class="mr-2 checked:bg-blue-600" value="0" checked>Por Apellidos y nombres
-                                </label>
-                                @error('radioValue')
-                                    <div class="text-red-500">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </li>
-                            <li>
-                                <label class="mr-10 text-gray-700">
-                                    <input wire:model='radioValue' wire:click="resetInput()" type="radio" name="myRadios" class="mr-2 checked:bg-blue-600" value="1" checked>Por Num. Dni
-                                </label>
-                                @error('radioValue')
-                                    <div class="text-red-500">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </li>
-                            <li>
-                                <label class="mr-10 text-gray-700">
-                                    <input wire:model='radioValue' wire:click="resetInput()" type="radio" name="myRadios" class="mr-2 checked:bg-blue-600" value="2" checked>Por Num. Acta de Fiscalización
-                                </label>
-                                @error('radioValue')
-                                    <div class="text-red-500">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </li>
-                            
-                        </ul>
-                    </div>
-                    
-                    <div class="flex">
-                        @if ($isOpendivLastName)
-                            <div class="mt-5 flex-col w-2/6">
-                                <div>
-                                    <input wire:model='radio_names_business_name' type="text" class="rounded-md w-full text-sm" placeholder="Ingresa el nombre y apellidos">
-                                </div>
-                                <div>
-                                    @error('radio_names_business_name')
-                                        <span class="text-red-500 text-sm italic">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        @endif
-
-                        @if ($isOpendivNumberLicence)
-                            <div class="mt-5 flex-col w-2/6">
-                                <div>
-                                    <input wire:model='radio_dni_number' type="text" class="rounded-md w-full text-sm" placeholder="Ingresa el Numero de Licencia">
-                                </div>
-                                <div>
-                                    @error('radio_dni_number')
-                                        <span class="text-red-500 text-sm italic">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        @endif
-
-                        @if ($isOpendivNumberAct)
-                            <div class="mt-5 flex-col w-2/6">
-                                <div>
-                                    <input wire:model='radio_act_number' type="text" class="rounded-md w-full text-sm" placeholder="Ingresa el Numero de Acta">
-                                </div>
-                                <div>
-                                    @error('radio_act_number')
-                                        <span class="text-red-500 text-sm italic">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-
-                    
-                    
-                </div>
-                <div class="px-5 flex justify-end">
-                    <div class=" mt-5 p-2">
-                        <a href="{{ route('actasDeFiscalizacion.create') }}" class="flex items-center p-4 bg-blue-200 rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100">
-                            <i class="fas fa-file-alt"></i>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
                             <div>
-                              <p class="text-xs font-medium ml-2">
-                                Registrar Acta de Fiscalizacion
-                              </p>
+                                <h3 class="text-gray-600 font-semibold">Tipo de busqueda:</h3>
+                                <ul class="flex">
+                                    <li>
+                                        <label class="mr-10 text-gray-700">
+                                            <input wire:model='radioValue' wire:click="resetInput()" type="radio" name="myRadios" class="mr-2 checked:bg-blue-600" value="0" >Por Apellidos y nombres
+                                        </label>
+                                        @error('radioValue')
+                                            <div class="text-red-500">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </li>
+                                    <li>
+                                        <label class="mr-10 text-gray-700">
+                                            <input wire:model='radioValue' wire:click="resetInput()" type="radio" name="myRadios" class="mr-2 checked:bg-blue-600" value="1" >Por Num. Dni
+                                        </label>
+                                        @error('radioValue')
+                                            <div class="text-red-500">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </li>
+                                    <li>
+                                        <label class="mr-10 text-gray-700">
+                                            <input wire:model='radioValue' wire:click="resetInput()" type="radio" name="myRadios" class="mr-2 checked:bg-blue-600" value="2" >Por Num. Acta de Fiscalización
+                                        </label>
+                                        @error('radioValue')
+                                            <div class="text-red-500">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </li>
+                                </ul>
                             </div>
-                        </a>
+                            <div class="flex">
+                                @if ($isOpendivLastName)
+                                    <div class="mt-5 flex-col w-2/6">
+                                        <div>
+                                            <input wire:model='radio_names_business_name' type="text" class="rounded-md w-full text-sm" placeholder="Ingresa el nombre y apellidos">
+                                        </div>
+                                        <div>
+                                            @error('radio_names_business_name')
+                                                <span class="text-red-500 text-sm italic">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                @endif
+        
+                                @if ($isOpendivNumberLicence)
+                                    <div class="mt-5 flex-col w-2/6">
+                                        <div>
+                                            <input wire:model='radio_dni_number' type="text" class="rounded-md w-full text-sm" placeholder="Ingresa el Numero de Licencia">
+                                        </div>
+                                        <div>
+                                            @error('radio_dni_number')
+                                                <span class="text-red-500 text-sm italic">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                @endif
+        
+                                @if ($isOpendivNumberAct)
+                                    <div class="mt-5 flex-col w-2/6">
+                                        <div>
+                                            <input wire:model='radio_act_number' type="text" class="rounded-md w-full text-sm" placeholder="Ingresa el Numero de Acta">
+                                        </div>
+                                        <div>
+                                            @error('radio_act_number')
+                                                <span class="text-red-500 text-sm italic">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                        <div>
+                            <div class="px-5 flex justify-end">
+                                <div class=" mt-5 p-2">
+                                    <a href="{{ route('actasDeFiscalizacion.create') }}" class="flex items-center p-4 bg-blue-200 rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        <div>
+                                            <p class="text-xs font-medium ml-2"> 
+                                            Registrar Acta de Fiscalizacion
+                                            </p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="pb-6 px-5 bg-white border-b border-gray-200">
-                    <table>
+                    <table class="w-full">
                         <thead>
                             <tr class="bg-gray-200 text-xs">
                                 <th class="border px-3">NRO. ACTA</th>
@@ -149,33 +152,100 @@
                                         
                                         @if (auth()->user()->campus->campus_name == $inspection->campus->campus_name)
                                         
-                                            <a type="button" class="md:w-auto border-2 border-blue-600 rounded-lg px-3 py-1 text-blue-600 cursor-pointer hover:bg-blue-600 hover:text-blue-200" href="{{ route('actasDeFiscalizacion.edit', $inspection) }}">Editar</a>
+                                            <a type="button" class="md:w-auto border-2 border-blue-600 rounded-lg px-3 py-1 text-blue-600 cursor-pointer hover:bg-blue-600 hover:text-blue-200" href="{{ route('actasDeFiscalizacion.edit', $inspection) }}">
+                                                <span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </span>
+                                            </a>
                                             
                                         @else
                                             <div>
-                                                <button  class="border-2 border-red-600 rounded-lg px-2 py-1 text-red-600 cursor-pointer hover:bg-red-600 hover:text-red-200 focus:outline-none" wire:click="loadModelWarning({{ $inspection->id }})">
+                                                <button  class="md:w-auto border-2 border-red-600 rounded-lg px-3 py-1 text-red-600 cursor-pointer hover:bg-red-600 hover:text-red-200" wire:click="loadModelWarning({{ $inspection->id }})">
                                                 <span>
-                                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-                                                    Info
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                                    </svg>
                                                 </span>
                                                 </button>
                                             </div>
                                         @endif
+                                        
                                         <button wire:click="loadModelId({{ $inspection->id }})" class="md:w-auto border-2 border-gray-800 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-800 hover:text-gray-200 focus:outline-none">
-                                            Detalles
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                            </svg>
+                                        </span>
                                         </button>
+
+                                        <!---------------------------------------------------------------------------------->
                                         @if (auth()->user()->role == 'Asistente de Caja')
                                             @if ($inspection->status == 'PENDIENTE DE PAGO')
-                                                <a type="button" class="border-2 border-green-600 rounded-lg px-2 py-1 text-green-600 cursor-pointer hover:bg-green-600 hover:text-green-200 focus:outline-none" href="{{ route('actasDeFiscalizacion.paiment', $inspection) }} ">Pagar</a>
+                                                <a type="button" class="border-2 border-green-600 rounded-lg px-2 py-1 text-green-600 cursor-pointer hover:bg-green-600 hover:text-green-200 focus:outline-none" href="{{ route('actasDeFiscalizacion.paiment', $inspection) }} ">
+                                                <span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                                      </svg>
+                                                </span>
+                                                </a>
                                             @endif
                                         @endif
+
+
+                                        <!---------------------------------------------------------------------------------->
                                         @if (auth()->user()->role == 'Administrador')
+                                            <a type="button" class="border-2 border-red-600 rounded-lg px-2 py-1 text-red-600 cursor-pointer hover:bg-red-600 hover:text-red-200 focus:outline-none" href="{{ route('actasDeFiscalizacion.paiment', $inspection) }} ">
+                                                <span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                      </svg>
+                                                </span>
+                                            </a>
+
                                             @if ($inspection->status == 'PENDIENTE DE PAGO')
-                                                <a type="button" class="border-2 border-green-600 rounded-lg px-2 py-1 text-green-600 cursor-pointer hover:bg-green-600 hover:text-green-200 focus:outline-none" href="{{ route('actasDeFiscalizacion.paiment', $inspection) }} ">Pagar</a>
-                                            @endif
+                                                <a type="button" class="border-2 border-green-600 rounded-lg px-2 py-1 text-green-600 cursor-pointer hover:bg-green-600 hover:text-green-200 focus:outline-none" href="{{ route('actasDeFiscalizacion.paiment', $inspection) }} ">
+                                                    <span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                                          </svg>
+                                                    </span>
+                                                </a>
+                                                @if ($inspection->hasResolution($inspection->id))
+                                                    <a type="button" title="MODIFICAR RESOLUCIÓN" class="border-2 border-yellow-600 rounded-lg px-2 py-1 text-yellow-600 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200 focus:outline-none" href="{{ route('actasDeFiscalizacion.EditarResolucion', $inspection) }}">
+                                                        <span>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
+                                                            </svg>
+                                                        </span>
+                                                    </a>
+                                                @else 
+                                                <a type="button" title="REGISTRAR RESOLUCIÓN" class="border-2 border-yellow-600 rounded-lg px-2 py-1 text-yellow-600 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200 focus:outline-none" href="{{ route('actasDeFiscalizacion.EditarResolucion', $inspection) }}">
+                                                    <span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
+                                                        </svg>
+                                                    </span>
+                                                </a> 
+                                                @endif
+                                                
+                    
+                                            @else
+                                                @if ($inspection->hasResolution($inspection->id))
+                                                <a type="button" title="MODIFICAR RESOLUCIÓN" class="border-2 border-yellow-600 rounded-lg px-2 py-1 text-yellow-600 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200 focus:outline-none" href="{{ route('actasDeFiscalizacion.EditarResolucion', $inspection) }} ">
+                                                    <span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
+                                                        </svg>
+                                                    </span>
+                                                </a>
+                                                @endif
+
+                                            @endif 
                                             
                                         @endif
-                                       
+                
                                     </div>
                                 </td>
                             </tr>
@@ -209,6 +279,7 @@
                         </x-slot>
                     </x-jet-confirmation-modal>
                     @endif
+                    
                     @if ($isModalShowOpen == true)
                     <x-jet-dialog-modal maxWidth="6xl">
                         <x-slot name="title">
@@ -272,7 +343,7 @@
                                             <th>MONTO</th>
                                             <th>SANCION ADMINISTRATIVA</th>
                                             <th>DESCUENTO 5 DIAS</th>
-                                            <th>DESCUENTO 15 DIAS</th>
+                                            <th>DESC. 15 DIAS NOTIFICADO MEDIANTE RESOLUCION DE SANCIÓN</th>
                                         </tr>
                                         
                                     </thead>
@@ -303,6 +374,9 @@
                                                 <th>Nº de Placa</th>
                                                 <th>Nº de Tarjeta de Identificación vehicular</th>
                                                 <th>Estado</th>
+                                                @if (isset($proof_number))
+                                                <th>Num. Comprobante de Pago</th>
+                                                @endif
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -316,6 +390,9 @@
                                                 <td class="border px-3 text-xs w-20 text-center">{{ $vehicle_plate_number }}</td>
                                                 <td class="border px-3 text-xs">{{ $vehicle_identification_card_number }}</td>
                                                 <td class="border px-3 text-xs">{{ $status }}</td>
+                                                @if (isset($proof_number))
+                                                    <td class="border px-3 text-xs">{{ $proof_number }}</td>
+                                                @endif
                                             </tr>
                                         </tbody>
                                     </table>

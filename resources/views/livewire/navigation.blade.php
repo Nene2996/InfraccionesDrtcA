@@ -19,7 +19,7 @@
                                     </x-slot>
                 
                                     <x-slot name="content">
-                                        <x-jet-dropdown-link href="{{ route('actasDeCotrol.show') }}">
+                                        <x-jet-dropdown-link href="{{ route('actasDeControl.show') }}">
                                             {{ __('Actas de Control') }}
                                         </x-jet-dropdown-link>
                                         <x-jet-dropdown-link href="{{ route('actasDeFiscalizacion.show') }}">
@@ -31,7 +31,10 @@
                             </div>
                         </li>
                         <li>
-                            <a class="hover:bg-trueGray-400 hover:text-black px-4 py-2 rounded-md" href="hover:bg-red-200">Tabla de Infracciones</a>
+                            <a class="hover:bg-trueGray-400 hover:text-black px-4 py-2 rounded-md" href="{{ route('MostrarResoluciones') }}">Resoluciones</a>
+                        </li>
+                        <li>
+                            <a class="hover:bg-trueGray-400 hover:text-black px-4 py-2 rounded-md" href="{{ route('MostrarTablaInfracciones') }}">Tabla de Infracciones</a>
                         </li>
                         <li>
                             <a class="hover:bg-trueGray-400 hover:text-black px-4 py-2 rounded-md" href="hover:bg-red-200">Inspectores</a>

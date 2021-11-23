@@ -17,13 +17,18 @@ class CreatePaimentsTable extends Migration
             $table->id();
             $table->date('date_payment');
             $table->string('proof_number');
-            $table->integer('total_amount');
+            $table->float('discount', 6, 2);
+            $table->float('total_amount', 6, 2);
+            $table->float('pending_amount', 6, 2);
+            $table->integer('quota_number');
+            $table->unsignedBigInteger('paimentable_id');
+            $table->string('paimentable_type');
 
             $table->unsignedBigInteger('type_proof_id');
             $table->foreign('type_proof_id')->references('id')->on('type_proof');
 
-            $table->unsignedBigInteger('inspection_act_id');
-            $table->foreign('inspection_act_id')->references('id')->on('inspection_act');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
 
             $table->timestamps();
         });

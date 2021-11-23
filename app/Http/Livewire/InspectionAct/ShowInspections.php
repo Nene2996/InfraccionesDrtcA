@@ -34,7 +34,8 @@ class ShowInspections extends Component
             $vehicle_identification_card_number,
             $inspector_surnames_and_names,
             $inspection_created_at,
-            $inspection_campus;
+            $inspection_campus,
+            $proof_number;
             
 
     public  $campus,
@@ -193,9 +194,16 @@ class ShowInspections extends Component
         $this->operator_surnames_and_names = $inspection->user->name;
         $this->inspection_created_at = $inspection->created_at;
         $this->inspection_campus = $inspection->campus->campus_name;
+
+        if($inspection->paiments){
+            $this->proof_number = $inspection->paiments->proof_number;
+        }else{
+            $this->proof_number = null;
+        }
+        
         $this->openModalShow();
-    
     }
+
     public function openModalShow()
     {
         $this->isModalShowOpen = true;

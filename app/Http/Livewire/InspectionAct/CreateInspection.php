@@ -7,38 +7,47 @@ use App\Models\Department;
 use App\Models\District;
 use App\Models\Evidence;
 use App\Models\Infraction;
-use App\Models\Inspection;
-use App\Models\Inspector;
 use App\Models\Province;
 use App\Models\Vehicle;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class CreateInspection extends Component
 {
-    public $infractions;
-    public $inspectors;
+    use     WithFileUploads;
+    public  $file_pdf;
+    public  $file_evidence;
 
-    public $provinces;
-    public $province_id = "";
+    public  $infractions;
+    public  $inspectors;
 
-    public $districts = [];
-    public $departments;
+    public  $provinces;
+    public  $province_id = "";
 
-    public $campus;
+    public  $districts = [];
+    public  $departments;
 
-    public $evidences;
+    public  $campus;
+    public  $evidences;
 
-    public $isOpenDivNamesDni = 0;
-    public $isOpenDivBusinessNamesRuc = 0;
-    public $select;
-    public $_names_business_name;
-    public $_document_number;
-    public $dataReniec;
-    public $messageApi;
+    public  $isOpenDivNamesDni = 0;
+    public  $isOpenDivBusinessNamesRuc = 0;
+    public  $isOpenDivVideoEvidence = 0, 
+            $isOpenDivImageEvidence = 0, 
+            $isOpenDivOtherEvidence = 0;
+    
+    public  $select;
+    public  $_names_business_name;
+    public  $_document_number;
+    public  $dataReniec;
+    public  $messageApi;
 
-    public $act_number, 
+    public  $iteration;
+
+    
+    public  $act_number, 
             $names_business_name, 
             $address, 
             $document_number, 
@@ -55,7 +64,7 @@ class CreateInspection extends Component
             $vehicle_id,
             $plate_number,
             $identification_card_number,
-            $district_id,
+            $district_id = '',
             $evidence_id = "",
             $inspector_id = "",
             $infraction_id = "",
@@ -81,7 +90,8 @@ class CreateInspection extends Component
         'evidence_id' => 'required',
         'description' => 'required',
         'inspector_id' => 'required',
-        'district_id' => 'required'
+        'district_id' => 'required',
+        'file_pdf' => 'required|mimes:pdf|max:1024'
     ];
 
     protected $messages = [
@@ -93,8 +103,9 @@ class CreateInspection extends Component
         'date_infraction.required' => 'El obligatorio ingresar la fecha de infracción',
         'hour_infraction.required' => 'El obligatorio ingresar la hora de infracción',
         'place.required' => 'El obligatorio ingresar el lugar de la infracción',
-        'province_id.required' => 'El obligatorio seleccionar la provincia',
-        'evidence_id.required' => 'Seleccionar un tipo de evidencia',
+        'province_id.required' => 'Es obligatorio seleccionar la provincia',
+        'district_id.required' => 'Es obligatorio seleccionar el distrito',
+        'evidence_id.required' => 'Seleccionar el medio de la evidencia',
         'description.required' => 'Es necesario llenar la descripcion de la Infracción',
         'inspector_id.required' => 'Es necesario seleccionar un inspector',
         'qualification.required' => 'La calificación(LEVE, GRAVE, MUY GRAVE) es obligatorio',
@@ -102,6 +113,9 @@ class CreateInspection extends Component
         'plate_number.required' => 'En número de placa es obligatorio.',
         'identification_card_number.required' => 'El Número de Tarjeta de Identificación vehicular es obligatorio.',
         'identification_card_number.regex' => 'El un Número Tarjeta de Identificación vehicular no es válido',
+        'file_pdf.required' => 'Es necesario adjuntar un archivo pdf',
+        'file_pdf.mimes' => 'El archivo seleccionado debe ser de tipo: pdf.',
+        'file_pdf.max' => 'El archivo pdf no debe pesar más de 1MB'
         
     ];
 
@@ -129,7 +143,6 @@ class CreateInspection extends Component
             $this->reset('_names_business_name');
             $this->reset('_document_number');
             
-            
         }else
         {
             $this->closeDivNamesDni();
@@ -137,6 +150,32 @@ class CreateInspection extends Component
             $this->reset('names_business_name');
             $this->reset('document_number');
             
+        }
+
+        switch($this->evidence_id){
+            case 1:
+                $this->openDivVideoEvidence();
+                $this->closeDivImageEvidence();
+                $this->closeDivOtherEvidence();
+                break;
+            
+            case 2: 
+                $this->closeDivVideoEvidence();
+                $this->openDivImageEvidence();
+                $this->closeDivOtherEvidence();
+                break;
+            
+            case 3: 
+                $this->closeDivVideoEvidence();
+                $this->closeDivImageEvidence();
+                $this->openDivOtherEvidence();
+                break;
+
+            default: 
+                $this->closeDivVideoEvidence();
+                $this->closeDivImageEvidence();
+                $this->closeDivOtherEvidence();
+                break;
         }
 
         return view('livewire.inspection-act.create-inspection');
@@ -193,8 +232,7 @@ class CreateInspection extends Component
 
     public function save()
     {
-       
-        $nowHour = Carbon::now()->format('g:i A');;
+        //$nowHour = Carbon::now()->format('g:i A');
         $tomorrow = Carbon::tomorrow('America/Lima');
         $end = $tomorrow->subYear()->format('d-m-Y');
         
@@ -228,7 +266,20 @@ class CreateInspection extends Component
         $rules['date_infraction'] = 'before:tomorrow';
         $messages['date_infraction.before'] = 'La fecha de infracción debe ser una fecha anterior a '.$end;
 
-        //dd($nameBusinessName, $dniRuc, $this->select);
+        
+        if($this->evidence_id == 1){
+            $rules['file_evidence'] = 'required|mimes:mp4|max:102400';
+            $messages['file_evidence.required'] = 'Es necesario adjuntar un archivo video';
+            $messages['file_evidence.mimes'] = 'El archivo seleccionado debe ser de tipo: video.';
+        }elseif($this->evidence_id == 2){
+            $rules['file_evidence'] = 'required|image|mimes:jpg, jpeg, png|max:1024';
+            $messages['file_evidence.required'] = 'Es necesario adjuntar un archivo imagen';
+            $messages['file_evidence.mimes'] = 'El archivo seleccionado debe ser de tipo: imagen.';
+        }elseif($this->evidence_id == 3){
+            $rules['file_evidence'] = 'required';
+            $messages['file_evidence.required'] = 'Es necesario adjuntar un archivo';
+        }
+
         $this->validate($rules, $messages);
      
         $vehicle = Vehicle::create([
@@ -237,7 +288,7 @@ class CreateInspection extends Component
         ]);
 
         
-        $vehicle->inspections()->create([
+        $inspection = $vehicle->inspections()->create([
             'act_number' => $this->act_number,
             'names_business_name' => $nameBusinessName,
             'document_number' => $dniRuc,
@@ -263,11 +314,17 @@ class CreateInspection extends Component
 
         ]);
 
-        session()->flash('message', 'Infraccion con acta numero '.$this->act_number.' registrada correctamente.');
-        return redirect('/actas-de-fiscalizacion');
-        
+        $extension = $this->file_pdf->extension();
+        $folder_name = 'public/ActasDeInfraccion/' . $this->act_number;
+        $url_path = $this->file_pdf->storeAs($folder_name, $this->act_number .' - '. $nameBusinessName.'.'.$extension);
+        $created = $inspection->file()->create(['url_path' => $url_path, 'size' => $this->file_pdf->getSize()]);
 
-        
+        $inspection->evidences()->attach([$this->evidence_id, $this->evidence_id]);
+
+        if($created){
+            session()->flash('message', 'Infraccion con acta numero '.$this->act_number.' registrada correctamente.');
+            return redirect('/actas-de-fiscalizacion'); 
+        }
         
     }
 
@@ -300,4 +357,38 @@ class CreateInspection extends Component
     {
         $this->isOpenDivBusinessNamesRuc = false;
     }
+
+    public function openDivVideoEvidence()
+    {
+        $this->isOpenDivVideoEvidence = true;
+    }
+
+    public function closeDivVideoEvidence()
+    {
+        $this->isOpenDivVideoEvidence = false;
+    }
+
+    public function openDivImageEvidence()
+    {
+        $this->isOpenDivImageEvidence = true;
+    }
+    public function closeDivImageEvidence()
+    {
+        $this->isOpenDivImageEvidence = false;
+    }
+
+    public function openDivOtherEvidence()
+    {
+        $this->isOpenDivOtherEvidence = true;
+    }
+    public function closeDivOtherEvidence()
+    {
+        $this->isOpenDivOtherEvidence = false;
+    }
+
+    public function clearInputs()
+    {
+        $this->url_path = null;
+        $this->iteration++;
+    } 
 }
