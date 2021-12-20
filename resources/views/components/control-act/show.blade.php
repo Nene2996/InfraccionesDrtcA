@@ -57,7 +57,7 @@
                         <th class="px-3">LUGAR DE INTERVENCION</th>
                         <th class="px-3">ORIGEN</th>
                         <th class="px-3">DESTINO</th>
-                        <th class="px-3">PLACA VEH.</th>
+                        <th class="px-3">PLACA VEHICULO</th>
                         <th class="px-3">COD. INFRACCION</th>
                         <th class="px-3">FECHA</th>
                         <th class="px-3">HORA</th>
@@ -74,7 +74,7 @@
                         <td class="border px-3 text-center">{{ $this->destino }}</td>
                         <td class="border px-3 text-center">{{ $this->placa_vehiculo }}</td>
                         <td class="border px-3 text-center">{{ $this->cod_infraccion }}</td>
-                        <td class="border px-3 text-center">{{ date('d-m-Y', strtotime($this->fecha_infraccion)) }}</td>
+                        <td class="border px-3 text-center">{{ date('d/m/Y', strtotime($this->fecha_infraccion)) }}</td>
                         <td class="border px-3 text-center">{{ $this->hora_infraccion }}</td>
                         <td class="border px-3 text-center">{{ $this->tipo_servicio }}</td>
                         <td class="border px-3 text-center">{{ $this->sede_infraccion }}</td>
@@ -90,16 +90,21 @@
                     <thead>
                         <tr class="bg-gray-200">
                             <th class="px-3">MONTO PAGADO</th>
+                            <th class="px-3">TIPO DE COMPROBANTE</th>
                             <th class="px-4">NRO. COMPROBANTE</th>
                             <th class="px-3">FECHA PAGO</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="border px-3 text-center">{{ $this->monto_pagado }}</td>
-                            <td class="border px-3 text-center">{{ $this->nro_boleta_pago }}</td>
-                            <td class="border px-3 text-center">{{ $this->fecha_pago_infraccion }}</td>
-                        </tr>
+                        @foreach ($paiments as $paiment)
+                            <tr>
+                                <td class="border px-3 text-center">{{ 'S/. ' . number_format($paiment->amount_paid, 2) }}</td>
+                                <td class="border px-3 text-center">{{ $paiment->typeProof->type }}</td>
+                                <td class="border px-3 text-center">{{ $paiment->proof_number }}</td>
+                                <td class="border px-3 text-center">{{ date('d/m/Y', strtotime($paiment->date_payment)) }}</td>
+                            </tr>
+                        @endforeach
+                        
                     </tbody>
                 </table>
             </div>

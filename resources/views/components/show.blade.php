@@ -17,10 +17,7 @@
                         <td class="font-bold  pl-3">DNI</td>
                         <td class="text-sm pl-3">{{ $dni }}</td>
                     </tr>
-                    <tr>
-                        <td class="font-bold bg-gray-200 pl-3">DIRECCIÓN / DOMICILIO</td>
-                        <td class="text-sm bg-gray-200 pl-3">{{ $direccion_infractor }}</td>
-                    </tr>
+                    
                     <tr>
                         <td class="font-bold  pl-3">NÚMERO LICENCIA</td>
                         <td class="text-sm  pl-3">{{ $nro_licencia }}</td>
@@ -34,7 +31,7 @@
                         <td class="text-sm pl-3">{{ $hora_infraccion }}</td>
                     </tr>
                     <tr>
-                        <td class="font-bold bg-gray-200 pl-3">NÚMERO DE ACTA DE FISCALIZACIÓN</td>
+                        <td class="font-bold bg-gray-200 pl-3">NÚMERO DE ACTA</td>
                         <td class="text-sm bg-gray-200 pl-3">{{ $nro_acta }}</td>
                     </tr>
                     <tr>

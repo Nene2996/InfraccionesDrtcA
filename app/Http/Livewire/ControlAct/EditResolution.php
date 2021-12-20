@@ -154,7 +154,7 @@ class EditResolution extends Component
         
                     $data['date_notification_driver'] = $this->date_notification_driver;
         
-                    $this->controlAct->estado_actual = 'PENDIENTE DE PAGO';
+                    $this->controlAct->estado_actual = 'FALTA CANCELAR';
                     $this->controlAct->save();
         
                 }elseif($resolutionType == 'RESOLUCIÓN DE NULIDAD'){
@@ -214,7 +214,7 @@ class EditResolution extends Component
 
                 $data['date_notification_driver'] = $this->date_notification_driver;
 
-                $this->controlAct->estado_actual = 'PENDIENTE DE PAGO';
+                $this->controlAct->estado_actual = 'FALTA CANCELAR';
                 $this->controlAct->save();
 
             }elseif($resolutionType == 'RESOLUCIÓN DE NULIDAD'){

@@ -101,6 +101,7 @@
                                 <th class="border px-3">Num. Acta</th>
                                 <th class="border px-3">Conductor</th>
                                 <th class="border px-3">Num. de Licencia</th>
+                                <th class="border px-3">Placa Vehiculo</th>
                                 <th class="border px-3">Fecha. Infracción</th>
                                 <th class="border px-3">Cod. Infracción</th>
                                 <th class="border px-3">Tipo. Infracción</th>
@@ -108,7 +109,6 @@
                                 <th class="border px-3">Sancion Administrativa</th>
                                 <th class="border px-3">Servicio</th>
                                 <th class="border px-3">Estado Actual</th>
-                                <th class="border px-3">Numero de Comprobante</th>
                                 <th class="border px-3">Sede Infracción</th>
                                 <th class="border px-3">Archivo digital</th>
                                 <th class="border px-3">Operaciones</th>  
@@ -121,14 +121,14 @@
                                     <td class="border px-3 text-xs">{{ $controlAct->numero_acta }}</td>
                                     <td class="border px-3 text-xs">{{ $controlAct->apellidos_nombres_conductor }}</td>
                                     <td class="border px-3 text-xs">{{ $controlAct->nro_licencia }}</td>
-                                    <td class="border px-3 text-xs">{{ $controlAct->fecha_infraccion }}</td>
+                                    <td class="border text-center text-xs">{{ $controlAct->placa_vehiculo }}</td>
+                                    <td class="border text-center text-xs">{{ date('d/m/Y', strtotime($controlAct->fecha_infraccion)) }}</td>
                                     <td class="border px-3 text-xs">{{ $controlAct->infractions->code }}</td>
                                     <td class="border px-3 text-xs">{{ $controlAct->infractions->type }}</td>
                                     <td class="border px-3 text-xs">{{ $controlAct->infractions->pecuniary_sanction }}</td>
                                     <td class="border px-3 text-xs">{{ $controlAct->infractions->administrative_sanction }}</td>
                                     <td class="border px-3 text-xs">{{ $controlAct->tipo_servicio }}</td>
                                     <td class="border px-3 text-xs">{{ $controlAct->estado_actual }}</td>
-                                    <td class="border px-3 text-xs">{{ $controlAct->nro_boleta_pago }}</td>
                                     <td class="border px-3 text-xs">{{ $controlAct->campus->alias }}</td>
                                     <td class="border px-3 px-6 py-4 text-center">
                                         @if ($controlAct->file)
@@ -161,7 +161,7 @@
                                             @endif
                                             @if (auth()->user()->role == 'Administrador')
                                                 
-                                                @if ($controlAct->estado_actual == 'FALTA CANCELAR' )
+                                                
                                                     <a type="button" class="border-2 border-green-600 rounded-lg px-2 py-1 text-green-600 cursor-pointer hover:bg-green-600 hover:text-green-200 focus:outline-none" href="{{ route('actaControl.pagar', $controlAct) }}">
                                                         <span>
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -189,30 +189,20 @@
                                                     </a> 
                                                     @endif
 
-                                                @else
-                                                    @if ($controlAct->hasResolution($controlAct->id))
-                                                    <a type="button" title="MODIFICAR RESOLUCIÓN" class="border-2 border-yellow-600 rounded-lg px-2 py-1 text-yellow-600 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200 focus:outline-none" href="{{ route('actasDeControl.EditarResolucion', $controlAct) }}">
-                                                        <span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
-                                                            </svg>
-                                                        </span>
-                                                    </a>
-                                                    @endif
-                                                @endif
+                                                
 
                                             @endif
                                             <!------------------------------------------------------------------------------>
                                             @if (auth()->user()->role == 'Asistente de Caja')
-                                                @if ($controlAct->estado_actual  == 'FALTA CANCELAR')
-                                                    <a type="button" class="border-2 border-green-600 rounded-lg px-2 py-1 text-green-600 cursor-pointer hover:bg-green-600 hover:text-green-200 focus:outline-none" href="{{ route('actasDeControl.paiment', $controlAct) }}">
-                                                        <span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                                                            </svg>
-                                                        </span>
-                                                    </a>
-                                                @endif
+                                                
+                                                <a type="button" class="border-2 border-green-600 rounded-lg px-2 py-1 text-green-600 cursor-pointer hover:bg-green-600 hover:text-green-200 focus:outline-none" href="{{ route('actasDeControl.paiment', $controlAct) }}">
+                                                    <span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                                        </svg>
+                                                    </span>
+                                                </a>
+                                                
                                             @endif
                                             <!-------------------------------------------------------------------------------->
                                             <button wire:click="loadControlActId({{ $controlAct->id }})" class="border-2 border-gray-800 rounded-lg px-2 py-1 text-gray-600 cursor-pointer hover:bg-gray-800 hover:text-gray-200 focus:outline-none">

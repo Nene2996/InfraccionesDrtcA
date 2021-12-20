@@ -10,7 +10,7 @@ class Paiment extends Model
     use HasFactory;
 
     protected $table = 'paiments';
-    protected $fillable = ['date_payment', 'proof_number', 'discount', 'total_amount', 'pending_amount', 'paimentable_id', 'paimentable_type', 'type_proof_id', 'user_id'];
+    protected $fillable = ['date_payment', 'proof_number', 'discount', 'total_amount', 'pending_amount', 'amount_paid', 'paimentable_id', 'paimentable_type', 'type_proof_id', 'user_id'];
 
     public function typeProof()
     {

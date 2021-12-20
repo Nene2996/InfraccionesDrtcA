@@ -19,6 +19,8 @@ class CreateEvidenceablesTable extends Migration
             $table->string('evidenceable_type');
             $table->unsignedBigInteger('evidence_id');
             $table->foreign('evidence_id')->references('id')->on('evidences')->onDelete('cascade');
+            $table->unsignedBigInteger('file_evidence_id');
+            $table->foreign('file_evidence_id')->references('id')->on('file_evidences')->onDelete('cascade');
 
             $table->timestamps();
         });

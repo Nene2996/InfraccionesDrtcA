@@ -20,7 +20,7 @@ class CreateInspectionActTable extends Migration
             $table->string('address');
             $table->string('document_number', 11);
             $table->char('licence_number', 9);
-            $table->string('qualification', 15);
+            //$table->string('qualification', 15);
             $table->date('date_infraction');
             $table->time('hour_infraction');
             $table->string('additional_Information')->nullable();
@@ -35,10 +35,10 @@ class CreateInspectionActTable extends Migration
 
             $table->unsignedBigInteger('district_id');
             $table->foreign('district_id')->references('id')->on('districts');
-
+            /*
             $table->unsignedBigInteger('evidence_id');
             $table->foreign('evidence_id')->references('id')->on('evidences');
-
+            */
             $table->unsignedBigInteger('inspector_id');
             $table->foreign('inspector_id')->references('id')->on('inspectors');
 

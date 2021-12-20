@@ -21,6 +21,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'F.1',
             'infringement_agent' => 'Quien realiza la actividad de transporte',
             'uit_penalty' => 'Multa de 1 UIT',
+            'uit_percentage' => 1,
             'pecuniary_sanction' => 4400,
             'administrative_sanction' => 'No Aplica',
             'preventive_measure' => 'Retención de la licencia de conducir. Internamiento del vehículo',
@@ -35,6 +36,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'F.2',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'No aplica',
+            'uit_percentage' => 0,
             'pecuniary_sanction' => 0,
             'administrative_sanction' => 'Inhabilitación por un (1) año para prestar el servicio de transporte',
             'preventive_measure' => 'En forma sucesiva: Remoción del vehículo. Internamiento del vehículo',
@@ -49,6 +51,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'F.3',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'No aplica',
+            'uit_percentage' => 0,
             'pecuniary_sanction' => 0,
             'administrative_sanction' => 'Suspensión por noventa (90) días de la habilitación para conducir vehículos del servicio de transporte',
             'preventive_measure' => 'Al conductor: Retención de licencia de conducir',
@@ -63,6 +66,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'F.4.a',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'No aplica',
+            'uit_percentage' => 0,
             'pecuniary_sanction' => 0,
             'administrative_sanction' => 'Suspensión por noventa (90) días de la autorización para prestar servicio en la ruta o rutas en que ocurrió la infracción; o en el servicio tratándose del transporte de mercancías',
             'preventive_measure' => null,
@@ -77,6 +81,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'F.4.b',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'No aplica',
+            'uit_percentage' => 0,
             'pecuniary_sanction' => 0,
             'administrative_sanction' => 'Suspensión por noventa (90) días de la autorización para prestar servicio en la ruta o rutas en que ocurrió la infracción; o en el servicio tratándose del transporte de mercancías',
             'preventive_measure' => null,
@@ -91,6 +96,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'F.4.c',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'No aplica',
+            'uit_percentage' => 0,
             'pecuniary_sanction' => 0,
             'administrative_sanction' => 'Suspensión por noventa (90) días de la autorización para prestar servicio en la ruta o rutas en que ocurrió la infracción; o en el servicio tratándose del transporte de mercancías',
             'preventive_measure' => null,
@@ -106,6 +112,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'F.5.a',
             'infringement_agent' => 'Generador de Carga',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => null,
@@ -121,6 +128,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'F.5.b',
             'infringement_agent' => 'Generador de Carga',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => null,
@@ -136,6 +144,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'F.5.c',
             'infringement_agent' => 'Generador de Carga',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => null,
@@ -151,11 +160,12 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'F.6.a',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'Suspención de la licencia de conducir por (90) días calendario',
             'preventive_measure' => 'Retención de la Licencia de Conducir.',
-            'discount_five_days' => 1100,
-            'discount_fifteen_days' => 1470,
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3,
         ]);
 
         # 11
@@ -166,11 +176,12 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'F.6.b',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'Suspención de la licencia de conducir por (90) días calendario',
             'preventive_measure' => 'Retención de la Licencia de Conducir.',
-            'discount_five_days' => 1100,
-            'discount_fifteen_days' => 1470,
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3,
         ]);
 
         # 12
@@ -181,11 +192,12 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'F.6.c',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'Suspención de la licencia de conducir por (90) días calendario',
             'preventive_measure' => 'Retención de la Licencia de Conducir.',
-            'discount_five_days' => 1100,
-            'discount_fifteen_days' => 1470,
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3,
         ]);
 
         # 13
@@ -196,11 +208,12 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'F.6.d',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'Suspención de la licencia de conducir por (90) días calendario',
             'preventive_measure' => 'Retención de la Licencia de Conducir.',
-            'discount_five_days' => 1100,
-            'discount_fifteen_days' => 1470,
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3,
         ]);
 
         # 14
@@ -211,11 +224,12 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'F.7',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'Cancelación de la Licencia de Conducir e inhabilitación definitiva para obtener nueva licencia',
             'preventive_measure' => 'Retención de la Licencia de Conducir.',
-            'discount_five_days' => 1100,
-            'discount_fifteen_days' => 1470,
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3,
         ]);
 
         # 15
@@ -226,6 +240,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'F.8',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'No Aplica',
+            'uit_percentage' => 0,
             'pecuniary_sanction' => 0,
             'administrative_sanction' => 'Inhabilitación por dos años del vehículo para ser utilizado en la prestación del servicio de transporte terrestre. Para el caso del conductor aplicará lo dispuesto en el Código M.41 del Anexo I del Reglamento Nacional de Tránsito- Código de Tránsito.',
             'preventive_measure' => 'Remoción del vehículo.',
@@ -241,6 +256,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'I.1.a',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -248,8 +264,8 @@ class InfractionsTableSeeder extends Seeder
             Retención del vehículo.
             Internamiento del vehículo.
             En el caso del supuesto e) y f) no procederá la medida preventiva si se comprueba por otros medios que el vehículo cuenta con Certificado de ITV, el Certificado del Seguro Obligatorio de Accidente de Tránsito o CAT cuando corresponda.',
-            'discount_five_days' => 220,
-            'discount_fifteen_days' => 294,
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3,
         ]);
 
         # 17
@@ -260,6 +276,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'I.1.b',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -267,8 +284,8 @@ class InfractionsTableSeeder extends Seeder
                 Retención del vehículo.
                 Internamiento del vehículo.
                 En el caso del supuesto e) y f) no procederá la medida preventiva si se comprueba por otros medios que el vehículo cuenta con Certificado de ITV, el Certificado del Seguro Obligatorio de Accidente de Tránsito o CAT cuando corresponda.',
-            'discount_five_days' => 220,
-            'discount_fifteen_days' => 294,
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3,
         ]);
 
         # 18
@@ -279,6 +296,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'I.1.c',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -286,8 +304,8 @@ class InfractionsTableSeeder extends Seeder
                 Retención del vehículo.
                 Internamiento del vehículo.
                 En el caso del supuesto e) y f) no procederá la medida preventiva si se comprueba por otros medios que el vehículo cuenta con Certificado de ITV, el Certificado del Seguro Obligatorio de Accidente de Tránsito o CAT cuando corresponda.',
-            'discount_five_days' => 220,
-            'discount_fifteen_days' => 294,
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3,
         ]);
 
         # 19
@@ -298,6 +316,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'I.1.d',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -305,8 +324,8 @@ class InfractionsTableSeeder extends Seeder
                 Retención del vehículo.
                 Internamiento del vehículo.
                 En el caso del supuesto e) y f) no procederá la medida preventiva si se comprueba por otros medios que el vehículo cuenta con Certificado de ITV, el Certificado del Seguro Obligatorio de Accidente de Tránsito o CAT cuando corresponda.',
-            'discount_five_days' => 220,
-            'discount_fifteen_days' => 294,
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3,
         ]);
 
         # 20
@@ -317,6 +336,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'I.1.e',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -324,8 +344,8 @@ class InfractionsTableSeeder extends Seeder
                 Retención del vehículo.
                 Internamiento del vehículo.
                 En el caso del supuesto e) y f) no procederá la medida preventiva si se comprueba por otros medios que el vehículo cuenta con Certificado de ITV, el Certificado del Seguro Obligatorio de Accidente de Tránsito o CAT cuando corresponda.',
-            'discount_five_days' => 220,
-            'discount_fifteen_days' => 294,
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3,
         ]);
 
         # 21
@@ -336,6 +356,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'I.1.f',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -343,8 +364,8 @@ class InfractionsTableSeeder extends Seeder
                 Retención del vehículo.
                 Internamiento del vehículo.
                 En el caso del supuesto e) y f) no procederá la medida preventiva si se comprueba por otros medios que el vehículo cuenta con Certificado de ITV, el Certificado del Seguro Obligatorio de Accidente de Tránsito o CAT cuando corresponda.',
-            'discount_five_days' => 220,
-            'discount_fifteen_days' => 294,
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3,
         ]);
 
         # 22
@@ -355,14 +376,15 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'I.2.a',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
                 Interrupción de viaje.
                 Retención del vehículo.
                 Internamiento del vehículo.',
-            'discount_five_days' => 220,
-            'discount_fifteen_days' => 294,
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3,
         ]);
 
         # 23
@@ -373,14 +395,15 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'I.2.b',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
                 Interrupción de viaje.
                 Retención del vehículo.
                 Internamiento del vehículo.',
-            'discount_five_days' => 220,
-            'discount_fifteen_days' => 294,
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3,
         ]);
 
         # 24
@@ -391,6 +414,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'I.3.a',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -410,6 +434,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'I.3.b',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -417,8 +442,8 @@ class InfractionsTableSeeder extends Seeder
                 Retención del vehículo.
                 Internamiento del vehículo.
                 En el caso de los supuestos a) y b) no procederá la medida preventiva.',
-            'discount_five_days' => 2100,
-            'discount_fifteen_days' => 1470,
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3,
         ]);
 
         # 26
@@ -429,6 +454,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'I.3.c',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -436,8 +462,8 @@ class InfractionsTableSeeder extends Seeder
                 Retención del vehículo.
                 Internamiento del vehículo.
                 En el caso de los supuestos a) y b) no procederá la medida preventiva.',
-            'discount_five_days' => 2100,
-            'discount_fifteen_days' => 1470,
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3,
         ]);
 
         # 27
@@ -448,6 +474,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'I.3.d',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -455,8 +482,8 @@ class InfractionsTableSeeder extends Seeder
                 Retención del vehículo.
                 Internamiento del vehículo.
                 En el caso de los supuestos a) y b) no procederá la medida preventiva.',
-            'discount_five_days' => 2100,
-            'discount_fifteen_days' => 1470,
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3,
         ]);
 
         # 28
@@ -467,11 +494,12 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'I.4',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.05 de la UIT',
+            'uit_percentage' => 0.05,
             'pecuniary_sanction' => 220,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => null,
-            'discount_five_days' => 110,
-            'discount_fifteen_days' => 66,
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3,
         ]);
 
         # 29
@@ -482,11 +510,12 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'I.5.a',
             'infringement_agent' => 'Generador de Carga',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => null,
-            'discount_five_days' => 220,
-            'discount_fifteen_days' => 132,
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3,
         ]);
 
         # 30
@@ -497,11 +526,12 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'I.5.b',
             'infringement_agent' => 'Generador de Carga',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => null,
-            'discount_five_days' => 220,
-            'discount_fifteen_days' => 132,
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3,
         ]);
 
         # 31
@@ -512,11 +542,12 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'I.5.c',
             'infringement_agent' => 'Generador de Carga',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => null,
-            'discount_five_days' => 220,
-            'discount_fifteen_days' => 132,
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3,
         ]);
 
         # 32
@@ -527,11 +558,12 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'I.6',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.05 de la UIT',
+            'uit_percentage' => 0.05,
             'pecuniary_sanction' => 220,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => null,
-            'discount_five_days' => 110,
-            'discount_fifteen_days' => 66,
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3,
         ]);
 
         # 33
@@ -542,11 +574,12 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'I.7.a',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'Retención de Licencia de Conducir para los supuestos a) y b)',
-            'discount_five_days' => 220,
-            'discount_fifteen_days' => 132
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 34
@@ -557,11 +590,12 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'I.7.b',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'Retención de Licencia de Conducir para los supuestos a) y b)',
-            'discount_five_days' => 220,
-            'discount_fifteen_days' => 132
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 35
@@ -572,11 +606,12 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'I.7.c',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'Retención de Licencia de Conducir para los supuestos a) y b)',
-            'discount_five_days' => 220,
-            'discount_fifteen_days' => 132
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 36
@@ -587,11 +622,12 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'I.7.d',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'Retención de Licencia de Conducir para los supuestos a) y b)',
-            'discount_five_days' => 220,
-            'discount_fifteen_days' => 132
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 37
@@ -602,11 +638,12 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'I.8',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => null,
-            'discount_five_days' => 1100,
-            'discount_fifteen_days' => 660
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 38
@@ -617,11 +654,12 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'I.9.a',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => null,
-            'discount_five_days' => 220,
-            'discount_fifteen_days' => 132
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 39
@@ -632,6 +670,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.1.a',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -650,6 +689,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.1.b',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -668,6 +708,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.1.c',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -686,14 +727,15 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.2.a',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.05 de la UIT',
+            'uit_percentage' => 0.05,
             'pecuniary_sanction' => 220,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
                 Interrupción de viaje.
                 Retención del vehículo.
                 Internamiento del vehículo.',
-            'discount_five_days' => 110,
-            'discount_fifteen_days' => 66
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 43
@@ -704,14 +746,15 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.2.b',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.05 de la UIT',
+            'uit_percentage' => 0.05,
             'pecuniary_sanction' => 220,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
                 Interrupción de viaje.
                 Retención del vehículo.
                 Internamiento del vehículo.',
-            'discount_five_days' => 110,
-            'discount_fifteen_days' => 66
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 44
@@ -722,14 +765,15 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.2.c',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.05 de la UIT',
+            'uit_percentage' => 0.05,
             'pecuniary_sanction' => 220,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
                 Interrupción de viaje.
                 Retención del vehículo.
                 Internamiento del vehículo.',
-            'discount_five_days' => 110,
-            'discount_fifteen_days' => 66
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 45
@@ -740,6 +784,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.3.a',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -748,8 +793,8 @@ class InfractionsTableSeeder extends Seeder
                 Internamiento del vehículo.
                 En el caso de los supuestos f) y g) procederá además:
                 Suspensión precautoria de la habilitación vehicular.',
-            'discount_five_days' => 1100,
-            'discount_fifteen_days' => 660
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 46
@@ -760,6 +805,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.3.b',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -768,8 +814,8 @@ class InfractionsTableSeeder extends Seeder
                 Internamiento del vehículo.
                 En el caso de los supuestos f) y g) procederá además:
                 Suspensión precautoria de la habilitación vehicular.',
-            'discount_five_days' => 1100,
-            'discount_fifteen_days' => 660
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 47
@@ -780,6 +826,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.3.c',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -788,8 +835,8 @@ class InfractionsTableSeeder extends Seeder
                 Internamiento del vehículo.
                 En el caso de los supuestos f) y g) procederá además:
                 Suspensión precautoria de la habilitación vehicular.',
-            'discount_five_days' => 1100,
-            'discount_fifteen_days' => 660
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 48
@@ -800,6 +847,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.3.d',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -808,8 +856,8 @@ class InfractionsTableSeeder extends Seeder
                 Internamiento del vehículo.
                 En el caso de los supuestos f) y g) procederá además:
                 Suspensión precautoria de la habilitación vehicular.',
-            'discount_five_days' => 1100,
-            'discount_fifteen_days' => 660
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 49
@@ -820,6 +868,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.3.e',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -828,8 +877,8 @@ class InfractionsTableSeeder extends Seeder
                 Internamiento del vehículo.
                 En el caso de los supuestos f) y g) procederá además:
                 Suspensión precautoria de la habilitación vehicular.',
-            'discount_five_days' => 1100,
-            'discount_fifteen_days' => 660
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
          # 50
@@ -840,6 +889,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.3.f',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -848,8 +898,8 @@ class InfractionsTableSeeder extends Seeder
                 Internamiento del vehículo.
                 En el caso de los supuestos f) y g) procederá además:
                 Suspensión precautoria de la habilitación vehicular.',
-            'discount_five_days' => 1100,
-            'discount_fifteen_days' => 660
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 51
@@ -860,6 +910,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.3.g',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -868,8 +919,8 @@ class InfractionsTableSeeder extends Seeder
                 Internamiento del vehículo.
                 En el caso de los supuestos f) y g) procederá además:
                 Suspensión precautoria de la habilitación vehicular.',
-            'discount_five_days' => 1100,
-            'discount_fifteen_days' => 660
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 52
@@ -880,6 +931,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.3.h',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -888,8 +940,8 @@ class InfractionsTableSeeder extends Seeder
                 Internamiento del vehículo.
                 En el caso de los supuestos f) y g) procederá además:
                 Suspensión precautoria de la habilitación vehicular.',
-            'discount_five_days' => 1100,
-            'discount_fifteen_days' => 660
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 53
@@ -900,14 +952,15 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.4.a',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.05 de la UIT',
+            'uit_percentage' => 0.05,
             'pecuniary_sanction' => 220,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
                 Interrupción de viaje.
                 Retención del vehículo.
                 Internamiento del vehículo.',
-            'discount_five_days' => 110,
-            'discount_fifteen_days' => 66
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 54
@@ -918,14 +971,15 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.4.b',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.05 de la UIT',
+            'uit_percentage' => 0.05,
             'pecuniary_sanction' => 220,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
                 Interrupción de viaje.
                 Retención del vehículo.
                 Internamiento del vehículo.',
-            'discount_five_days' => 110,
-            'discount_fifteen_days' => 66
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 55
@@ -936,14 +990,15 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.4.c',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.05 de la UIT',
+            'uit_percentage' => 0.05,
             'pecuniary_sanction' => 220,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
                 Interrupción de viaje.
                 Retención del vehículo.
                 Internamiento del vehículo.',
-            'discount_five_days' => 110,
-            'discount_fifteen_days' => 66
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 56
@@ -954,6 +1009,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.5.a',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -972,6 +1028,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.5.b',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -990,6 +1047,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.5.c',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -1008,6 +1066,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.5.d',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'Al vehículo:
@@ -1026,6 +1085,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.6.a',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -1033,8 +1093,8 @@ class InfractionsTableSeeder extends Seeder
                 Retención del vehículo.
                 Internamiento del vehículo.
                 En el caso del supuesto a) no procederá la medida preventiva.',
-            'discount_five_days' => 220,
-            'discount_fifteen_days' => 132
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 61
@@ -1045,6 +1105,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.6.b',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -1052,8 +1113,8 @@ class InfractionsTableSeeder extends Seeder
                 Retención del vehículo.
                 Internamiento del vehículo.
                 En el caso del supuesto a) no procederá la medida preventiva.',
-            'discount_five_days' => 220,
-            'discount_fifteen_days' => 132
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 62
@@ -1064,6 +1125,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.7',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'No aplica',
+            'uit_percentage' => 0,
             'pecuniary_sanction' => 0,
             'administrative_sanction' => 'Suspensión por noventa (90) días de la habilitación para conducir vehículos del servicio de transporte',
             'preventive_measure' => 'Al vehículo:
@@ -1082,6 +1144,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.8.a',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'Suspensión por noventa (90) días de la habilitación para conducir vehículos del servicio de transporte',
             'preventive_measure' => 'En forma sucesiva Al vehículo:
@@ -1090,8 +1153,8 @@ class InfractionsTableSeeder extends Seeder
                 Internamiento del vehículo.
                 Al conductor:
                 Retención de la licencia de conducir.',
-            'discount_five_days' => 1100,
-            'discount_fifteen_days' => 660
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 64
@@ -1102,6 +1165,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.8.b',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva Al vehículo:
@@ -1110,8 +1174,8 @@ class InfractionsTableSeeder extends Seeder
                 Internamiento del vehículo.
                 Al conductor:
                 Retención de la licencia de conducir.',
-            'discount_five_days' => 1100,
-            'discount_fifteen_days' => 660
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 65
@@ -1122,6 +1186,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.8.c',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva Al vehículo:
@@ -1130,8 +1195,8 @@ class InfractionsTableSeeder extends Seeder
                 Internamiento del vehículo.
                 Al conductor:
                 Retención de la licencia de conducir.',
-            'discount_five_days' => 1100,
-            'discount_fifteen_days' => 660
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 66
@@ -1142,11 +1207,12 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.9',
             'infringement_agent' => 'Generador de Carga',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => null,
-            'discount_five_days' => 1100,
-            'discount_fifteen_days' => 660
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
          # 67
@@ -1157,14 +1223,15 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.10',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
                 Interrupción de viaje.
                 Retención del vehículo.
                 Internamiento del vehículo.',
-            'discount_five_days' => 220,
-            'discount_fifteen_days' => 132
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 68
@@ -1175,6 +1242,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.11.a',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.7 de la UIT',
+            'uit_percentage' => 0.7,
             'pecuniary_sanction' => 3080,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -1182,8 +1250,8 @@ class InfractionsTableSeeder extends Seeder
                 Retención del vehículo.
                 Internamiento del vehículo.
                 Suspensión de la habilitación vehicular.',
-            'discount_five_days' => 1540,
-            'discount_fifteen_days' => 924
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 69
@@ -1194,6 +1262,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.11.b',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -1201,8 +1270,8 @@ class InfractionsTableSeeder extends Seeder
                 Retención del vehículo.
                 Internamiento del vehículo.
                 Suspensión de la habilitación vehicular.',
-            'discount_five_days' => 1100,
-            'discount_fifteen_days' => 660
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 70
@@ -1213,6 +1282,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'S.11.c',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.9 de la UIT',
+            'uit_percentage' => 0.9,
             'pecuniary_sanction' => 3960,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva:
@@ -1220,8 +1290,8 @@ class InfractionsTableSeeder extends Seeder
                 Retención del vehículo.
                 Internamiento del vehículo.
                 Suspensión de la habilitación vehicular.',
-            'discount_five_days' => 1980,
-            'discount_fifteen_days' => 1188
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 71
@@ -1232,11 +1302,12 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'T.1.a',
             'infringement_agent' => 'Operador de la Infraestructura Complementario /Propietario / Arrendatario',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => null,
-            'discount_five_days' => 220,
-            'discount_fifteen_days' => 132
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 72
@@ -1247,11 +1318,12 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'T.1.b',
             'infringement_agent' => 'Operador de la Infraestructura Complementario /Propietario / Arrendatario',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => null,
-            'discount_five_days' => 220,
-            'discount_fifteen_days' => 132
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 73
@@ -1262,11 +1334,12 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'T.1.c',
             'infringement_agent' => 'Operador de la Infraestructura Complementario /Propietario / Arrendatario',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => null,
-            'discount_five_days' => 220,
-            'discount_fifteen_days' => 132
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 74
@@ -1277,6 +1350,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'T.2',
             'infringement_agent' => 'Operador de la Infraestructura Complementario /Propietario / Arrendatario',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => null,
@@ -1292,6 +1366,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'T.3',
             'infringement_agent' => 'Operador de la Infraestructura Complementario /Propietario / Arrendatario',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'Clausura temporal de la infraestructura.',
@@ -1307,29 +1382,24 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'T.4',
             'infringement_agent' => 'Operador de la Infraestructura Complementario /Propietario / Arrendatario',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => null,
-            'discount_five_days' => 1100,
-            'discount_fifteen_days' => 660
+            'discount_five_days' => 0.5,
+            'discount_fifteen_days' => 0.3
         ]);
 
         # 79
         Infraction::create([
             'description' => 'El incumplimiento de cualquiera de las condiciones de acceso y permanencia previstas en los siguientes artículos:
-            Artículo 18
-            Artículo 19.- Numerales 19.1, 19.2, 19.3, 19.4
-            Artículo 20.- Numerales 20.1.1, 20.1.2, 20.1.3, 20.1.4, 20.1.5, 20.1.6, 20.1.7, 20.1.10, 20.1.11, 20.1.12, 20.3.1, 20.3.3, 20.3.4, 20.4.1
-            Artículo 21.- Numeral 21.1
-            Artículo 22.- Numerales 22.1, 22.2 y 22.3
-            Artículo 23.- Numerales 23.1.1 y 23.1.2
-            Artículo 25
-            Artículo 26, que no se encuentren tipificadas como infracciones',
+            Artículo 18, Artículo 19.- Numerales 19.1, 19.2, 19.3, 19.4, Artículo 20.- Numerales 20.1.1, 20.1.2, 20.1.3, 20.1.4, 20.1.5, 20.1.6, 20.1.7, 20.1.10, 20.1.11, 20.1.12, 20.3.1, 20.3.3, 20.3.4, 20.4.1, Artículo 21.- Numeral 21.1, Artículo 22.- Numerales 22.1, 22.2 y 22.3, Artículo 23.- Numerales 23.1.1 y 23.1.2, Artículo 25 Artículo 26, que no se encuentren tipificadas como infracciones',
             'type' => 'Incumplimiento',
             'qualification' => 'Muy grave',
             'code' => 'C.1a',
             'infringement_agent' => 'No especificado',
             'uit_penalty' => 'No aplica',
+            'uit_percentage' => 0,
             'pecuniary_sanction' => 0,
             'administrative_sanction' => 'Cancelación de la Habilitación Vehicular',
             'preventive_measure' => 'En forma sucesiva: 
@@ -1358,6 +1428,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'C.1b',
             'infringement_agent' => 'No especificado',
             'uit_penalty' => 'No aplica',
+            'uit_percentage' => 0,
             'pecuniary_sanction' => 0,
             'administrative_sanction' => 'Suspensión de la Habilitación Vehicular por 90 días.',
             'preventive_measure' => 'En forma sucesiva:
@@ -1383,6 +1454,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'C.1c',
             'infringement_agent' => 'No especificado',
             'uit_penalty' => 'No aplica',
+            'uit_percentage' => 0,
             'pecuniary_sanction' => 0,
             'administrative_sanction' => 'Suspensión de la Habilitación Vehicular por 60 días.',
             'preventive_measure' => 'En forma sucesiva:
@@ -1403,6 +1475,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'C.2a',
             'infringement_agent' => 'No especificado',
             'uit_penalty' => 'No aplica',
+            'uit_percentage' => 0,
             'pecuniary_sanction' => 0,
             'administrative_sanction' => 'Cancelación de la Habilitación del Conductor',
             'preventive_measure' => 'Al conductor: Retención de la licencia de conducir
@@ -1419,6 +1492,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'C.2b',
             'infringement_agent' => 'No especificado',
             'uit_penalty' => 'No aplica',
+            'uit_percentage' => 0,
             'pecuniary_sanction' => 0,
             'administrative_sanction' => 'Suspensión de la habilitación del conductor por 90 días.',
             'preventive_measure' => 'Al conductor: Retención de la licencia de conducir
@@ -1435,6 +1509,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'C.2c',
             'infringement_agent' => 'No especificado',
             'uit_penalty' => 'No aplica',
+            'uit_percentage' => 0,
             'pecuniary_sanction' => 0,
             'administrative_sanction' => 'Suspensión de la Habilitación Vehicular por 60 días',
             'preventive_measure' => 'Al conductor: Retención de la licencia de conducir
@@ -1451,6 +1526,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'C.3',
             'infringement_agent' => 'No especificado',
             'uit_penalty' => 'No aplica',
+            'uit_percentage' => 0,
             'pecuniary_sanction' => 0,
             'administrative_sanction' => 'Cancelación de la habilitación de la Infraestructura Complementaria de Transporte Terrestre',
             'preventive_measure' => 'Clausura temporal de la Infraestructura complementaria en la que se ha incurrido en el incumplimiento',
@@ -1470,6 +1546,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'C.4 a',
             'infringement_agent' => 'No especificado',
             'uit_penalty' => 'No aplica',
+            'uit_percentage' => 0,
             'pecuniary_sanction' => 0,
             'administrative_sanction' => 'Cancelación de la Autorización del transportista',
             'preventive_measure' => 'Suspensión precautoria de la autorización para prestar servicio de transporte en la ruta o del servicio especial de personas, o del servicio de transporte privado de personas o del servicio si se trata del transporte de mercancías o mixto.',
@@ -1486,6 +1563,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'C.4 b',
             'infringement_agent' => 'No especificado',
             'uit_penalty' => 'No aplica',
+            'uit_percentage' => 0,
             'pecuniary_sanction' => 0,
             'administrative_sanction' => 'Suspensión de la Autorización para prestar el servicio de transporte terrestre:
             a) Por el plazo de diez (10) días calendario, por el incumplimiento de lo establecido en el numeral 41.2.7 (exceder la jornada de conducción) sin accidente de tránsito y por el plazo de noventa (90) días calendario con la ocurrencia de un accidente de tránsito. b) Por el plazo de noventa (90) días calendario por el incumplimiento de lo establecido en el resto de numerales y artículos que prevé el presente Código.',
@@ -1511,6 +1589,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'C.4 c',
             'infringement_agent' => 'No especificado',
             'uit_penalty' => 'No aplica',
+            'uit_percentage' => 0,
             'pecuniary_sanction' => 0,
             'administrative_sanction' => 'Suspensión de la autorización por 60 días para prestar el servicio de transporte terrestre',
             'preventive_measure' => 'Suspensión precautoria de la autorización para prestar servicios de transporte en la ruta o del servicio especial de personal, o del servicio de transporte privado de personas o del servicio si se trata de transporte de mercancías o mixto.',
@@ -1526,6 +1605,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'V.1',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva
@@ -1545,6 +1625,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'V.2',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva
@@ -1564,6 +1645,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'V.3',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva
@@ -1582,6 +1664,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'V.4',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'En forma sucesiva
@@ -1600,6 +1683,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'V.5',
             'infringement_agent' => 'Transportista',
             'uit_penalty' => 'Multa de 0.05 de la UIT',
+            'uit_percentage' => 0.05,
             'pecuniary_sanction' => 220,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => null,
@@ -1614,6 +1698,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'V.6',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'Retención de la licencia de conducir',
@@ -1629,6 +1714,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'V.7',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'Retención de la licencia de conducir',
@@ -1645,6 +1731,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'V.8',
             'infringement_agent' => 'Conductor',
             'uit_penalty' => 'Multa de 0.05 de la UIT',
+            'uit_percentage' => 0.05,
             'pecuniary_sanction' => 220,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => null,
@@ -1660,6 +1747,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'V.9',
             'infringement_agent' => 'Operador de infraestructura complementaria de transporte',
             'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
             'pecuniary_sanction' => 2200,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => 'Suspensión precautoria del servicio.',
@@ -1675,6 +1763,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'V.10',
             'infringement_agent' => 'Operador de infraestructura complementaria de transporte',
             'uit_penalty' => 'Multa de 0.1 de la UIT',
+            'uit_percentage' => 0.1,
             'pecuniary_sanction' => 440,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => null,
@@ -1690,6 +1779,7 @@ class InfractionsTableSeeder extends Seeder
             'code' => 'V.11',
             'infringement_agent' => 'Operador de infraestructura complementaria de transporte',
             'uit_penalty' => 'Multa de 0.05 de la UIT',
+            'uit_percentage' => 0.05,
             'pecuniary_sanction' => 220,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => '(*) Anexo 4 incorporado por el Artículo 3 del Decreto Supremo Nº 016-2020-MTC, publicado el 18 julio 2020. (**) De conformidad con la Primera Disposición Complementaria Final del Decreto Supremo Nº 016-2020-MTC, publicado el 18 julio 2020, la Superintendencia de Transporte Terrestre de Personas, Carga y Mercancías (SUTRAN), la Autoridad de Transporte Urbano para Lima y Callao (ATU), los Gobiernos Regionales y los Gobiernos Locales, en el marco de sus competencias, realizan la actividad de fiscalización para verificar el cumplimiento de las obligaciones previstas en los respectivos protocolos o lineamientos sectoriales para la prevención del COVID-19 aprobados por el MTC, según corresponda. Asimismo, tramitan y sancionan la inobservancia de los respectivos protocolos o lineamientos sectoriales, según corresponda, aplicando las sanciones previstas en el presente Anexo 4.',

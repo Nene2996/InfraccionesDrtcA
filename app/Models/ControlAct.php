@@ -55,6 +55,16 @@ class ControlAct extends Model
         return ControlActResolution::where('control_act_id', $idControlAct)->exists();
     }
 
+    public function hasResolutionSancion($idControlAct)
+    {
+        return ControlActResolution::where('control_act_id', $idControlAct)->where('type_act', 'ACTA DE CONTROL')->exists();
+    }
+
+    public function hasPaiment()
+    {
+        return Paiment::where('paimentable_type', 'App\Models\ControlAct')->exists();
+    }
+
     //relacion uno a uno polimorfica
     public function file()
     {

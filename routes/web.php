@@ -44,7 +44,6 @@ Route::middleware(['auth:sanctum', 'editar_infracciones', 'ipaddress'])->group(f
 
 Route::middleware([ 'auth:sanctum', 'pagar_infracciones', 'ipaddress'])->group(function (){
     Route::get('/pago-acta-fiscalizacion/{inspection}', PaimentInspection::class)->name('actasDeFiscalizacion.paiment');
-    Route::get('/pago-acta-control/{controlAct}', PaimentControlAct::class)->name('actasDeControl.paiment');
 
     //pago de Infracciones
     Route::get('/pagar-acta-fiscalizacion/{inspection}', PaimentInspectionAct::class)->name('actaFiscalizacion.pagar');
@@ -69,8 +68,8 @@ Route::middleware(['auth:sanctum', 'verified', 'ipaddress'])->group(function (){
 
     Route::post('subir-acta', [UploadFileServerController::class, 'store']);
 
-    Route::get('pdfs', [PDFController::class, 'preview'])->name('actasDeFiscalizacion.verResolucion');
-    Route::get('pdf/download', [PDFController::class, 'generatePDF'])->name('actasDeFiscalizacion.descargarResolucion');
+    //Route::get('pdfs', [PDFController::class, 'preview'])->name('actasDeFiscalizacion.verResolucion');
+    //Route::get('pdf/download', [PDFController::class, 'generatePDF'])->name('actasDeFiscalizacion.descargarResolucion');
     
 });
 

@@ -43,6 +43,8 @@ class ShowControlAct extends Component
             $nro_boleta_pago,
             $fecha_pago_infraccion;
 
+    //almacenar los pagos asociados
+    public  $paiments;
     public $cant = 10;
 
     public  $placeholder_search;
@@ -140,10 +142,11 @@ class ShowControlAct extends Component
         $this->cod_infraccion = $controlAct->infractions->code;
         $this->estado = $controlAct->estado_actual;
 
+        
+
         if($this->estado == 'CANCELADO'){
-            $this->monto_pagado = $controlAct->monto_pagado;
-            $this->nro_boleta_pago = $controlAct->nro_boleta_pago;
-            $this->fecha_pago_infraccion = $controlAct->fecha_pago_infraccion;
+
+            $this->paiments = $controlAct->paiments;
         }
         $this->openModalShow();
     }

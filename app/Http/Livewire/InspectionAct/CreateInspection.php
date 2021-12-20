@@ -6,7 +6,9 @@ use App\Models\Campus;
 use App\Models\Department;
 use App\Models\District;
 use App\Models\Evidence;
+use App\Models\FileEvidence;
 use App\Models\Infraction;
+use App\Models\Inspection;
 use App\Models\Province;
 use App\Models\Vehicle;
 use Carbon\Carbon;
@@ -18,7 +20,7 @@ class CreateInspection extends Component
 {
     use     WithFileUploads;
     public  $file_pdf;
-    public  $file_evidence;
+    
 
     public  $infractions;
     public  $inspectors;
@@ -34,9 +36,7 @@ class CreateInspection extends Component
 
     public  $isOpenDivNamesDni = 0;
     public  $isOpenDivBusinessNamesRuc = 0;
-    public  $isOpenDivVideoEvidence = 0, 
-            $isOpenDivImageEvidence = 0, 
-            $isOpenDivOtherEvidence = 0;
+    public  $isOpenDivEvidenceModal = 0;
     
     public  $select;
     public  $_names_business_name;
@@ -52,7 +52,7 @@ class CreateInspection extends Component
             $address, 
             $document_number, 
             $licence_number, 
-            $qualification, 
+            //$qualification, 
             $date_infraction, 
             $hour_infraction, 
             $additional_Information, 
@@ -65,19 +65,24 @@ class CreateInspection extends Component
             $plate_number,
             $identification_card_number,
             $district_id = '',
-            $evidence_id = "",
+            $evidence_id = [],
             $inspector_id = "",
             $infraction_id = "",
             $typeNames_id,
             $typeDocument_id,
             $user_id;
 
+    //tabla de evidencias
+    public  $evidencesFiles = [''],
+            $file_evidence;
+
+
     protected $rules = [
         'act_number' => 'required|regex:/^[0-9]+$/',
         'address' => 'required',
         'licence_number' => 'required|regex:/^[A-Z,a-z]{1}[0-9]{8}$/',
         'infraction_id' => 'required',
-        'qualification' => 'required',
+        //'qualification' => 'required',
         'date_infraction' => 'required|date',
         'hour_infraction' => 'required',
         'additional_Information' => 'nullable',
@@ -87,7 +92,8 @@ class CreateInspection extends Component
         'observation' => 'nullable',
         'plate_number' => 'required|regex:/^[A-Z,0-9]{3}[-][A-Z,0-9]{3}+$/',
         'identification_card_number' => 'required|regex:/^[A-Z,0-9]+$/',
-        'evidence_id' => 'required',
+        //'evidence_id' => 'required',
+        //'file_evidence' => 'required',
         'description' => 'required',
         'inspector_id' => 'required',
         'district_id' => 'required',
@@ -105,10 +111,11 @@ class CreateInspection extends Component
         'place.required' => 'El obligatorio ingresar el lugar de la infracción',
         'province_id.required' => 'Es obligatorio seleccionar la provincia',
         'district_id.required' => 'Es obligatorio seleccionar el distrito',
-        'evidence_id.required' => 'Seleccionar el medio de la evidencia',
+        'evidence_id.required' => 'Seleccionar el medio probatorio',
+        'file_evidence.required' => 'Es necesario seleccionar el archivo del medio probatorio',
         'description.required' => 'Es necesario llenar la descripcion de la Infracción',
         'inspector_id.required' => 'Es necesario seleccionar un inspector',
-        'qualification.required' => 'La calificación(LEVE, GRAVE, MUY GRAVE) es obligatorio',
+        //'qualification.required' => 'La calificación(LEVE, GRAVE, MUY GRAVE) es obligatorio',
         'plate_number.regex' => 'En número de placa no es un formato válido.',
         'plate_number.required' => 'En número de placa es obligatorio.',
         'identification_card_number.required' => 'El Número de Tarjeta de Identificación vehicular es obligatorio.',
@@ -131,6 +138,7 @@ class CreateInspection extends Component
         $this->inspectors = Campus::find(auth()->user()->campus->id)->inspectors->where('status', '=', 1);//->orderBy('surnames_and_names')->get();
         //dd($this->inspectors);
         $this->select = 1;
+
     }
 
     public function render()
@@ -152,31 +160,8 @@ class CreateInspection extends Component
             
         }
 
-        switch($this->evidence_id){
-            case 1:
-                $this->openDivVideoEvidence();
-                $this->closeDivImageEvidence();
-                $this->closeDivOtherEvidence();
-                break;
-            
-            case 2: 
-                $this->closeDivVideoEvidence();
-                $this->openDivImageEvidence();
-                $this->closeDivOtherEvidence();
-                break;
-            
-            case 3: 
-                $this->closeDivVideoEvidence();
-                $this->closeDivImageEvidence();
-                $this->openDivOtherEvidence();
-                break;
-
-            default: 
-                $this->closeDivVideoEvidence();
-                $this->closeDivImageEvidence();
-                $this->closeDivOtherEvidence();
-                break;
-        }
+        $evidencesFiles = Inspection::with('evidences')->get();
+        //dd($evidencesFiles);
 
         return view('livewire.inspection-act.create-inspection');
         
@@ -230,8 +215,28 @@ class CreateInspection extends Component
         }
     }
 
+    public function saveFileEvidence()
+    {
+        //Archivos de evidencias 
+        foreach ($this->file_evidence as $index => $file_evid) {
+            
+            $extension_file_evidence = $file_evid->extension();
+            
+            $folder_name_file_evidence = 'public/ActasDeInfraccion/ACTA-00' . $this->act_number;
+            $url_path_file_evidence = $file_evid->storeAs($folder_name_file_evidence, uniqid() . 'EVIDENCIA' . '.' . $extension_file_evidence);
+            $fileEvidence = FileEvidence::create([
+                'size' => $file_evid->getSize(),
+                'url_path' => $url_path_file_evidence
+            ]);
+
+            $inspection->evidences()->attach($this->evidence_id[$index], ['file_evidence_id' => $fileEvidence->id]);
+            
+        }
+    }
+
     public function save()
     {
+        dd($this->file_evidence);
         //$nowHour = Carbon::now()->format('g:i A');
         $tomorrow = Carbon::tomorrow('America/Lima');
         $end = $tomorrow->subYear()->format('d-m-Y');
@@ -265,28 +270,29 @@ class CreateInspection extends Component
 
         $rules['date_infraction'] = 'before:tomorrow';
         $messages['date_infraction.before'] = 'La fecha de infracción debe ser una fecha anterior a '.$end;
-
-        
-        if($this->evidence_id == 1){
-            $rules['file_evidence'] = 'required|mimes:mp4|max:102400';
-            $messages['file_evidence.required'] = 'Es necesario adjuntar un archivo video';
-            $messages['file_evidence.mimes'] = 'El archivo seleccionado debe ser de tipo: video.';
-        }elseif($this->evidence_id == 2){
-            $rules['file_evidence'] = 'required|image|mimes:jpg, jpeg, png|max:1024';
-            $messages['file_evidence.required'] = 'Es necesario adjuntar un archivo imagen';
-            $messages['file_evidence.mimes'] = 'El archivo seleccionado debe ser de tipo: imagen.';
-        }elseif($this->evidence_id == 3){
-            $rules['file_evidence'] = 'required';
-            $messages['file_evidence.required'] = 'Es necesario adjuntar un archivo';
+/*
+        foreach($this->evidence_id as $evidenceId){
+            if($evidenceId == 1){
+                $rules['file_evidence'] = 'required|mimes:mp4|max:102400';
+                $messages['file_evidence.required'] = 'Es necesario adjuntar un archivo video';
+                $messages['file_evidence.mimes'] = 'El archivo seleccionado debe ser de tipo: video.';
+            }elseif($evidenceId == 2){
+                $rules['file_evidence'] = 'required|image|mimes:jpg, jpeg, png|max:1024';
+                $messages['file_evidence.required'] = 'Es necesario adjuntar un archivo imagen';
+                $messages['file_evidence.mimes'] = 'El archivo seleccionado debe ser de tipo: imagen.';
+            }elseif($evidenceId == 3){
+                $rules['file_evidence'] = 'required';
+                $messages['file_evidence.required'] = 'Es necesario adjuntar un archivo';
+            }
         }
-
+        
+*/
         $this->validate($rules, $messages);
      
         $vehicle = Vehicle::create([
             'plate_number' => $this->plate_number,
             'identification_card_number' => $this->identification_card_number
         ]);
-
         
         $inspection = $vehicle->inspections()->create([
             'act_number' => $this->act_number,
@@ -294,7 +300,7 @@ class CreateInspection extends Component
             'document_number' => $dniRuc,
             'address' => $this->address,
             'licence_number' => $this->licence_number,
-            'qualification' => $this->qualification,
+            //'qualification' => $this->qualification,
             'date_infraction' => $this->date_infraction,
             'hour_infraction' => $this->hour_infraction,
             'additional_Information' => $this->additional_Information,
@@ -304,7 +310,7 @@ class CreateInspection extends Component
             'description' => $this->description,
             'status' => "PENDIENTE DE PAGO",
             'district_id' => $this->district_id,
-            'evidence_id' => $this->evidence_id,
+            //'evidence_id' => 1,
             'inspector_id' => $this->inspector_id,
             'campus_id' => auth()->user()->campus->id,
             'infraction_id' => $this->infraction_id,
@@ -315,16 +321,15 @@ class CreateInspection extends Component
         ]);
 
         $extension = $this->file_pdf->extension();
-        $folder_name = 'public/ActasDeInfraccion/' . $this->act_number;
-        $url_path = $this->file_pdf->storeAs($folder_name, $this->act_number .' - '. $nameBusinessName.'.'.$extension);
-        $created = $inspection->file()->create(['url_path' => $url_path, 'size' => $this->file_pdf->getSize()]);
+        $folder_name = 'public/ActasDeInfraccion/ACTA-00' . $this->act_number;
+        $url_path = $this->file_pdf->storeAs($folder_name, $this->act_number .' - '. $nameBusinessName .'.'. $extension);
+        $inspection->file()->create(['url_path' => $url_path, 'size' => $this->file_pdf->getSize()]);
 
-        $inspection->evidences()->attach([$this->evidence_id, $this->evidence_id]);
+        
 
-        if($created){
             session()->flash('message', 'Infraccion con acta numero '.$this->act_number.' registrada correctamente.');
             return redirect('/actas-de-fiscalizacion'); 
-        }
+        
         
     }
 
@@ -332,6 +337,21 @@ class CreateInspection extends Component
     {
         return Infraction::find($this->infraction_id);
     }
+
+    public function addEvidence()
+    {
+        $this->evidencesFiles[] = '';
+    }
+    public function removeEvidence($index)
+    {   
+        unset($this->evidencesFiles[$index]);
+        
+        //$this->evidencesFiles = array_values($this->evidencesFiles);
+        //dd($this->evidencesFiles);
+
+    }
+
+    
 
     public function updatedProvinceId($value)
     {
@@ -358,33 +378,17 @@ class CreateInspection extends Component
         $this->isOpenDivBusinessNamesRuc = false;
     }
 
-    public function openDivVideoEvidence()
+    public function openDivEvidenceModal()
     {
-        $this->isOpenDivVideoEvidence = true;
+        $this->isOpenDivEvidenceModal = true;
     }
 
-    public function closeDivVideoEvidence()
+    public function closeDivEvidenceModal()
     {
-        $this->isOpenDivVideoEvidence = false;
+        $this->isOpenDivEvidenceModal = false;
     }
 
-    public function openDivImageEvidence()
-    {
-        $this->isOpenDivImageEvidence = true;
-    }
-    public function closeDivImageEvidence()
-    {
-        $this->isOpenDivImageEvidence = false;
-    }
 
-    public function openDivOtherEvidence()
-    {
-        $this->isOpenDivOtherEvidence = true;
-    }
-    public function closeDivOtherEvidence()
-    {
-        $this->isOpenDivOtherEvidence = false;
-    }
 
     public function clearInputs()
     {
