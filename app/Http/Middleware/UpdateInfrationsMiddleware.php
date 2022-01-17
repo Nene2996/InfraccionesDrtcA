@@ -19,6 +19,6 @@ class UpdateInfrationsMiddleware
     {
         if(Auth::user()->role == 'Administrador' || Auth::user()->role == 'Asistente Administrativo')
             return $next($request);
-        return response()->json('Solicite la actualizacion de permisos correspondientes con el administrador del sistema');
+        return response()->json('Solicite la actualizacion de permisos correspondientes con el administrador del sistemas');
     }
 }

@@ -22,7 +22,7 @@ class CreateInfractionsTable extends Migration
             $table->string('infringement_agent');
             $table->string('uit_penalty', 30)->nullable();
             $table->double('uit_percentage', 4, 1);
-            $table->integer('pecuniary_sanction')->nullable();
+            $table->double('pecuniary_sanction', 6, 2)->nullable();
             $table->string('administrative_sanction', 1000)->nullable();
             $table->string('preventive_measure', 2000)->nullable();
             $table->double('discount_five_days', 4, 1)->default(0.0);

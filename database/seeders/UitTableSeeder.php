@@ -214,6 +214,12 @@ class UitTableSeeder extends Seeder
             'legal_regulation' => 'D.S. N° 392-2020-EF',
             'observations' => ''
         ]);
+        Uit::create([
+            'year' => 2022,
+            'amount_uit' => 4600,
+            'legal_regulation' => 'D.S. Nº 398-2021-EF',
+            'observations' => ''
+        ]);
 
     }
 }

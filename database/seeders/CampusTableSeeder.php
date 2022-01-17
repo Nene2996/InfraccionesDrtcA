@@ -20,7 +20,7 @@ class CampusTableSeeder extends Seeder
         ]);
 
         Campus::create([
-            'campus_name' => 'DIRECCIÓN SUB REGIONAL DE TRANSPORTES Y COMUNICACIONES BAGUA-UTCUBAMBA-CONDORANQUI',
+            'campus_name' => 'DIRECCIÓN SUB REGIONAL DE TRANSPORTES Y COMUNICACIONES BAGUA-UTCUBAMBA-CONDORCANQUI',
             'alias' => 'Bagua'
         ]);
     }

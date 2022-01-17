@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CheckRoleMiddleware
+class UserActiveCheck
 {
     /**
      * Handle an incoming request.
@@ -17,24 +17,16 @@ class CheckRoleMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        //dd($request->user()->hasRole($roleName));
-        if(!Auth::check())
-            return redirect('/');
-
-        if (Auth::user()->role == 'Administrador') {
+        if(Auth::user()->role == 'Administrador' && Auth::user()->status == 1){
             return $next($request);
-        }elseif(Auth::user()->role == 'Asistente Administrativo'){
+        }elseif(Auth::user()->role == 'Asistente Administrativo' && Auth::user()->status == 1){
             return $next($request);
-        }elseif(Auth::user()->role == 'Asistente de Caja'){
+        }elseif(Auth::user()->role == 'Asistente de Caja' && Auth::user()->status == 1){
             return $next($request);
         }else{
-            return response()->json('Solicite la actualizacion de permisos correspondientes con el administrador del sistema');
+            abort(403, "Su cuenta de usuario ha sido desactivada.");
+           // return response()->json('Su cuenta de usuario ha sido desactivada. Comuniquese con el administrador del sistema.');
         }
-
-
-        
-
-        
         
     }
 }

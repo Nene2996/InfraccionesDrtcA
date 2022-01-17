@@ -10,7 +10,7 @@
                         <div x-data="{ show: true }" x-show="show"
                         class="flex justify-between items-center bg-green-200 relative text-green-700 py-3 px-3 rounded-lg border border-green-400">
                             <div>
-                                <span class="font-semibold text-gray-800">Bien echo !!!</span>
+                                <span class="font-semibold text-gray-800">Bien echo.!</span>
                                 {{ session('message') }}
                             </div>
                             <div>
@@ -100,14 +100,14 @@
                             <tr class="bg-gray-200 text-xs">
                                 <th class="border px-3">Num. Acta</th>
                                 <th class="border px-3">Conductor</th>
+                                <th class="border px-3">Num. Dni</th>
                                 <th class="border px-3">Num. de Licencia</th>
                                 <th class="border px-3">Placa Vehiculo</th>
                                 <th class="border px-3">Fecha. Infracción</th>
                                 <th class="border px-3">Cod. Infracción</th>
-                                <th class="border px-3">Tipo. Infracción</th>
+                                <th class="border px-3">Tipo de Infracción</th>
                                 <th class="border px-3">Sancion Pecuniaria</th>
                                 <th class="border px-3">Sancion Administrativa</th>
-                                <th class="border px-3">Servicio</th>
                                 <th class="border px-3">Estado Actual</th>
                                 <th class="border px-3">Sede Infracción</th>
                                 <th class="border px-3">Archivo digital</th>
@@ -118,18 +118,18 @@
                             @forelse ($controlActs as $controlAct)
                                 
                                 <tr class="hover:bg-gray-100">
-                                    <td class="border px-3 text-xs">{{ $controlAct->numero_acta }}</td>
+                                    <td class="border px-3 text-xs text-center">{{ $controlAct->numero_acta }}</td>
                                     <td class="border px-3 text-xs">{{ $controlAct->apellidos_nombres_conductor }}</td>
+                                    <td class="border px-3 text-xs">{{ $controlAct->nro_dni_conductor }}</td>
                                     <td class="border px-3 text-xs">{{ $controlAct->nro_licencia }}</td>
-                                    <td class="border text-center text-xs">{{ $controlAct->placa_vehiculo }}</td>
+                                    <td class="border text-center text-xs text-center">{{ $controlAct->placa_vehiculo }}</td>
                                     <td class="border text-center text-xs">{{ date('d/m/Y', strtotime($controlAct->fecha_infraccion)) }}</td>
-                                    <td class="border px-3 text-xs">{{ $controlAct->infractions->code }}</td>
-                                    <td class="border px-3 text-xs">{{ $controlAct->infractions->type }}</td>
-                                    <td class="border px-3 text-xs">{{ $controlAct->infractions->pecuniary_sanction }}</td>
-                                    <td class="border px-3 text-xs">{{ $controlAct->infractions->administrative_sanction }}</td>
-                                    <td class="border px-3 text-xs">{{ $controlAct->tipo_servicio }}</td>
-                                    <td class="border px-3 text-xs">{{ $controlAct->estado_actual }}</td>
-                                    <td class="border px-3 text-xs">{{ $controlAct->campus->alias }}</td>
+                                    <td class="border px-3 text-xs text-center">{{ $controlAct->infractions->code }}</td>
+                                    <td class="border px-3 text-xs text-center">{{ $controlAct->infractions->type }}</td>
+                                    <td class="border px-3 text-xs">{{ $controlAct->infractions->uit_penalty }}</td>
+                                    <td class="border px-3 text-xs text-center">{{ $controlAct->infractions->administrative_sanction }}</td>
+                                    <td class="border px-3 text-xs text-center">{{ $controlAct->estado_actual }}</td>
+                                    <td class="border px-3 text-xs text-center">{{ $controlAct->campus->alias }}</td>
                                     <td class="border px-3 px-6 py-4 text-center">
                                         @if ($controlAct->file)
                                         <div class="whitespace-nowrap text-red-600">
@@ -150,7 +150,7 @@
                                             <!-------------------------------------------------------------------------------->
                                             @if (auth()->user()->role == 'Administrador' || auth()->user()->role == 'Asistente Administrativo')
                                                 @if (auth()->user()->campus->alias == $controlAct->campus->alias)
-                                                    <a type="button" class="md:w-auto border-2 border-blue-600 rounded-lg px-3 py-1 text-blue-600 cursor-pointer hover:bg-blue-600 hover:text-blue-200" href="{{ route('actasDeControl.edit', $controlAct) }}">
+                                                    <a type="button" title="MODIFICAR ACTA" class="md:w-auto border-2 border-gray-600 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-600 hover:text-gray-200" href="{{ route('actasDeControl.edit', $controlAct) }}">
                                                         <span>
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -162,17 +162,18 @@
                                             @if (auth()->user()->role == 'Administrador')
                                                 
                                                 
-                                                    <a type="button" class="border-2 border-green-600 rounded-lg px-2 py-1 text-green-600 cursor-pointer hover:bg-green-600 hover:text-green-200 focus:outline-none" href="{{ route('actaControl.pagar', $controlAct) }}">
+                                                    <a type="button" title="REALIZAR PAGO" class="md:w-auto py-2 border-2 border-gray-600 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-600 hover:text-gray-200" href="{{ route('actaControl.pagar', $controlAct) }}">
                                                         <span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                                                            </svg>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
+                                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd" />
+                                                              </svg>
                                                         </span>
                                                 
                                                     </a>
 
                                                     @if ($controlAct->hasResolution($controlAct->id))
-                                                    <a type="button" title="MODIFICAR RESOLUCIÓN" class="border-2 border-yellow-600 rounded-lg px-2 py-1 text-yellow-600 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200 focus:outline-none" href="{{ route('actasDeControl.EditarResolucion', $controlAct) }}">
+                                                    <a type="button" title="MODIFICAR RESOLUCIÓN" class="md:w-auto border-2 border-gray-600 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-600 hover:text-gray-200" href="{{ route('actasDeControl.EditarResolucion', $controlAct) }}">
                                                         <span>
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
@@ -180,7 +181,7 @@
                                                         </span>
                                                     </a>
                                                     @else 
-                                                    <a type="button" title="REGISTRAR RESOLUCIÓN" class="border-2 border-yellow-600 rounded-lg px-2 py-1 text-yellow-600 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200 focus:outline-none" href="{{ route('actasDeControl.EditarResolucion', $controlAct) }}">
+                                                    <a type="button" title="ADJUNTAR RESOLUCIÓN" class="md:w-auto border-2 border-gray-600 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-600 hover:text-gray-200" href="{{ route('actasDeControl.EditarResolucion', $controlAct) }}">
                                                         <span>
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
@@ -195,21 +196,23 @@
                                             <!------------------------------------------------------------------------------>
                                             @if (auth()->user()->role == 'Asistente de Caja')
                                                 
-                                                <a type="button" class="border-2 border-green-600 rounded-lg px-2 py-1 text-green-600 cursor-pointer hover:bg-green-600 hover:text-green-200 focus:outline-none" href="{{ route('actasDeControl.paiment', $controlAct) }}">
+                                                <a type="button" title="REALIZAR PAGO" class="md:w-auto py-2 border-2 border-gray-600 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-600 hover:text-gray-200" href="{{ route('actaControl.pagar', $controlAct) }}">
                                                     <span>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                                                        </svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
+                                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd" />
+                                                          </svg>
                                                     </span>
                                                 </a>
                                                 
                                             @endif
                                             <!-------------------------------------------------------------------------------->
-                                            <button wire:click="loadControlActId({{ $controlAct->id }})" class="border-2 border-gray-800 rounded-lg px-2 py-1 text-gray-600 cursor-pointer hover:bg-gray-800 hover:text-gray-200 focus:outline-none">
+                                            <button title="VER DETALLES" wire:click="loadControlActId({{ $controlAct->id }})" class="md:w-auto border-2 border-gray-600 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-600 hover:text-gray-200">
                                                 <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                                    </svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                                                        <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                                                      </svg>
                                                 </span>
                                             </button>
 

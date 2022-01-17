@@ -36,7 +36,12 @@ class ShowInspections extends Component
             $inspection_created_at,
             $inspection_campus,
             $proof_number;
-            
+
+    //variable para comprobar si tiene pagos asociados
+    public  $hasPaiments;
+
+    //variable para pagos
+    public  $paiments;
 
     public  $campus,
             $act_number;
@@ -173,14 +178,14 @@ class ShowInspections extends Component
         $this->licence_number = $inspection->licence_number;
         $this->address = $inspection->address;
         $this->infraction_code = $inspection->infraction->code;
-        $this->infraction_description = $inspection->infraction->description;
+        $this->infraction_description = $inspection->description;
         $this->infraction_infringement_agent = $inspection->infraction->infringement_agent;
         $this->infraction_uit_penalty = $inspection->infraction->uit_penalty;
-        $this->infraction_pecuniary_sanction = $inspection->infraction->pecuniary_sanction;
+        //$this->infraction_pecuniary_sanction = $inspection->infraction->pecuniary_sanction;
         $this->infraction_administrative_sanction = $inspection->infraction->administrative_sanction;
-        $this->infraction_discount_five_days = $inspection->infraction->discount_five_days;
-        $this->infraction_discount_fifteen_days = $inspection->infraction->discount_fifteen_days;
-        $this->infraction_discount_fifteen_days = $inspection->infraction->discount_fifteen_days;
+        //$this->infraction_discount_five_days = $inspection->infraction->discount_five_days;
+        //$this->infraction_discount_fifteen_days = $inspection->infraction->discount_fifteen_days;
+        //$this->infraction_discount_fifteen_days = $inspection->infraction->discount_fifteen_days;
         $this->place = $inspection->place;
         $this->district = $inspection->district->name_district;
         $this->province = $inspection->district->province->name_province;
@@ -195,12 +200,26 @@ class ShowInspections extends Component
         $this->inspection_created_at = $inspection->created_at;
         $this->inspection_campus = $inspection->campus->campus_name;
 
-        if($inspection->paiments){
-            $this->proof_number = $inspection->paiments->proof_number;
+        if($inspection->hasPaiment($inspection->id)){
+
+            $this->hasPaiments = true;
+            $this->paiments = $inspection->paiments;
+
         }else{
-            $this->proof_number = null;
+            $this->hasPaiments = false;
         }
-        
+/*
+        if($inspection->paiments){
+            
+            $this->proof_number = '0001';
+            $this->total_amount = 1000;
+            $this->date_payment = '20/02/2022';
+        }else{
+            $this->proof_number = '0001';
+            $this->total_amount = null;
+            $this->date_payment = null;
+        }
+*/
         $this->openModalShow();
     }
 
@@ -246,6 +265,8 @@ class ShowInspections extends Component
     {
         $this->isOpendivNumberAct  = false;
     }
+
+
 
     
 }

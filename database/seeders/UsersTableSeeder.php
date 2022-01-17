@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => bcrypt('123456789'),
             'role' => 'Administrador',
-            'status' => 'Activo',
+            'status' => 1,
             'campus_id' => 1
         ]);
     }

@@ -21,6 +21,7 @@ class CreatePaimentsTable extends Migration
             $table->double('total_amount', 6, 2);
             $table->double('amount_paid', 6, 2);
             $table->double('pending_amount', 6, 2);
+            $table->string('url_path_image_vaucher')->nullable();
             $table->unsignedBigInteger('paimentable_id');
             $table->string('paimentable_type');
 

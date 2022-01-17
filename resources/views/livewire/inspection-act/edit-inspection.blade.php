@@ -57,9 +57,13 @@
                         
                     </div>
                     <div class="grid grid-cols-1">
-                        <label for="">Calificación:</label>
-                        <input type="text" wire:model="inspection.qualification" class="rounded-md">
+                        <label for="" class="font-semibold">Calificación:</label>
                         
+                        @if ($infraction_id)
+                            <span>{{ $this->infraction->qualification }}</span> 
+                        @else
+                            <span>-------</span>
+                        @endif
                     </div>
                     <div class="grid grid-cols-1">
                         <label for="">Uit:</label>
@@ -157,6 +161,7 @@
                     @error('plate_number') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                     @error('identification_card_number') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                 </div>
+                <!--
                 <div class="grid grid-cols-4 my-2">
                     <div>
                         <label for="">Descripcion del medio probatorio:</label>
@@ -168,6 +173,7 @@
                         </select>
                     </div> 
                 </div>
+                -->
                 <div class="grid grid-cols-3 gap-3">
                     @error('inspection.evidence_id') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                 </div>
@@ -201,6 +207,46 @@
                     @error('inspection.inspector_id') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                     @error('inspection.campus_id') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                 </div>
+                <div 
+                class="mt-3"
+                wire:ignore
+                x-data
+                x-init="() => {
+                    const post = FilePond.create($refs.input);
+                    post.setOptions({
+                        server: {
+                            process:(fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
+                                @this.upload('file_pdf', file, load, error, progress)
+                            },
+                            revert: (filename, load) => {
+                                @this.removeUpload('file_pdf', filename, load)
+                            },
+                        },
+                        acceptedFileTypes: ['application/pdf'],
+                        labelFileTypeNotAllowed: 'Archivo de tipo no válido',
+                        fileValidateTypeLabelExpectedTypes: 'Espera archivo de tipo: {lastType}',
+                        maxFileSize: '1MB',
+                        labelMaxFileSizeExceeded: 'El archivo es demasiado grande',
+                        labelMaxFileSize: 'El tamaño máximo de archivo es {filesize}',
+                        allowPdfPreview: true,
+                        pdfPreviewHeight: 700,
+                        pdfComponentExtraParams: 'toolbar=0&view=fit&page=1' 
+                    }); 
+
+                }"
+                >
+                    <label for="" class="font-semibold">Archivo digitalizado del Acta de Fiscalización:</label>
+                    <input 
+                        accept="application/pdf" 
+                        type="file" x-ref="input" 
+                        wire:model="file_pdf" 
+                        data-pdf-preview-height="700"  
+                        data-pdf-component-extra-params="toolbar=0&navpanes=0&scrollbar=0&view=fitH"
+                    />
+                </div>
+                <div>
+                    @error('file_pdf') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
+                </div>
                 <div class="flex items-center">
                     <div class="flex justify-center flex-1 mt-8">
 
@@ -226,5 +272,67 @@
     </div>
 </div>
 
+
+@push('styles')
+    @once 
+        <link href="https://unpkg.com/filepond-plugin-pdf-preview/dist/filepond-plugin-pdf-preview.min.css" rel="stylesheet">
+        <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+        <style>
+            .filepond--panel-root {
+                background-color: transparent;
+                border: 2px solid #2c3340;
+            }
+        </style>       
+    @endonce
+@endpush
+
+@push('scripts')
+    @once 
+        <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-pdf-preview/dist/filepond-plugin-pdf-preview.min.js"></script>
+        <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+        <script>
+            const labels_es = {
+
+            labelIdle: "Arrastra y suelta el archivo o <span class = 'filepond--label-action'> Examinar <span>",
+            labelInvalidField: "El campo contiene archivos inválidos" ,
+            labelFileWaitingForSize: "Esperando tamaño",
+            labelFileSizeNotAvailable: "Tamaño no disponible" ,
+            labelFileLoading: "Cargando",
+            labelFileLoadError: "Error durante la carga", 
+            labelFileProcessing: "Cargando",
+            labelFileProcessingComplete: "Carga completa", 
+            labelFileProcessingAborted: "Carga cancelada",
+            labelFileProcessingError: "Error durante la carga", 
+            labelFileProcessingRevertError: "Error durante la reversión",
+            labelFileRemoveError: "Error durante la eliminación", 
+            labelTapToCancel: "Toca para cancelar",
+            labelTapToRetry: "Tocar para volver a intentar", 
+            labelTapToUndo: "Tocar para deshacer",
+            labelButtonRemoveItem: "Eliminar", 
+            labelButtonAbortItemLoad: "Abortar", 
+            labelButtonRetryItemLoad: "Reintentar",
+            labelButtonAbortItemProcessing: "Cancelar", 
+            labelButtonUndoItemProcessing: "Deshacer",
+            labelButtonRetryItemProcessing: "Reintentar", 
+            labelButtonProcessItem: "Cargar",
+            };
+
+            FilePond.setOptions(labels_es);
+
+
+            // Register the plugin
+            FilePond.registerPlugin(FilePondPluginFileValidateType);
+            FilePond.registerPlugin(FilePondPluginFileValidateSize);
+            FilePond.registerPlugin(FilePondPluginPdfPreview);
+
+            //validate
+
+        
+        </script>
+        
+    @endonce
+@endpush
 
 

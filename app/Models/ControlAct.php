@@ -60,9 +60,11 @@ class ControlAct extends Model
         return ControlActResolution::where('control_act_id', $idControlAct)->where('type_act', 'ACTA DE CONTROL')->exists();
     }
 
-    public function hasPaiment()
+    public function hasPaiment($controlActId)
     {
-        return Paiment::where('paimentable_type', 'App\Models\ControlAct')->exists();
+        $controlActId = ControlAct::findOrFail($controlActId);
+        return $controlActId::paiments()->exists();
+
     }
 
     //relacion uno a uno polimorfica

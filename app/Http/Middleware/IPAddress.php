@@ -49,7 +49,9 @@ class IPAddress
             }
         }
 
-        return response()->json('La direccion IP actual no esta autorizada. Comuniquese con el administrador del sistema');
+        abort(403, "La direccion IP actual no esta autorizada.");
+        //return response()->json('La direccion IP actual no esta autorizada. Comuniquese con el administrador del sistema');
+
         
     }
 }

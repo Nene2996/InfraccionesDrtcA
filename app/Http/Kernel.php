@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\UserActiveCheck;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -58,6 +59,7 @@ class Kernel extends HttpKernel
         'registrar_infracciones' => \App\Http\Middleware\RegisterInfrationsMiddleware::class,
         'editar_infracciones' => \App\Http\Middleware\UpdateInfrationsMiddleware::class,
         'ipaddress' => \App\Http\Middleware\IPAddress::class,
+        'user_active_check' => \App\Http\Middleware\UserActiveCheck::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,

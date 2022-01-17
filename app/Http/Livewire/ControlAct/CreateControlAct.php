@@ -248,7 +248,7 @@ class CreateControlAct extends Component
         $campus = Campus::find($this->campus_id);
 
         $extension = $this->file_pdf->extension();
-        $folder_name = 'public/ActasDeControl/AC' .  $this->numero_acta . '-' . $campus->alias;
+        $folder_name = 'public/ActasDeControl/ACTA-00' .  $this->numero_acta . '-' . $campus->alias;
         $url_path = $this->file_pdf->storeAs($folder_name, $this->numero_acta .' - '. $this->apellidos_conductor.' '.$this->nombres_conductor.'.'.$extension);
         $created = $controlAct->file()->create(['url_path' => $url_path, 'size' => $this->file_pdf->getSize()]);
 

@@ -8,12 +8,18 @@ use App\Models\Paiment;
 use App\Models\TypeProof;
 use App\Models\Uit;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class PaimentControlAct extends Component
 {
+    use     WithFileUploads;
+    public  $file_img, $paimentId;
+    
     // atributos de Acta de control
     public  $controlAct,
+            $controlActId,
             $numero_acta,
             $ruc_dni,
             $nro_dni_conductor,
@@ -35,7 +41,8 @@ class PaimentControlAct extends Component
             $estado_actual,
             $codigo_infraccion,
             $controlActResolution,
-            $fecha_notificacion_sancion;
+            $fecha_notificacion_sancion,
+            $uit_penalty;
 
     //atributos de pago
     public  $fecha_pago,
@@ -50,7 +57,8 @@ class PaimentControlAct extends Component
             $monto_infraccion,
             $descuento,
             $pendiente_pagar,
-            $suma_montos_pagados;
+            $suma_montos_pagados,
+            $monto_pago_infraccion;
 
     //detalles de descuentos
     public  $descuento_cinco_dias,
@@ -67,12 +75,13 @@ class PaimentControlAct extends Component
     protected $rules = [];
     protected $messages = [];
 
-    public  $isOpenModalPaimentControlAct = false;
+    public  $isOpenModalPaimentControlAct = false,
+            $isOpenModalPaimentFile = false;
 
     public function mount(ControlAct $controlAct)
     {
         $this->controlAct = $controlAct; //Object $controlAct
-        //$this->controlActId = $controlAct->numero_acta;
+        $this->controlActId = $controlAct->id;
         $this->numero_acta = $controlAct->numero_acta;
         $this->nro_licencia = $controlAct->nro_licencia;
         $this->apellidos_nombres_conductor = $controlAct->apellidos_nombres_conductor;
@@ -90,27 +99,32 @@ class PaimentControlAct extends Component
 
         $this->type_proofs = TypeProof::all();
         $this->fecha_notificacion_sancion = '';
+        $this->uit_penalty = $controlAct->infractions->uit_penalty;
+        $this->monto_pago_infraccion = $controlAct->infractions->pecuniary_sanction;
     }
 
     public function render()
     {
-        if($this->controlAct->hasPaiment()){
+        if($this->controlAct->hasPaiment($this->controlActId)){
             $paiments = $this->controlAct->paiments;
             $monto_total_pagado = 0;
+            $descuento_aplicado = 0;
 
             foreach($paiments as $paiment){
                 $monto_total_pagar = $paiment->total_amount;
                 $monto_total_pagado += $paiment->amount_paid;
+                $descuento_aplicado += $paiment->discount;
             }
+
             $this->dias_habiles = '-';
             $this->aplica_descuento_cinco = 'Ya se realizo un pago anteriormente';
             $this->descuento_cinco_dias = 0;
             $this->monto_total_infraccion = $monto_total_pagar;
             $this->suma_montos_pagados = $monto_total_pagado;
-            $this->monto_total_pagar = $monto_total_pagar - $monto_total_pagado;
+            $this->monto_total_pagar = $monto_total_pagar - ($monto_total_pagado + $descuento_aplicado);
             
         }else{
-            $this->updatedFechaPago();
+            //$this->updatedFechaPago();
         }
 
         //validar las fechas
@@ -131,6 +145,16 @@ class PaimentControlAct extends Component
         return view('livewire.paiment.paiment-control-act', ['paiments' => $paiments]);
     }
 
+    public function DeletePaiment($paimentId)
+    {
+        $paiment =  Paiment::find($paimentId);
+        if($paiment){
+            $url_path_before = $paiment->url_path_image_vaucher;
+            Storage::delete($url_path_before);
+            $paiment->delete();
+        } 
+    }
+
     public function OpenModalPaimentControlAct()
     {
         $this->isOpenModalPaimentControlAct = true;
@@ -143,6 +167,18 @@ class PaimentControlAct extends Component
         $this->resetInputs();
     }
 
+    public function OpenModalPaimentFile($paimentId)
+    {
+        $this->paimentId = $paimentId;
+        $this->isOpenModalPaimentFile = true;
+    }
+
+    public function CloseModalPaimentFile()
+    {
+        $this->isOpenModalPaimentFile = false;
+        $this->resetInputs();
+    }
+
     public function updatedFechaPago()
     {
         //obtener precios de UIT en base al fecha de pago
@@ -150,7 +186,7 @@ class PaimentControlAct extends Component
 
             $date_infraction = Carbon::parse($this->fecha_infraccion);
             $date_paiment = Carbon::parse($this->fecha_pago);
-            $date_now = Carbon::now();
+            //$date_now = Carbon::now();
 
             $year_infraction = $date_infraction->year;
             $year_paiment = $date_paiment->year;
@@ -178,9 +214,72 @@ class PaimentControlAct extends Component
                 //obtener el monto de que le corresponde a la infraccion
                 $this->monto_infraccion = $uit_value * $uit_percentage_infraccion;
 
+                //Verificar si existe resolucion de sancion asociada
+                if($this->controlAct->hasResolutionSancion($this->controlAct->id)){
+                    if($date_paiment >= Carbon::parse($this->fecha_notificacion_sancion)){
+                        $controlActResolution = ControlActResolution::where('control_act_id', $this->controlAct->id)->first();
+                        $this->fecha_notificacion_sancion = $controlActResolution->date_notification_driver;
+                        $this->dias_habiles_notificacion = $this->getDiasHabiles($this->fecha_notificacion_sancion, $this->fecha_pago);
+
+                        if( $this->dias_habiles_notificacion >= 0 && $this->dias_habiles_notificacion <= 15){
+                            if($descuento_quince_dias > 0.1){
+                                $this->aplica_descuento_quince = 'Si.';
+                                $this->descuento_quince_dias = $this->monto_infraccion * $descuento_quince_dias;
+    
+                                $this->monto_total_infraccion = $this->monto_infraccion;
+                                $this->monto_total_pagar = ($this->monto_infraccion -  $this->descuento_quince_dias);
+                            }else{
+                                $this->aplica_descuento_quince = 'La infracción no admite descuento.';
+                                $this->descuento_quince_dias = 0;
+    
+                                $this->monto_total_infraccion = $this->monto_infraccion;
+                                $this->monto_total_pagar = ($this->monto_infraccion -  $this->descuento_quince_dias);
+                            }
+                        }else{
+                            $this->aplica_descuento_cinco = 'Ya trancurrio mas de 5 dias hábiles.';
+                            $this->aplica_descuento_quince = 'Ya trancurrio mas de 15 dias hábiles.';
+                            $this->descuento_quince_dias = 0;
+    
+                            $this->monto_total_infraccion = $this->monto_infraccion;
+                            $this->monto_total_pagar = ($this->monto_infraccion -  $this->descuento_quince_dias);
+                        }
+                    }else{
+                        $this->aplica_descuento_cinco = 'Ya trancurrio mas de 5 dias hábiles.';
+                        $this->aplica_descuento_quince = 'La Fecha de Pago es menor que la fecha de notificacion.';
+                        $this->descuento_quince_dias = 0;
+                        $this->monto_total_infraccion = $this->monto_infraccion;
+                        $this->monto_total_pagar = ($this->monto_infraccion -  $this->descuento_quince_dias);
+                    }
+
+                }else{
+
+                    if( $this->dias_habiles >= 0 && $this->dias_habiles <= 5){
+                        if($descuento_cinco_dias > 0.1){
+                            $this->aplica_descuento_cinco = 'Si.';
+                            $this->descuento_cinco_dias = $this->monto_infraccion * $descuento_cinco_dias;
+                            $this->monto_total_infraccion = $this->monto_infraccion;
+                            $this->monto_total_pagar = ($this->monto_infraccion -  $this->descuento_cinco_dias);
+                        }else{
+                            $this->aplica_descuento_cinco = 'La infracción no admite descuento.';
+                            $this->descuento_cinco_dias = 0;
+                            $this->monto_total_infraccion = $this->monto_infraccion;
+                            $this->monto_total_pagar = ($this->monto_infraccion -  $this->descuento_cinco_dias);
+                        }
+
+                    }else{
+                        $this->aplica_descuento_cinco = 'Ya trancurrio mas de 5 dias hábiles.';
+                        $this->descuento_cinco_dias = 0;
+                        $this->monto_total_infraccion = $this->monto_infraccion;
+                        $this->monto_total_pagar = ($this->monto_infraccion -  $this->descuento_cinco_dias);
+                    }
+                }
+
+//=============================================================================================================================
+/*
                 if($descuento_cinco_dias > 0.1){
 
                     $this->aplica_descuento_cinco = 'Si.';
+
 
                     if($this->dias_habiles > 5){
                         
@@ -257,6 +356,7 @@ class PaimentControlAct extends Component
                     $this->monto_total_infraccion = $this->monto_infraccion;
                     $this->monto_total_pagar = ($this->monto_infraccion - ($this->descuento_cinco_dias + $this->descuento_quince_dias));
                 }
+*/
                 
             }else{
                 $this->dias_habiles = '-';
@@ -351,7 +451,11 @@ class PaimentControlAct extends Component
             "2021-10-08", 
             "2021-11-01", 
             "2021-12-08", 
+            "2021-12-24",
             "2021-12-25", 
+            "2021-12-27",
+            "2021-12-31",
+            "2022-01-03", 
              
             );
 
@@ -377,6 +481,7 @@ class PaimentControlAct extends Component
 
     public function savePaiment()
     {
+
         $rules = $this->rules;
         $messages = $this->messages;
 
@@ -400,17 +505,25 @@ class PaimentControlAct extends Component
 
         $this->validate($rules, $messages);
 
-        if($this->controlAct->hasPaiment()){
+        if($this->descuento_cinco_dias > 0){
+            $descuento_aplicado = $this->descuento_cinco_dias;
+        }elseif($this->descuento_quince_dias > 0){
+            $descuento_aplicado = $this->descuento_quince_dias;
+        }elseif($this->descuento_quince_dias == 0 || $this->descuento_cinco_dias == 0){
+            $descuento_aplicado = 0;
+        }
+
+        if($this->controlAct->hasPaiment($this->controlActId)){
             $pendiente_pagar = $this->monto_total_pagar - $this->monto_pagado;
         }else{
-            $pendiente_pagar = $this->monto_total_infraccion - $this->monto_pagado;
+            $pendiente_pagar = $this->monto_total_infraccion - ($this->monto_pagado + $descuento_aplicado);
         }
         
-
+        //dd($pendiente_pagar);
         $created = $this->controlAct->paiments()->create([
                                                             'date_payment' => $this->fecha_pago, 
                                                             'proof_number' => $this->numero_comprobante,
-                                                            'discount' => $this->type_proof_id,
+                                                            'discount' => $descuento_aplicado,
                                                             'total_amount' => $this->monto_total_infraccion,
                                                             'amount_paid' => $this->monto_pagado,
                                                             'pending_amount' => $pendiente_pagar,
@@ -420,8 +533,9 @@ class PaimentControlAct extends Component
 
         if($created){
             if($pendiente_pagar == 0){
-                $this->controlAct->estado_actual = 'CANCELADO';
-                $this->controlAct->save();
+                $this->controlAct->update([
+                    'estado_actual' => 'CANCELADO'
+                ]);
             }
             
             $this->CloseOpenModalPaimentControlAct();
@@ -429,9 +543,56 @@ class PaimentControlAct extends Component
 
     }
 
+    public function saveFileImg()
+    {
+        /*
+        $rules = $this->rules;
+        $messages = $this->messages;
+
+        $rules['file_img'] = 'required';
+        $messages['file_img.required'] = 'Es obligatorio adjuntar el comprobante de pago.';
+        $this->validate($rules, $messages);
+        */
+        $paiment = Paiment::find($this->paimentId);
+        $user = auth()->user();
+        if(!is_null($this->file_img)){
+            if(isset($paiment->url_path_image_vaucher)){
+                $url_path_before = $paiment->url_path_image_vaucher;
+                Storage::delete($url_path_before);
+
+                $extension = $this->file_img->extension();
+                $folder_name = 'public/ActasDeControl/ACTA-00' . $this->numero_acta . '-' . $user->campus->alias . '/COMPROBANTE_PAGO';
+                $url_path = $this->file_img->storeAs($folder_name, $paiment->typeProof->type .' - '. $paiment->proof_number .'.'. $extension);
+    
+                $saved = $paiment->update([
+                    'url_path_image_vaucher' => $url_path
+                ]);
+    
+                if($saved){
+                    session()->flash('message', ' El comprobante de pago se adjunto correctamente a la Infraccion con nro de Acta:'.$this->numero_acta);
+                    return redirect('/actas-de-control'); 
+                }
+                
+            }else{
+                $extension = $this->file_img->extension();
+                $folder_name = 'public/ActasDeControl/ACTA-00' . $this->numero_acta . '-' . $user->campus->alias . '/COMPROBANTE_PAGO';
+                $url_path = $this->file_img->storeAs($folder_name, $paiment->typeProof->type .' - '. $paiment->proof_number .'.'. $extension);
+    
+                $saved = $paiment->update([
+                    'url_path_image_vaucher' => $url_path
+                ]);
+    
+                if($saved){
+                    session()->flash('message', ' El comprobante de pago se adjunto correctamente a la Infraccion con nro de Acta:'.$this->numero_acta);
+                    return redirect('/actas-de-control'); 
+                }
+            }
+        }
+
+    }
     public function resetInputs()
     {
-        $this->fecha_pago = '';
+        $this->fecha_pago = null;
         $this->type_proof_id = '';
         $this->numero_comprobante = '';
         $this->monto_pagado = '';

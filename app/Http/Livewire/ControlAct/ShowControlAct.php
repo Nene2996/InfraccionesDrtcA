@@ -43,8 +43,12 @@ class ShowControlAct extends Component
             $nro_boleta_pago,
             $fecha_pago_infraccion;
 
-    //almacenar los pagos asociados
+    //variable para comprobar si tiene pagos asociados
+    public  $hasPaiments;
+
+    //variable para pagos
     public  $paiments;
+
     public $cant = 10;
 
     public  $placeholder_search;
@@ -78,24 +82,28 @@ class ShowControlAct extends Component
                     $controlActs = ControlAct::orderBy('numero_acta', 'asc')->paginate($this->cant);
                     return view('livewire.control-act.show-control-act', ['controlActs' => $controlActs]);
                 }
+                $this->resetInput();
                 break;
             
             case 1: 
                 $this->placeholder_search = 'Nro de Licencia de Conducir';
                 $controlActs = ControlAct::where('nro_licencia', $this->searchvalue)->paginate($this->cant);
                 return view('livewire.control-act.show-control-act', ['controlActs' => $controlActs]);
+                $this->resetInput();
                 break;
 
             case 2: 
                 $this->placeholder_search = 'Nro de DNI';
                 $controlActs = ControlAct::where('nro_dni_conductor', $this->searchvalue)->paginate($this->cant);
                 return view('livewire.control-act.show-control-act', ['controlActs' => $controlActs]);
+                $this->resetInput();
                 break;
 
             case 3: 
                 $this->placeholder_search = 'Nro de Acta de Control';
                 $controlActs = ControlAct::where('numero_acta', $this->searchvalue)->paginate($this->cant);
                 return view('livewire.control-act.show-control-act', ['controlActs' => $controlActs]);
+                $this->resetInput();
                 break;
         }
 
@@ -142,12 +150,15 @@ class ShowControlAct extends Component
         $this->cod_infraccion = $controlAct->infractions->code;
         $this->estado = $controlAct->estado_actual;
 
-        
+        if($controlAct->hasPaiment($controlAct->id)){
 
-        if($this->estado == 'CANCELADO'){
-
+            $this->hasPaiments = true;
             $this->paiments = $controlAct->paiments;
+
+        }else{
+            $this->hasPaiments = false;
         }
+
         $this->openModalShow();
     }
 }

@@ -1,9 +1,9 @@
 <div class="@if (!$isOpenModalPaimentControlAct) hidden @endif flex items-center justify-center fixed left-0 bottom-0 w-full h-full bg-gray-600 bg-opacity-75">
     <div class="bg-white rounded-lg w-9/12">
         <form wire:submit.prevent="savePaiment" class="">
-            <div class="flex flex-col p-4 ">
+            <div class="flex flex-col p-4">
                 <div class="flex items-center w-full border-b pb-4">
-                    <div class="text-gray-900 font-medium text-lg font-semibold">Registrar Pago</div>
+                    <div class="text-gray-900 font-medium text-lg font-semibold">Realizar Pago</div>
                     <svg wire:click="CloseOpenModalPaimentControlAct"
                             class="ml-auto fill-current text-gray-700 w-6 h-6 cursor-pointer"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
@@ -37,22 +37,9 @@
                             <label for="">Fecha Infraccion:</label>
                             <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ date('d/m/Y', strtotime($fecha_infraccion)) }}</h3>
                         </div>
-                        @if ($controlAct->hasResolutionSancion($controlAct->id))
-                            <div class="grid grid-cols-1">
-                                <label for="">Fecha de Notificación:</label>
-                                <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">
-                                    @if ($fecha_notificacion_sancion)
-                                        {{ date('d/m/Y', strtotime($fecha_notificacion_sancion)) }}
-                                    @else
-                                        ----------------------
-                                    @endif
-                                </h3>
-                            </div>
-                        @endif
-                        
                         <div class="h-auto grid grid-cols-1">
-                            <label for="">Monto UIT:</label>
-                            <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">0.5 UIT</h3>
+                            <label for="">Porcentaje UIT:</label>
+                            <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ $uit_penalty }}</h3>
                         </div>
                         
                     </div>
@@ -89,24 +76,38 @@
                         <table class="">
                             <thead></thead>
                             <tbody class="text-xs">
-                                <tr class="">
-                                    <td align="right"><strong>Dias hábiles a partir de la fecha de infraccion:</strong></td>
-                                    <td align="left" class="pl-3 text-yellow-600"><strong>{{ $dias_habiles }}</strong></td>
-                                </tr>
-                                <tr class="">
-                                    <td align="right"><strong>Aplica descuento de 5 dias hábiles:</strong></td>
-                                    <td align="left" class="pl-3 text-yellow-600"><strong>{{ $aplica_descuento_cinco }}</strong></td>
-                                </tr>
+                                @if (isset($fecha_pago))
+                                    <tr class="">
+                                        <td align="right"><strong>Dias hábiles a partir de la fecha de infraccion:</strong></td>
+                                        <td align="left" class="pl-3 text-yellow-600"><strong>{{ $dias_habiles }}</strong></td>
+                                    </tr>
+                                    <tr class="">
+                                        <td align="right"><strong>Aplica descuento de 5 dias hábiles:</strong></td>
+                                        <td align="left" class="pl-3 text-yellow-600"><strong>{{ $aplica_descuento_cinco }}</strong></td>
+                                    </tr>
+                                @else
+                                    <tr class="">
+                                        <td align="right"><strong class="text-red-600">* Ingresar fecha de pago de la infracción</strong></td>
+                                    </tr>
+                                @endif
                                 
                                 @if ($dias_habiles > 5)
-                                    <tr class="">
-                                        <td align="right"><strong>Dias hábiles a partir de la fecha de notificacion:</strong></td>
-                                        <td align="left" class="pl-3 text-yellow-600"><strong>{{ $dias_habiles_notificacion }}</strong></td>
-                                    </tr>
-                                    <tr class="">
-                                        <td align="right"><strong>Aplica descuento de Resolución de Sanción(15 dias):</strong></td>
-                                        <td align="left" class="pl-3 text-yellow-600"><strong>{{ $aplica_descuento_quince }}</strong></td>
-                                    </tr>
+                                    @if ($controlAct->hasResolutionSancion($controlAct->id))
+                                        @if ($fecha_pago >= $fecha_notificacion_sancion)
+                                            <tr class="">
+                                                <td align="right"><strong>Fecha de Notificacion de Resolución de Sanción:</strong></td>
+                                                <td align="left" class="pl-3 text-yellow-600"><strong>{{ date('d/m/Y', strtotime($fecha_notificacion_sancion)) }}</strong></td>
+                                            </tr>
+                                            <tr class="">
+                                                <td align="right"><strong>Dias hábiles a partir de la fecha de notificacion:</strong></td>
+                                                <td align="left" class="pl-3 text-yellow-600"><strong>{{ $dias_habiles_notificacion }}</strong></td>
+                                            </tr>
+                                            <tr class="">
+                                                <td align="right"><strong>Aplica descuento de Resolución de Sanción(15 dias):</strong></td>
+                                                <td align="left" class="pl-3 text-yellow-600"><strong>{{ $aplica_descuento_quince }}</strong></td>
+                                            </tr>
+                                        @endif
+                                    @endif
                                 @endif
                             </tbody>
                         </table>
@@ -117,7 +118,7 @@
                             <span class="text-xs">Monto de Infracción : S/ </span>
                             <span class="font-bold text-xs">{{ number_format($monto_total_infraccion, 2) }}</span>
                         </div>
-                        @if ($controlAct->hasPaiment())
+                        @if ($controlAct->hasPaiment($controlAct->id))
                             <div class="flex justify-end font-semibold pt-4 text-sm uppercase mr-5">
                                 <span class="text-xs">Monto pagado : S/ </span>
                                 <span class="font-bold text-xs">{{ number_format($suma_montos_pagados, 2) }}</span>
@@ -134,7 +135,7 @@
                         @endif
                         
                         <div class="flex justify-end font-bold pt-3 text-sm uppercase mr-5 ">
-                            <span>@if ($controlAct->hasPaiment()) Pendiente por pagar : S/ @else Total a pagar : S/  @endif </span>
+                            <span>@if ($controlAct->hasPaiment($controlAct->id)) Pendiente por pagar : S/ @else Total a pagar : S/  @endif </span>
                             <span class="">{{ number_format($monto_total_pagar, 2) }}</span>
                         </div>
                     </div>

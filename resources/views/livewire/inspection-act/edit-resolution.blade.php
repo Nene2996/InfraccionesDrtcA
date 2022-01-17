@@ -7,54 +7,49 @@
                     <div>
                         <div class="grid grid-cols-1">
                             <label for=""><strong>Nombres Apellidos / Razon Social:</strong></label>
-                            <h3 class="px-3 py-2 rounded-md bg-gray-200">{{ $names_business_name }}</h3>
+                            <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ $names_business_name }}</h3>
                         </div>
                     </div>
                     <div class="grid grid-cols-4 gap-3 mt-3">
                         <div class="grid grid-col-1" >
                             <label for=""><strong>Acta de Fiscalización:</strong> </label>
-                            @error('campus_id') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
-                            <h3 class="px-3 py-2 rounded-md bg-gray-200">{{ $act_number }}</h3>
+                            <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ $act_number }}</h3>
                         </div>
                         <div class="grid grid-cols-1">
                             <label for=""><strong>Dni/Ruc:</strong> </label>
-                            <h3 class="px-3 py-2 rounded-md bg-gray-200">{{ $document_number }}</h3>
+                            <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ $document_number }}</h3>
                         </div>
                         <div class="grid grid-cols-1">
                             <label for=""><strong>Licencia de Conducir:</strong> </label>
-                            <h3 class="px-3 py-2 rounded-md bg-gray-200">{{ $licence_number }}</h3>
+                            <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ $licence_number }}</h3>
                         </div>
                     </div>
                     <div class="grid grid-cols-4 gap-3 my-2">
                         <div class="grid grid-cols-1">
                             <label for=""><strong>Codigo de Infraccion:</strong> </label>
-                            <h3 class="px-3 py-2 rounded-md bg-gray-200">{{ $code }}</h3>
+                            <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ $code }}</h3>
                         </div>
                         <div class="grid grid-cols-1">
-                            <label for=""><strong>Uit:</strong> </label>
-                            <h3 class="px-3 py-2 rounded-md bg-gray-200">{{ $uit_penalty }}</h3>
-                        </div>
-                        <div class="grid grid-cols-1">
-                            <label for=""><strong>Monto Uit:</strong> </label>
-                            <h3 class="px-3 py-2 rounded-md bg-gray-200">{{ $pecuniary_sanction }}</h3>
+                            <label for=""><strong>Porcentaje Uit:</strong> </label>
+                            <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ $uit_penalty }}</h3>
                         </div>
                     </div>
                     <div>
                         <div class="grid grid-cols-1">
                             <label for=""><strong>Sancion Administrativa:</strong> </label>
-                            <h3 class="px-3 py-2 rounded-md bg-gray-200">{{ $administrative_sanction }}</h3>
+                            <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ $administrative_sanction }}</h3>
                         </div>
                     </div>
                     <div class="grid grid-cols-4 gap-3 my-2">
                         <div class="grid grid-cols-1">
                             <label for=""><strong>Fecha de la Infracción:</strong> </label>
-                            <h3 class="px-3 py-2 rounded-md bg-gray-200">{{ date('d-m-Y', strtotime($date_infraction)) }}</h3>
+                            <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ date('d-m-Y', strtotime($date_infraction)) }}</h3>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 gap-3 my-2">
                         <div class="grid grid-cols-1">
                             <label for=""><strong>Estado de Infraccion:</strong> </label>
-                            <h3 class="px-3 py-2 rounded-md bg-gray-200">{{ $status }}</h3>
+                            <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ $status }}</h3>
                         </div>
                     </div>
                     <x-jet-section-border />

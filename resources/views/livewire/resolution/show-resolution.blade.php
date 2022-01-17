@@ -65,7 +65,7 @@
             </div>
             <div class="p-6 bg-white border-b border-gray-200">
                 <div class="flex justify-center">
-                    <table class="divide-y divide-gray-200">
+                    <table class="divide-y divide-gray-200 w-full">
                         <thead class="bg-gray-200">
                             <tr>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"> Titulo</th>
@@ -93,10 +93,10 @@
                                         <div class="text-sm text-gray-900">{{ $resolution->type }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $resolution->date_resolution }}</div>
+                                        <div class="text-sm text-gray-900">{{ date('d/m/Y', strtotime($resolution->date_resolution)) }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{  $resolution->size.' KB' }}</div>
+                                        <div class="text-sm text-gray-900">{{ number_format($resolution->size/ 1048576, 2) . ' Mb' }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-red-600">
                                         <a href="{{ Storage::url($resolution->url) }}" target="_blank">
@@ -130,7 +130,7 @@
                             </tr>
                             @empty 
                                 <tr class="text-center">
-                                    <td colspan="12" class="py-3 italic">No hay registro de Resoluciones.</td>
+                                    <td colspan="12" class="py-3">.:No hay registro de Resoluciones:.</td>
                                 </tr>
                             @endforelse
                         </tbody>

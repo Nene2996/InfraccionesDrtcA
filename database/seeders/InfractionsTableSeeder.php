@@ -14,6 +14,7 @@ class InfractionsTableSeeder extends Seeder
      */
     public function run()
     {
+        #1
         Infraction::create([
             'description' => 'Prestar el servicio de transporte de personas, de mercancias o mixto, sin contar con autorización otorgada por la autoridad competente o una modalidad o ámbito diferente al autorizado.',
             'type' => 'Infracción',
@@ -29,6 +30,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0,
         ]);
 
+        #2
         Infraction::create([
             'description' => 'INFRACCIONDEL TRANSPORTISTA: Permitir lautilización outilizar, intencionalmente, los vehículos destinados a la prestación del servicio, en acciones de bloqueo,interrupción u otras que impidan el libre tránsito por las calles,carreteras,puentes, vías férreas y otras vías públicas terrestres.',
             'type' => 'Infracción',
@@ -44,6 +46,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0,
         ]);
 
+        #3
         Infraction::create([
             'description' => 'INFRACCION DEL CONDUCTOR: Participar como conductor de vehículos que sean utilizados en acciones de bloqueo, interrupción u otras que impidan el libre transito por las calles, carreteras, puentes, vías férreas y otras vías públicas terrestres.',
             'type' => 'Infracción',
@@ -59,6 +62,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0,
         ]);
 
+        #4
         Infraction::create([
             'description' => 'INFRACCION DEL TRANSPORTISTA: Obstruir la labor de fiscalización en cualesquiera de los siguientes casos: a) Negarse a entregar la información o documentación correspondiente al vehículo, a su habilitación como conductor, al servicio que presta o actividad de transporte que realiza, al ser requerido para ello.',
             'type' => 'Infracción',
@@ -74,6 +78,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0,
         ]);
 
+        #5
         Infraction::create([
             'description' => 'INFRACCION DEL TRANSPORTISTA: Obstruir la labor de fiscalización en cualesquiera de los siguientes casos: b) Brindar intencionalmente información no conforme, a la autoridad competente, durante la fiscalización con el propósito de hacerla incurrir en error respecto de la autorización para prestar el servicio, de la habilitación del vehículo o la del conductor.',
             'type' => 'Infracción',
@@ -89,6 +94,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0,
         ]);
 
+        #6
         Infraction::create([
             'description' => 'INFRACCION DEL TRANSPORTISTA: Obstruir la labor de fiscalización en cualesquiera de los siguientes casos: c) Incurrir en actos de simulación, suplantación u otras conductas destinadas a hacer incurrir en error a la autoridad competente respecto de la\nautorización para prestar el servicio, o respecto de la habilitación del vehículo o la del conductor.',
             'type' => 'Infracción',
@@ -1390,7 +1396,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0.3
         ]);
 
-        # 79
+        # 77
         Infraction::create([
             'description' => 'El incumplimiento de cualquiera de las condiciones de acceso y permanencia previstas en los siguientes artículos:
             Artículo 18, Artículo 19.- Numerales 19.1, 19.2, 19.3, 19.4, Artículo 20.- Numerales 20.1.1, 20.1.2, 20.1.3, 20.1.4, 20.1.5, 20.1.6, 20.1.7, 20.1.10, 20.1.11, 20.1.12, 20.3.1, 20.3.3, 20.3.4, 20.4.1, Artículo 21.- Numeral 21.1, Artículo 22.- Numerales 22.1, 22.2 y 22.3, Artículo 23.- Numerales 23.1.1 y 23.1.2, Artículo 25 Artículo 26, que no se encuentren tipificadas como infracciones',
@@ -1412,7 +1418,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0
         ]);
 
-        # 79
+        # 78
         Infraction::create([
             'description' => 'El incumplimiento de cualquiera de las condiciones de acceso y permanencia previstas en los siguientes artículos:
             Artículo 20.- Numeral 20.1.13
@@ -1467,7 +1473,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0
         ]);
 
-        # 79
+        # 80
         Infraction::create([
             'description' => 'El incumplimiento de cualquiera de las condiciones de acceso y permanencia previstas en el artículo 29, que no se encuentren tipificadas como infracciones',
             'type' => 'Incumplimiento',
@@ -1484,7 +1490,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0
         ]);
 
-        # 79
+        # 81
         Infraction::create([
             'description' => 'El incumplimiento de cualquiera de las condiciones de acceso y permanencia previstas en el artículo 30 que no se encuentren tipificadas como infracciones.',
             'type' => 'Incumplimiento',
@@ -1501,7 +1507,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0
         ]);
 
-        # 79
+        # 82
         Infraction::create([
             'description' => 'El incumplimiento de cualquiera de las condiciones de acceso y permanencia previstas en el artículo 31 que no se encuentre tipificada como infracciones.',
             'type' => 'Incumplimiento',
@@ -1518,7 +1524,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0
         ]);
 
-        # 79
+        # 83
         Infraction::create([
             'description' => 'El incumplimiento de cualquiera de las condiciones de acceso y permanencia previstas en los artículos 34, 35, 36, 48, 73, 74 o 75 que no se encuentren tipificadas como infracciones',
             'type' => 'Incumplimiento',
@@ -1534,7 +1540,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0
         ]);
 
-        # 79
+        # 84
         Infraction::create([
             'description' => 'El incumplimiento de cualquiera de las condiciones de acceso y permanencia previstas en los siguientes artículos:
             Artículo 37 
@@ -1554,7 +1560,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0
         ]);
 
-        # 79
+        # 85
         Infraction::create([
             'description' => 'El incumplimiento de cualquiera de las condiciones de acceso y permanencia previstas en los siguientes artículos: Artículo 41, numerales 41.1.2.1, 41.1.3.1, 41.1.3.2, 41.1.3.3, 41.1.4, 41.1.6, 41.1.9, 41.2.1, 41.2.5.4 y 41.2.7 Artículo 42, numerales 42.1.4, 42.1.5, 42.1.10, 42.1.18, 42.1.19, 42.1.23 y 42.2.3. Artículo 45 numerales 45.1.1 y 45.1.10
             Artículo 64, numeral 64.4. Artículo 79 que no se encuentren tipificadas como infracciones.',
@@ -1572,7 +1578,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0
         ]);
 
-        # 79
+        # 86
         Infraction::create([
             'description' => 'El incumplimiento de cualquiera de las condiciones de acceso y permanencia previstas en los siguientes artículos:
             Artículo 38
@@ -1597,7 +1603,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0
         ]);
 
-        # 83
+        # 87
         Infraction::create([
             'description' => 'No cumplir con el aforo del vehículo, transportando usuarios que exceden el número de asientos señalados en la Tarjeta de Identificación Vehicular y/o usuarios de pie; y/o no señalizar los asientos del vehículo que no deben ser usados por los usuarios; y/o no implementar las cortinas de polietileno u otro material análogo en el vehículo; según corresponda, de acuerdo con lo establecido en los lineamientos sectoriales para la prevención del COVID-19 en la prestación del servicio de transporte terrestre, aprobado por el MTC',
             'type' => 'Infracción',
@@ -1617,7 +1623,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0
         ]);
 
-        #84
+        #88
         Infraction::create([
             'description' => 'Prestar el servicio de transporte sin haber realizado la limpieza y/o la desinfección del vehículo, de acuerdo con lo establecido en los lineamientos sectoriales para la prevención del COVID-19 en la prestación del servicio de transporte terrestre, aprobado por el MTC.',
             'type' => 'Infracción',
@@ -1637,7 +1643,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0
         ]);
 
-        #85
+        #89
         Infraction::create([
             'description' => 'No proporcionar al conductor, a la tripulación y al cobrador, mascarillas y protector facial para la prestación del servicio de transporte, según corresponda, de acuerdo con lo establecido en los lineamientos sectoriales para la prevención del COVID-19 en la prestación del servicio de transporte terrestre, aprobado por el MTC.',
             'type' => 'Infracción',
@@ -1656,7 +1662,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0
         ]);
 
-        #86
+        #90
         Infraction::create([
             'description' => 'No realizar el control de temperatura a los usuarios con termómetro infrarrojo, antes del embarque al vehículo, cuando corresponda, de acuerdo con lo establecido en los lineamientos sectoriales para la prevención del COVID-19 en la prestación del servicio de transporte terrestre, aprobado por el MTC.',
             'type' => 'Infracción',
@@ -1675,7 +1681,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0
         ]);
 
-        #87
+        #91
         Infraction::create([
             'description' => 'Prestar el servicio de transporte incumpliendo los lineamientos sectoriales para la prevención del COVID-19 en la prestación del servicio de transporte terrestre, aprobado por el MTC, con excepción de lo dispuesto en los numerales 41.1.11, 41.1.12, 41.1.13 y 41.1.14 del artículo 41 del presente Reglamento.',
             'type' => 'Infracción',
@@ -1691,6 +1697,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0
         ]);
 
+        #92
         Infraction::create([
             'description' => 'No utilizar la mascarilla y el protector facial, según corresponda, durante la conducción de un vehículo del servicio de transporte, de acuerdo con lo dispuesto en los lineamientos sectoriales para la prevención del COVID-19 en la prestación del servicio de transporte terrestre, aprobado por el MTC.',
             'type' => 'Infracción',
@@ -1706,7 +1713,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0
         ]);
 
-        # 78
+        # 93
         Infraction::create([
             'description' => 'Realizar la conducción de un vehículo del servicio de transporte: sin cumplir con el aforo al transportar usuarios que exceden el número de asientos señalados en la Tarjeta de Identificación Vehicular y/o usuarios de pie; y/o utilizando los asientos del vehículo señalizados o que no pueden ser empleados; y/o que no cuenta con las cortinas de polietileno u otro material análogo para el aislamiento entre asientos; y/o permitiendo que un usuario sea transportado sin utilizar su mascarilla y protector facial; Según corresponda, de acuerdo con lo establecido en los lineamientos sectoriales para la prevención del COVID-19 en la prestación del servicio de transporte terrestre, aprobado por el MTC.',
             'type' => 'Infracción',
@@ -1723,7 +1730,7 @@ class InfractionsTableSeeder extends Seeder
         ]);
 
 
-        #88
+        # 94
         Infraction::create([
             'description' => 'Realizar la conducción de un vehículo del servicio de transporte incumpliendo los lineamientos sectoriales para la prevención del COVID-19 en la prestación del servicio de transporte terrestre, aprobado por el MTC, con excepción de lo dispuesto en los numerales 31.11 y 31.12 del artículo 31 del presente Reglamento.',
             'type' => 'Infracción',
@@ -1739,7 +1746,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0
         ]);
 
-        #89
+        #95
         Infraction::create([
             'description' => 'Operar la infraestructura complementaria sin observar las medidas mínimas de limpieza y/o desinfección y/o aforo establecidas en los lineamientos sectoriales para la prevención del COVID-19 en la prestación del servicio de transporte terrestre, aprobado por el MTC.',
             'type' => 'Infracción',
@@ -1755,7 +1762,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0
         ]);
 
-        #90
+        #96
         Infraction::create([
             'description' => 'No proporcionar a su personal mascarillas para la prestación del servicio, de acuerdo con lo dispuesto en los lineamientos sectoriales para la prevención del COVID-19 en la prestación del servicio de transporte terrestre, aprobado por el MTC.',
             'type' => 'Infracción',
@@ -1771,7 +1778,7 @@ class InfractionsTableSeeder extends Seeder
             'discount_fifteen_days' => 0
         ]);
 
-        #91
+        #97
         Infraction::create([
             'description' => 'Operar la infraestructura complementaria incumpliendo los lineamientos sectoriales para la prevención del COVID-19 en la prestación del servicio de transporte terrestre, aprobado por el MTC, con excepción de lo dispuesto en los numerales 35.10 y 35.11 del artículo 35 del presente Reglamento.',
             'type' => 'Infracción',
@@ -1783,6 +1790,22 @@ class InfractionsTableSeeder extends Seeder
             'pecuniary_sanction' => 220,
             'administrative_sanction' => 'No aplica',
             'preventive_measure' => '(*) Anexo 4 incorporado por el Artículo 3 del Decreto Supremo Nº 016-2020-MTC, publicado el 18 julio 2020. (**) De conformidad con la Primera Disposición Complementaria Final del Decreto Supremo Nº 016-2020-MTC, publicado el 18 julio 2020, la Superintendencia de Transporte Terrestre de Personas, Carga y Mercancías (SUTRAN), la Autoridad de Transporte Urbano para Lima y Callao (ATU), los Gobiernos Regionales y los Gobiernos Locales, en el marco de sus competencias, realizan la actividad de fiscalización para verificar el cumplimiento de las obligaciones previstas en los respectivos protocolos o lineamientos sectoriales para la prevención del COVID-19 aprobados por el MTC, según corresponda. Asimismo, tramitan y sancionan la inobservancia de los respectivos protocolos o lineamientos sectoriales, según corresponda, aplicando las sanciones previstas en el presente Anexo 4.',
+            'discount_five_days' => 0,
+            'discount_fifteen_days' => 0
+        ]);
+
+        #98
+        Infraction::create([
+            'description' => 'Prestar el servicio de transporte( con conductores que cuenten )con licencia de conducir que no corresponda a la clase y categoria requerida para el vehiculo que conduce.',
+            'type' => 'Infracción',
+            'qualification' => 'Muy grave',
+            'code' => 'T.15',
+            'infringement_agent' => 'Conductor',
+            'uit_penalty' => 'Multa de 0.5 de la UIT',
+            'uit_percentage' => 0.5,
+            'pecuniary_sanction' => 2300,
+            'administrative_sanction' => 'Internamiento del vehiculo en el DMV',
+            'preventive_measure' => '',
             'discount_five_days' => 0,
             'discount_fifteen_days' => 0
         ]);

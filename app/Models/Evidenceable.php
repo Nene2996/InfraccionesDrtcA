@@ -8,15 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Evidenceable extends Model
 {
     use HasFactory;
-    protected $table = 'evidenciables';
+    protected $table = 'evidenceables';
 
-    public function videos()
+    public function FileEvidence()
     {
-        return $this->hasMany('App\Models\Video');
+        return $this->belongsTo('App\Models\FileEvidence', 'file_evidence_id');
     }
 
-    public function pictures()
+    public function TypeEvidence()
     {
-        return $this->hasMany('App\Models\Picture');
+        return $this->belongsTo('App\Models\Evidence', 'evidence_id');
     }
 }

@@ -16,7 +16,7 @@ class InspectorsTableSeeder extends Seeder
     {
         Inspector::create([
             'surnames_and_names' => 'CARLOS ALBERTO SANCHEZ MUÑOZ',
-            'dni' => '00000000',
+            'dni' => '33408395',
             'status' => 1
         ]);
 
@@ -125,6 +125,12 @@ class InspectorsTableSeeder extends Seeder
         Inspector::create([
             'surnames_and_names' => 'IVAN PÉREZ GAONA',
             'dni' => '33560517',
+            'status' => 0
+        ]);
+
+        Inspector::create([
+            'surnames_and_names' => 'NUÑEZ PERALTA SEGUNDO ANTONIO',
+            'dni' => '33569256',
             'status' => 0
         ]);
     }

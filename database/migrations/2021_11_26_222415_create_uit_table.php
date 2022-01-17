@@ -16,7 +16,7 @@ class CreateUitTable extends Migration
         Schema::create('uit', function (Blueprint $table) {
             $table->id();
             $table->integer('year');
-            $table->integer('amount_uit');
+            $table->double('amount_uit', 6, 2);
             $table->string('legal_regulation')->nullable();
             $table->string('observations')->nullable();
             $table->timestamps();

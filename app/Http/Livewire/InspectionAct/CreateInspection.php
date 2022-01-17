@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
+
+
 class CreateInspection extends Component
 {
     use     WithFileUploads;
@@ -65,7 +67,7 @@ class CreateInspection extends Component
             $plate_number,
             $identification_card_number,
             $district_id = '',
-            $evidence_id = [],
+            $evidence_id = '',
             $inspector_id = "",
             $infraction_id = "",
             $typeNames_id,
@@ -91,7 +93,7 @@ class CreateInspection extends Component
         'reference' => 'nullable',
         'observation' => 'nullable',
         'plate_number' => 'required|regex:/^[A-Z,0-9]{3}[-][A-Z,0-9]{3}+$/',
-        'identification_card_number' => 'required|regex:/^[A-Z,0-9]+$/',
+        'identification_card_number' => 'required|regex:/^[0-9]+$/',
         //'evidence_id' => 'required',
         //'file_evidence' => 'required',
         'description' => 'required',
@@ -161,7 +163,7 @@ class CreateInspection extends Component
         }
 
         $evidencesFiles = Inspection::with('evidences')->get();
-        //dd($evidencesFiles);
+        
 
         return view('livewire.inspection-act.create-inspection');
         
@@ -176,7 +178,7 @@ class CreateInspection extends Component
         
         $response = Http::withToken('673dda73ae6223bd300b6db984f3ac6a125b2b8b9ed9ae9bffed87bfcb4b4b84')->get('https://apiperu.dev/api/dni/'.$this->document_number);
 
-        //dd($response->getStatusCode());
+        //dd($response);
         if($response->getStatusCode() == 200){
             $this->dataReniec = (json_decode($response->getBody(), true));
             if($this->dataReniec['success'] == true){
@@ -215,6 +217,7 @@ class CreateInspection extends Component
         }
     }
 
+
     public function saveFileEvidence()
     {
         //Archivos de evidencias 
@@ -222,21 +225,21 @@ class CreateInspection extends Component
             
             $extension_file_evidence = $file_evid->extension();
             
-            $folder_name_file_evidence = 'public/ActasDeInfraccion/ACTA-00' . $this->act_number;
+            $folder_name_file_evidence = 'public/ActasDeFiscalizacion/ACTA-00' . $this->act_number;
             $url_path_file_evidence = $file_evid->storeAs($folder_name_file_evidence, uniqid() . 'EVIDENCIA' . '.' . $extension_file_evidence);
             $fileEvidence = FileEvidence::create([
                 'size' => $file_evid->getSize(),
                 'url_path' => $url_path_file_evidence
             ]);
 
-            $inspection->evidences()->attach($this->evidence_id[$index], ['file_evidence_id' => $fileEvidence->id]);
+            //$inspection->evidences()->attach($this->evidence_id[$index], ['file_evidence_id' => $fileEvidence->id]);
             
         }
     }
 
     public function save()
     {
-        dd($this->file_evidence);
+        
         //$nowHour = Carbon::now()->format('g:i A');
         $tomorrow = Carbon::tomorrow('America/Lima');
         $end = $tomorrow->subYear()->format('d-m-Y');
@@ -293,7 +296,8 @@ class CreateInspection extends Component
             'plate_number' => $this->plate_number,
             'identification_card_number' => $this->identification_card_number
         ]);
-        
+        $user = auth()->user();
+
         $inspection = $vehicle->inspections()->create([
             'act_number' => $this->act_number,
             'names_business_name' => $nameBusinessName,
@@ -316,19 +320,24 @@ class CreateInspection extends Component
             'infraction_id' => $this->infraction_id,
             'typeNames_id' => $this->select,
             'typeDocument_id' => $typeDocument_id,
-            'user_id' => auth()->user()->id
+            'user_id' => $user->id
 
         ]);
 
+
         $extension = $this->file_pdf->extension();
-        $folder_name = 'public/ActasDeInfraccion/ACTA-00' . $this->act_number;
+        $folder_name = 'public/ActasDeFiscalizacion/ACTA-00' . $this->act_number. '-' . $user->campus->alias;
         $url_path = $this->file_pdf->storeAs($folder_name, $this->act_number .' - '. $nameBusinessName .'.'. $extension);
         $inspection->file()->create(['url_path' => $url_path, 'size' => $this->file_pdf->getSize()]);
 
-        
-
-            session()->flash('message', 'Infraccion con acta numero '.$this->act_number.' registrada correctamente.');
-            return redirect('/actas-de-fiscalizacion'); 
+        /*
+        $inspection->evidences()->attach([
+                1 => ['file_evidence_id' => 1],
+                2 => ['file_evidence_id' => 2],
+            ]);
+        */
+        session()->flash('message', 'Infraccion con acta numero '.$this->act_number.' registrada correctamente.');
+        return redirect('/actas-de-fiscalizacion'); 
         
         
     }
@@ -345,9 +354,6 @@ class CreateInspection extends Component
     public function removeEvidence($index)
     {   
         unset($this->evidencesFiles[$index]);
-        
-        //$this->evidencesFiles = array_values($this->evidencesFiles);
-        //dd($this->evidencesFiles);
 
     }
 

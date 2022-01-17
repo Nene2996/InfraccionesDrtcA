@@ -13,11 +13,17 @@ use App\Models\Province;
 use App\Models\TypeName;
 use App\Models\Vehicle;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class EditInspection extends Component
 {
+    use WithFileUploads;
+    public  $file_pdf;
+    
     public  $names_business_names, 
+            $names_driver,
             $inspection, 
             $provinces, 
             $districts, 
@@ -49,7 +55,7 @@ class EditInspection extends Component
         'inspection.document_number' => 'required|regex:/^[0-9]+$/',
         'inspection.licence_number' => 'required|regex:/^[A-Z,a-z]{1}[0-9]{8}$/',
         'inspection.infraction_id' => 'required',
-        'inspection.qualification' => 'required',
+        //'inspection.qualification' => 'required',
         'inspection.date_infraction' => 'required|date',
         'inspection.hour_infraction' => 'required',
         'inspection.additional_Information' => 'nullable',
@@ -59,8 +65,8 @@ class EditInspection extends Component
         'inspection.reference' => 'nullable',
         'inspection.observation' => 'nullable',
         'plate_number' => 'required|regex:/^[A-Z,0-9]{3}[-][A-Z,0-9]{3}+$/',
-        'identification_card_number' => 'required|regex:/^[0-9]{10}$/',
-        'inspection.evidence_id' => 'required',
+        'identification_card_number' => 'required|regex:/^[0-9]+$/',
+        //'inspection.evidence_id' => 'required',
         'inspection.description' => 'required',
         'inspection.inspector_id' => 'required',
         'inspection.status' => 'required',
@@ -74,7 +80,7 @@ class EditInspection extends Component
         'inspection.document_number.required' => 'Es obligatorio ingresar el número de Dni / Ruc.',
         'inspection.document_number.regex' => 'El formato del campo Número de Documento es inválido.',
         'inspection.licence_number.required' => 'Es obligatorio ingresar el número de Licencia de Conducir.',
-        'inspection.qualification.required' => 'La calificación(LEVE, GRAVE, MUY GRAVE) es obligatorio',
+        //'inspection.qualification.required' => 'La calificación(LEVE, GRAVE, MUY GRAVE) es obligatorio',
         'plate_number.regex' => 'En número de placa no es un formato válido.',
         'plate_number.required' => 'En número de placa es obligatorio.',
         'identification_card_number.required' => 'El Número de Tarjeta de Identificación vehicular es obligatorio.',
@@ -85,7 +91,7 @@ class EditInspection extends Component
     public function mount(Inspection $inspection)
     {
         $this->inspection = $inspection;
-
+        $this->names_driver = $inspection->names_business_name;
         $this->departments = Department::all();
 
         $this->names_business_names = TypeName::all();
@@ -100,8 +106,6 @@ class EditInspection extends Component
 
         $this->evidences = Evidence::all();
         //$this->evidence_id = $inspection->evidences->id;
-
-        
         $this->campus_id = $inspection->campus->id;
         $this->campus_inspection = $inspection->campus->campus_name;
 
@@ -144,21 +148,45 @@ class EditInspection extends Component
         $rules['inspection.date_infraction'] = 'before:tomorrow';
         $messages['inspection.date_infraction.before'] = 'La fecha de infracción debe ser una fecha anterior a '.$end;
 
-        
         if($this->inspection['typeNames_id'] == 1){
             $this->inspection['typeDocument_id'] = 1;
         }else{
             $this->inspection['typeDocument_id'] = 2;
         }
 
+        $vehicle = Vehicle::find($this->vehicle_id);
+
+        $vehicle->update(
+            ['plate_number' => $this->plate_number,
+             'identification_card_number' => $this->identification_card_number
+            ]
+        );
+
         $this->validate($rules, $messages);
         $this->inspection->save();
+
+        $campus = Campus::find($this->campus_id);
+
+        if(!is_null($this->file_pdf)){
+            if(isset($this->inspection->file->url_path)){ // modificas/eliminas porque ya existe archivo asociado
+
+                $url_path_before = $this->inspection->file->url_path;
+                Storage::delete($url_path_before);
+                
+                $extension = $this->file_pdf->extension();
+                $folder_name = 'public/ActasDeFiscalizacion/ACTA-00' .  $this->inspection->act_number . '-' . $campus->alias;
+                $url_path = $this->file_pdf->storeAs($folder_name, $this->inspection->act_number .' - '. $this->names_driver .'.'.$extension);
+                $this->inspection->file()->update(['url_path' => $url_path, 'size' => $this->file_pdf->getSize()]);
+
+            }else{ // crea/almacena el archivo pdf
+                $extension = $this->file_pdf->extension();
+                $folder_name = 'public/ActasDeFiscalizacion/ACTA-00' .  $this->inspection->act_number . '-' . $campus->alias;
+                $url_path = $this->file_pdf->storeAs($folder_name, $this->inspection->act_number .' - '. $this->names_driver .'.'.$extension);
+                $this->inspection->file()->create(['url_path' => $url_path, 'size' => $this->file_pdf->getSize()]);
+            }
+        }
 
         session()->flash('message', 'La Infraccion con Numero de Acta '.$this->inspection->act_number.' ha sido actualizada correctamente.');
         return redirect('/actas-de-fiscalizacion');
     }
-
-    
-
-    
 }

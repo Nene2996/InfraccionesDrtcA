@@ -393,14 +393,14 @@ class EditControlAct extends Component
                 Storage::delete($url_path_before);
     
                 $extension = $this->file_pdf->extension();
-                $folder_name = 'public/ActasDeControl/AC' .  $this->controlAct->numero_acta. '-' . $campus->alias;
+                $folder_name = 'public/ActasDeControl/ACTA-00' .  $this->controlAct->numero_acta. '-' . $campus->alias;
                 $url_path = $this->file_pdf->storeAs($folder_name, $this->controlAct->numero_acta .' - '. $this->apellidos_conductor.' '.$this->nombres_conductor.'.'.$extension);
                 $this->controlAct->file()->update(['url_path' => $url_path, 'size' => $this->file_pdf->getSize()]);
     
             }else{// crea/almacena el archivo pdf
     
                 $extension = $this->file_pdf->extension();
-                $folder_name = 'public/ActasDeControl/AC' .  $this->controlAct->numero_acta. '-' . $campus->alias;
+                $folder_name = 'public/ActasDeControl/ACTA-00' .  $this->controlAct->numero_acta. '-' . $campus->alias;
                 $url_path = $this->file_pdf->storeAs($folder_name, $this->controlAct->numero_acta .' - '. $this->apellidos_conductor.' '.$this->nombres_conductor.'.'.$extension);
                 $this->controlAct->file()->create(['url_path' => $url_path, 'size' => $this->file_pdf->getSize()]);
             }

@@ -103,6 +103,12 @@ class Inspection extends Model
         return InspectionActResolution::where('inspection_act_id', $idInspection)->exists();
     }
 
+    //verificar si existe resolución de Sanción asociada.
+    public function hasResolutionSancion($idInspectionAct)
+    {
+        return InspectionActResolution::where('inspection_act_id', $idInspectionAct)->where('type_act', 'ACTA DE FISCALIZACION')->exists();
+    }
+
     //relacion uno a uno polimorfica
     public function file()
     {
@@ -112,7 +118,7 @@ class Inspection extends Model
     //Relacion muchos a muchos polimorfica
     public function evidences()
     {
-        return $this->morphToMany('App\Models\Evidence', 'evidenceable');
+        return $this->morphToMany('App\Models\Evidence', 'evidenceable')->withPivot('evidence_id', 'file_evidence_id', 'created_at')->withTimestamps();
     }
 
     //Relacion uno a muchos polimorfica
@@ -120,4 +126,11 @@ class Inspection extends Model
     {
         return $this->morphMany('App\Models\Paiment', 'paimentable');
     }
+
+    public function hasPaiment($inspectionId)
+    {
+        $inspection = Inspection::findOrFail($inspectionId);
+        return $inspection::paiments()->exists();
+    }
+
 }

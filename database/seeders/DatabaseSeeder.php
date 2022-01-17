@@ -25,5 +25,6 @@ class DatabaseSeeder extends Seeder
         $this->call(InspectorsTableSeeder::class);
         $this->call(CampusInspectorsTableSeeder::class);
         $this->call(UitTableSeeder::class);
+        $this->call(TypeProofsSeeder::class);
     }
 }

@@ -7,62 +7,59 @@
                         <div class="grid grid-cols-4 gap-3 mt-3">
                             <div class="grid grid-col-1" >
                                 <label for=""><strong>Nro. Acta:</strong> </label>
-                                <h3 class="px-3 py-2 rounded-md bg-gray-100">{{ $nro_acta }}</h3>
+                                <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ $nro_acta }}</h3>
                             </div>
                         </div>
                         <div class="grid grid-cols-1">
                             <label for=""><strong>Nombres Apellidos Conductor:</strong></label>
-                            <h3 class="px-3 py-2 rounded-md bg-gray-100">{{ $nombre_apellidos_conductor }}</h3>
+                            <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ $nombre_apellidos_conductor }}</h3>
                         </div>
-                        <div class="grid grid-cols-4 gap-3 mt-3">
+                        <div class="grid grid-cols-3 gap-3 mt-3">
                             <div class="grid grid-col-1" >
                                 <label for=""><strong>Nro. Dni:</strong> </label>
-                                <h3 class="px-3 py-2 rounded-md bg-gray-100">{{ $dni_conductor }}</h3>
+                                <h3 class="px-1 py-2 rounded-md bg-gray-100 border-double border-2">{{ $dni_conductor }}</h3>
                             </div>
                             <div class="grid grid-col-1" >
                                 <label for=""><strong>Nro. Licencia:</strong> </label>
-                                <h3 class="px-3 py-2 rounded-md bg-gray-100">{{ $nro_licencia }}</h3>
+                                <h3 class="px-1 py-2 rounded-md bg-gray-100 border-double border-2">{{ $nro_licencia }}</h3>
                             </div>
                             <div class="grid grid-col-1" >
                                 <label for=""><strong>Clase-Categoria:</strong> </label>
-                                <h3 class="px-3 py-2 rounded-md bg-gray-100">{{ $clase_categoria_licencia }}</h3>
+                                <h3 class="px-1 py-2 rounded-md bg-gray-100 border-double border-2">{{ $clase_categoria_licencia }}</h3>
                             </div>
                         </div>
                         <div class="grid grid-cols-4 gap-3 mt-3">
                             <div class="grid grid-col-1" >
                                 <label for=""><strong>Codigo Infraccion:</strong> </label>
-                                <h3 class="px-3 py-2 rounded-md bg-gray-100">{{ $codigo_infraccion }}</h3>
+                                <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ $codigo_infraccion }}</h3>
                             </div>
                             <div class="grid grid-col-1" >
                                 <label for=""><strong>Fecha Infraccion:</strong> </label>
-                                <h3 class="px-3 py-2 rounded-md bg-gray-100">{{ date('d/m/Y', strtotime($fecha_infraccion)) }}</h3>
+                                <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ date('d/m/Y', strtotime($fecha_infraccion)) }}</h3>
                             </div>
                             <div class="grid grid-col-1" >
                                 <label for=""><strong>Hora Infraccion:</strong> </label>
-                                <h3 class="px-3 py-2 rounded-md bg-gray-100">{{ $hora_infraccion }}</h3>
+                                <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ $hora_infraccion }}</h3>
                             </div>
                         </div>
                         <div class="grid grid-col-1" >
                             <label for=""><strong>Sancion Administrativa:</strong> </label>
-                            <h3 class="px-3 py-2 rounded-md bg-gray-100">{{ $sancion_administrativa }}</h3>
+                            <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ $sancion_administrativa }}</h3>
                         </div>
                         <div class="grid grid-cols-4 gap-3 mt-3">
                             <div class="grid grid-col-1" >
-                                <label for=""><strong>Sancion Pecuniaria:</strong> </label>
-                                <h3 class="px-3 py-2 rounded-md bg-gray-100">{{ $sancion_pecuniaria }}</h3>
+                                <label for=""><strong>Porcentaje UIT:</strong> </label>
+                                <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ $uit_penalty }}</h3>
                             </div>
                         </div>
                         <div class="grid grid-cols-1">
                             <label for=""><strong>Descripcion:</strong></label>
-                            <h3 class="px-3 py-2 rounded-md bg-gray-100">{{ $descripcion }}</h3>
+                            <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ $descripcion }}</h3>
                         </div>
                         <div class="grid grid-cols-1">
                             <label for=""><strong>Estado:</strong></label>
-                            <h3 class="px-3 py-2 rounded-md bg-gray-100">{{ $estado_actual }}</h3>
+                            <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ $estado_actual }}</h3>
                         </div>
-
-                        <x-jet-section-border />
-
                         <div>
                             <div>
                                 @if ($isCreateModalOpen)
@@ -72,13 +69,13 @@
                                     @include('components.control-act.update_resolution_modal')
                                 @endif
                             </div>
-                            <div>
+                            <div class="mt-3">
                                 <h1 class="font-bold">RESOLUCIONES ASOCIADAS:</h1>
                             </div>
                             <div>
                                 <div class="flex justify-end">
-                                    <div class="m-3">
-                                        <button wire:click="createResolution" class="inline-flex items-center justify-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200 active:bg-blue-600 disabled:opacity-25 transition">Agregar</button>
+                                    <div class="mb-2">
+                                        <button wire:click="createResolution" class=" px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200 active:bg-blue-600 disabled:opacity-25 transition">Agregar</button>
                                     </div>
                                 </div>
                                 <table class="w-full">
@@ -130,7 +127,10 @@
                                                 </div>
                                             </td>
                                             @empty
-                                            <td colspan="4" class="border p-3 text-xs">No existen resoluciones asociadas</td>
+                                            <tr class="hover:bg-gray-100 text-center">
+                                                <td colspan="4" class="border p-3 text-sm">.:No existen resoluciones asociadas:.</td>
+                                            </tr>
+                                            
                                             @endforelse
                                         </tr>
                                     </tbody>

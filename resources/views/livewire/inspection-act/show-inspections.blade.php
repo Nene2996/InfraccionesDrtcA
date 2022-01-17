@@ -28,31 +28,16 @@
                                         <label class="mr-10 text-gray-700">
                                             <input wire:model='radioValue' wire:click="resetInput()" type="radio" name="myRadios" class="mr-2 checked:bg-blue-600" value="0" >Por Apellidos y nombres
                                         </label>
-                                        @error('radioValue')
-                                            <div class="text-red-500">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
                                     </li>
                                     <li>
                                         <label class="mr-10 text-gray-700">
                                             <input wire:model='radioValue' wire:click="resetInput()" type="radio" name="myRadios" class="mr-2 checked:bg-blue-600" value="1" >Por Num. Dni
                                         </label>
-                                        @error('radioValue')
-                                            <div class="text-red-500">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
                                     </li>
                                     <li>
                                         <label class="mr-10 text-gray-700">
                                             <input wire:model='radioValue' wire:click="resetInput()" type="radio" name="myRadios" class="mr-2 checked:bg-blue-600" value="2" >Por Num. Acta de Fiscalización
                                         </label>
-                                        @error('radioValue')
-                                            <div class="text-red-500">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
                                     </li>
                                 </ul>
                             </div>
@@ -62,11 +47,6 @@
                                         <div>
                                             <input wire:model='radio_names_business_name' type="text" class="rounded-md w-full text-sm" placeholder="Ingresa el nombre y apellidos">
                                         </div>
-                                        <div>
-                                            @error('radio_names_business_name')
-                                                <span class="text-red-500 text-sm italic">{{ $message }}</span>
-                                            @enderror
-                                        </div>
                                     </div>
                                 @endif
         
@@ -75,11 +55,6 @@
                                         <div>
                                             <input wire:model='radio_dni_number' type="text" class="rounded-md w-full text-sm" placeholder="Ingresa el Numero de Licencia">
                                         </div>
-                                        <div>
-                                            @error('radio_dni_number')
-                                                <span class="text-red-500 text-sm italic">{{ $message }}</span>
-                                            @enderror
-                                        </div>
                                     </div>
                                 @endif
         
@@ -87,11 +62,6 @@
                                     <div class="mt-5 flex-col w-2/6">
                                         <div>
                                             <input wire:model='radio_act_number' type="text" class="rounded-md w-full text-sm" placeholder="Ingresa el Numero de Acta">
-                                        </div>
-                                        <div>
-                                            @error('radio_act_number')
-                                                <span class="text-red-500 text-sm italic">{{ $message }}</span>
-                                            @enderror
                                         </div>
                                     </div>
                                 @endif
@@ -105,7 +75,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
                                         <div>
-                                            <p class="text-xs font-medium ml-2"> 
+                                            <p class="text-sm font-medium ml-2"> 
                                             Registrar Acta de Fiscalizacion
                                             </p>
                                         </div>
@@ -115,22 +85,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="pb-6 px-5 bg-white border-b border-gray-200">
+                <div class="py-2 px-5 bg-white justify-center">
                     <table class="w-full">
                         <thead>
                             <tr class="bg-gray-200 text-xs">
-                                <th class="border px-3">NRO. ACTA</th>
-                                <th class="border px-3">NOMBRE Y APELLIDOS / RAZÓN SOCIAL</th>
-                                <th class="border px-3">DNI / RUC</th>
-                                <th class="border px-3">NRO DE LICENCIA</th>
-                                <th class="border px-3">INFRACCIÓN</th>
-                                <th class="border px-3">CALIFICACIÓN</th>
-                                <th class="border w-24 text-center">FECHA</th>
-                                <th class="border px-3">HORA</th>
-                                <th class="border px-3">LUGAR</th>
-                                <th class="border px-3">ESTADO</th>
-                                <th class="border px-3">SEDE</th>
-                                <th class="border px-3">OPCIONES</th>
+                                <th class="border px-3">Nro. Acta</th>
+                                <th class="border px-3">Nombre y Apellidos / Razón Social</th>
+                                <th class="border px-3">Dni / Ruc</th>
+                                <th class="border px-3">Nro de Licencia</th>
+                                <th class="border px-3">Infracción</th>
+                                <th class="border px-3">Calificación</th>
+                                <th class="border w-24 text-center">Fecha</th>
+                                <th class="border px-3">Hora</th>
+                                <th class="border px-3">Lugar</th>
+                                <th class="border px-3">Estado</th>
+                                <th class="border px-3">Sede</th>
+                                <th class="border px-3">Archivo Digital</th>
+                                <th class="border px-3">Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -141,58 +112,77 @@
                                 <td class="border px-3 text-xs">{{ $inspection->document_number }}</td>
                                 <td class="border px-3 text-xs">{{ $inspection->licence_number }}</td>
                                 <td class="border px-3 text-xs">{{ $inspection->infraction->code }}</td>
-                                <td class="border px-3 text-xs">{{ $inspection->qualification }}</td>
-                                <td class="border px-3 text-xs">{{ date('d-m-Y', strtotime($inspection->date_infraction)) }}</td>
+                                <td class="border px-3 text-xs">{{ $inspection->infraction->qualification }}</td>
+                                <td class="border px-3 text-xs">{{ date('d/m/Y', strtotime($inspection->date_infraction)) }}</td>
                                 <td class="border px-3 text-xs">{{ $inspection->hour_infraction }}</td>
                                 <td class="border px-3 text-xs">{{ $inspection->place }}</td>
                                 <td class="border px-3 text-xs">{{ $inspection->status }}</td>
                                 <td class="border px-3 text-xs">{{ $inspection->campus->alias }}</td>
-                                <td class="border px-3 text-xs">
-                                    <div class="flex item-center space-x-1">
-                                        
-                                        @if (auth()->user()->campus->campus_name == $inspection->campus->campus_name)
-                                        
-                                            <a type="button" class="md:w-auto border-2 border-blue-600 rounded-lg px-3 py-1 text-blue-600 cursor-pointer hover:bg-blue-600 hover:text-blue-200" href="{{ route('actasDeFiscalizacion.edit', $inspection) }}">
+                                <td class="border px-3 px-6 py-4 text-center">
+                                    @if ($inspection->file)
+                                        <div class="whitespace-nowrap text-red-600">
+                                            <a href="{{ Storage::url($inspection->file->url_path) }}" target="_blank">
                                                 <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                    </svg>
+                                                    <i class="far fa-file-pdf fa-lg"></i>
                                                 </span>
                                             </a>
-                                            
-                                        @else
-                                            <div>
-                                                <button  class="md:w-auto border-2 border-red-600 rounded-lg px-3 py-1 text-red-600 cursor-pointer hover:bg-red-600 hover:text-red-200" wire:click="loadModelWarning({{ $inspection->id }})">
-                                                <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                                                    </svg>
-                                                </span>
-                                                </button>
-                                            </div>
-                                        @endif
-                                        
-                                        <button wire:click="loadModelId({{ $inspection->id }})" class="md:w-auto border-2 border-gray-800 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-800 hover:text-gray-200 focus:outline-none">
-                                        <span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                            </svg>
-                                        </span>
-                                        </button>
-
-                                        <!---------------------------------------------------------------------------------->
-                                        @if (auth()->user()->role == 'Asistente de Caja')
-                                            @if ($inspection->status == 'PENDIENTE DE PAGO')
-                                                <a type="button" class="border-2 border-green-600 rounded-lg px-2 py-1 text-green-600 cursor-pointer hover:bg-green-600 hover:text-green-200 focus:outline-none" href="{{ route('actasDeFiscalizacion.paiment', $inspection) }} ">
-                                                <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                                                      </svg>
-                                                </span>
+                                        </div>
+                                    @else
+                                        <div class="text-xs">
+                                            <p>No subido</p>
+                                        </div>
+                                    @endif
+                                </td>
+                                <td class="border px-3 text-xs">
+                                    <div class="flex item-center space-x-1 my-2">
+                                        @if (auth()->user()->campus->campus_name == $inspection->campus->campus_name)
+                                            @if(auth()->user()->role == 'Asistente Administrativo')
+                                                <a type="button" title="MODIFICAR ACTA" class="md:w-auto border-2 border-gray-600 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-600 hover:text-gray-200" href="{{ route('actasDeFiscalizacion.edit', $inspection) }}">
+                                                    <span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                        </svg>
+                                                    </span>
+                                                </a>
+                                                <a type="button" title="ADJUNTAR MEDIO PROBATORIO" class="md:w-auto py-2 border-2 border-gray-600 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-600 hover:text-gray-200" href="{{ route('actasDeFiscalizacion.evidence', $inspection) }} ">
+                                                    <span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm3 2h6v4H7V5zm8 8v2h1v-2h-1zm-2-2H7v4h6v-4zm2 0h1V9h-1v2zm1-4V5h-1v2h1zM5 5v2H4V5h1zm0 4H4v2h1V9zm-1 4h1v2H4v-2z" clip-rule="evenodd" />
+                                                        </svg>
+                                                    </span>
                                                 </a>
                                             @endif
+                                            
+                                            @if (auth()->user()->role == 'Asistente de Caja')
+                                                @if ($inspection->hasPaiment($inspection->id))
+                                                <a type="button" title="MODIFICAR PAGO" class="md:w-auto py-2 border-2 border-gray-600 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-600 hover:text-gray-200" href="{{ route('actaFiscalizacion.pagar', $inspection) }} ">
+                                                    <span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
+                                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd" />
+                                                        </svg>
+                                                    </span>
+                                                </a>
+                                                @else
+                                                    <a type="button" title="REALIZAR PAGO" class="md:w-auto py-2 border-2 border-gray-600 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-600 hover:text-gray-200" href="{{ route('actaFiscalizacion.pagar', $inspection) }} ">
+                                                        <span>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
+                                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd" />
+                                                            </svg>
+                                                        </span>
+                                                    </a>
+                                                @endif
+                                            @endif
                                         @endif
-
+                                        <button title="VER DETALLES" wire:click="loadModelId({{ $inspection->id }})" class="md:w-auto border-2 border-gray-600 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-600 hover:text-gray-200">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                                                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                                              </svg>
+                                        </span>
+                                        </button>
 
                                         <!---------------------------------------------------------------------------------->
                                         @if (auth()->user()->role == 'Administrador')
@@ -204,45 +194,43 @@
                                                 </span>
                                             </a>
 
-                                            @if ($inspection->status == 'PENDIENTE DE PAGO')
-                                                <a type="button" class="border-2 border-green-600 rounded-lg px-2 py-1 text-green-600 cursor-pointer hover:bg-green-600 hover:text-green-200 focus:outline-none" href="{{ route('actasDeFiscalizacion.paiment', $inspection) }} ">
+                                            @if ($inspection->hasPaiment($inspection->id))
+                                                <a type="button" title="MODIFICAR PAGO" class="md:w-auto py-2 border-2 border-gray-600 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-600 hover:text-gray-200" href="{{ route('actaFiscalizacion.pagar', $inspection) }} ">
                                                     <span>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                                                          </svg>
-                                                    </span>
-                                                </a>
-                                                @if ($inspection->hasResolution($inspection->id))
-                                                    <a type="button" title="MODIFICAR RESOLUCIÓN" class="border-2 border-yellow-600 rounded-lg px-2 py-1 text-yellow-600 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200 focus:outline-none" href="{{ route('actasDeFiscalizacion.EditarResolucion', $inspection) }}">
-                                                        <span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
-                                                            </svg>
-                                                        </span>
-                                                    </a>
-                                                @else 
-                                                <a type="button" title="REGISTRAR RESOLUCIÓN" class="border-2 border-yellow-600 rounded-lg px-2 py-1 text-yellow-600 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200 focus:outline-none" href="{{ route('actasDeFiscalizacion.EditarResolucion', $inspection) }}">
-                                                    <span>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
+                                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd" />
                                                         </svg>
                                                     </span>
-                                                </a> 
-                                                @endif
-                                                
-                    
+                                                </a>
                                             @else
-                                                @if ($inspection->hasResolution($inspection->id))
-                                                <a type="button" title="MODIFICAR RESOLUCIÓN" class="border-2 border-yellow-600 rounded-lg px-2 py-1 text-yellow-600 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200 focus:outline-none" href="{{ route('actasDeFiscalizacion.EditarResolucion', $inspection) }} ">
+                                                <a type="button" title="REALIZAR PAGO" class="md:w-auto py-2 border-2 border-gray-600 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-600 hover:text-gray-200" href="{{ route('actaFiscalizacion.pagar', $inspection) }} ">
+                                                    <span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
+                                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd" />
+                                                        </svg>
+                                                    </span>
+                                                </a>
+                                            @endif
+
+                                            @if ($inspection->hasResolution($inspection->id))
+                                                <a type="button" title="MODIFICAR RESOLUCIÓN" class="md:w-auto border-2 border-gray-600 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-600 hover:text-gray-200" href="{{ route('actasDeFiscalizacion.EditarResolucion', $inspection) }}">
                                                     <span>
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
                                                         </svg>
                                                     </span>
                                                 </a>
-                                                @endif
-
-                                            @endif 
+                                            @else 
+                                            <a type="button" title="REGISTRAR RESOLUCIÓN" class="md:w-auto border-2 border-gray-600 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-600 hover:text-gray-200" href="{{ route('actasDeFiscalizacion.EditarResolucion', $inspection) }}">
+                                                <span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
+                                                    </svg>
+                                                </span>
+                                            </a> 
+                                            @endif
                                             
                                         @endif
                 
@@ -295,13 +283,13 @@
                                         <div>
                                             <tr>
                                                 @if ($typeNames_id == 1)
-                                                    <td class="text-xs"><strong>Apellidos y Nombres</strong></td>
+                                                    <td class="text-xs"><strong>Nombres</strong></td>
                                                 @else
                                                     <td class="text-xs"><strong>Razón Social</strong></td>
                                                 @endif
-                                                <td class="text-xs">:{{ $names_business_name }}</td>
+                                                <td class="text-xs text-yellow-600 font-bold">:{{ $names_business_name }}</td>
                                                 <td class=" text-xs pl-36"><strong>Inspector</strong></td>
-                                                <td class="text-xs">:{{ $inspector_surnames_and_names }}</td>
+                                                <td class="text-xs text-yellow-600 font-bold">:{{ $inspector_surnames_and_names }}</td>
                                             </tr>
                                             <tr>
                                                 @if ($typeDocument_id == 1)
@@ -309,59 +297,55 @@
                                                 @else
                                                     <td class="text-xs"><strong>Ruc</strong></td>
                                                 @endif
-                                                <td class="text-xs">:{{ $document_number }}</td>
+                                                <td class="text-xs text-yellow-600 font-bold">:{{ $document_number }}</td>
                                                 <td class="text-xs pl-36"><strong>Registrado por</strong></td>
-                                                <td class="text-xs">:{{ $operator_surnames_and_names }}</td> 
+                                                <td class="text-xs text-yellow-600 font-bold">:{{ $operator_surnames_and_names }}</td> 
                                             </tr>
                                             <tr>
                                                 <td class="text-xs"><strong>Nº de Licencia</strong></td>
-                                                <td class="text-xs">:{{ $licence_number }}</td>
+                                                <td class="text-xs text-yellow-600 font-bold">:{{ $licence_number }}</td>
                                                 <td class="text-xs pl-36"><strong>Fecha de Registro</strong></td>
-                                                <td class="text-xs">:{{ $inspection_created_at }}</td>
+                                                <td class="text-xs text-yellow-600 font-bold">:{{ date('d/m/Y H:i:s', strtotime($inspection_created_at)) }}</td>
                                             </tr>
                                             <tr>
                                                 <td class="text-xs"><strong>Domicilio</strong></td>
-                                                <td class="text-xs">:{{ $address }}</td>
+                                                <td class="text-xs text-yellow-600 font-bold">:{{ $address }}</td>
                                                 <td class="text-xs pl-36"><strong>Lugar de Registro</strong></td>
-                                                <td class="text-xs">:{{ $inspection_campus }}</td>
+                                                <td class="text-xs text-yellow-600 font-bold">:{{ $inspection_campus }}</td>
                                             </tr>
                                         </div>
                                     </tbody>
                                 </table> 
                                 <x-jet-section-border />
                                 <div class="flex justify-center">
-                                    <label for="" class="mb-3">DETALLE DE LA INFRACCION IMPUESTA</label>
+                                    <label for="" class="mb-3 font-extrabold">DETALLE DE LA INFRACCION IMPUESTA</label>
                                 </div>
-                                
-                                <table>
-                                    <thead>
-                                        <tr class="bg-gray-200 text-xs">
-                                            <th>CODIGO DE INFRACCION</th>
-                                            <th>DESCRIPCION</th>
-                                            <th>AGENTE INFRACTOR</th>
-                                            <th>UIT</th>
-                                            <th>MONTO</th>
-                                            <th>SANCION ADMINISTRATIVA</th>
-                                            <th>DESCUENTO 5 DIAS</th>
-                                            <th>DESC. 15 DIAS NOTIFICADO MEDIANTE RESOLUCION DE SANCIÓN</th>
-                                        </tr>
-                                        
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="border px-3 text-xs">{{ $infraction_code }}</td>
-                                            <td class="border px-3 text-xs">{{ $infraction_description }}</td>
-                                            <td class="border px-3 text-xs">{{ $infraction_infringement_agent }}</td>
-                                            <td class="border px-3 text-xs">{{ $infraction_uit_penalty }}</td>
-                                            <td class="border px-3 text-xs">S/.{{ $infraction_pecuniary_sanction }}</td>
-                                            <td class="border px-3 text-xs">{{ $infraction_administrative_sanction }}</td>
-                                            <td class="border px-3 text-xs">S/.{{ $infraction_discount_five_days }}</td>
-                                            <td class="border px-3 text-xs">S/.{{ $infraction_discount_fifteen_days }}</td>
-                                        </tr>
-        
-                                    </tbody>
-                                </table>
-                                <div class="flex justify-center my-8">
+                                <div class="flex justify-center">
+                                    <table>
+                                        <thead>
+                                            <tr class="bg-gray-200 text-xs">
+                                                <th>CODIGO DE INFRACCION</th>
+                                                <th>DESCRIPCION</th>
+                                                <th>AGENTE INFRACTOR</th>
+                                                <th>UIT</th>
+                                                <th>SANCION ADMINISTRATIVA</th>
+                                            </tr>
+                                            
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="border px-3 text-xs">{{ $infraction_code }}</td>
+                                                <td class="border px-3 text-xs">{{ $infraction_description }}</td>
+                                                <td class="border px-3 text-xs">{{ $infraction_infringement_agent }}</td>
+                                                <td class="border px-3 text-xs">{{ $infraction_uit_penalty }}</td>
+                                                <td class="border px-3 text-xs">{{ $infraction_administrative_sanction }}</td>
+                                            </tr>
+            
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="flex justify-center my-5">
                                     <table>
                                         <thead>
                                             <tr class="bg-gray-200 text-xs">
@@ -374,9 +358,6 @@
                                                 <th>Nº de Placa</th>
                                                 <th>Nº de Tarjeta de Identificación vehicular</th>
                                                 <th>Estado</th>
-                                                @if (isset($proof_number))
-                                                <th>Num. Comprobante de Pago</th>
-                                                @endif
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -390,13 +371,70 @@
                                                 <td class="border px-3 text-xs w-20 text-center">{{ $vehicle_plate_number }}</td>
                                                 <td class="border px-3 text-xs">{{ $vehicle_identification_card_number }}</td>
                                                 <td class="border px-3 text-xs">{{ $status }}</td>
-                                                @if (isset($proof_number))
-                                                    <td class="border px-3 text-xs">{{ $proof_number }}</td>
-                                                @endif
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
+                                @if ($hasPaiments)
+                                <div class="flex justify-center">
+                                    <label for="" class="mb-3 font-extrabold">DETALLE DEL PAGO DE INFRACCIÓN</label>
+                                </div>
+                                <div class="flex justify-center">
+                                    <table>
+                                        <thead>
+                                            <tr class="bg-gray-200 text-xs">
+                                                <th class="border px-3">Fecha Pago</th>
+                                                <th class="border px-3">Tipo Comprobante</th>
+                                                <th class="border px-3">Nro Comprobante</th>
+                                                <th class="border px-3">Monto infracción</th>
+                                                <th class="border px-3">Descuento aplicado</th>
+                                                <th class="border px-3">Monto pagado</th>
+                                                <th class="border px-3">Pendiente por pagar</th>
+                                                <th class="border px-3">Archivo digitalizado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse ($paiments as $paiment)
+                                                <tr class="text-center">
+                                                    <td class="border px-3 text-xs">{{ date('d/m/Y', strtotime($paiment->date_payment)) }}</td>
+                                                    <td class="border px-3 text-xs">{{ $paiment->typeProof->type }}</td>
+                                                    <td class="border px-3 text-xs">{{ $paiment->proof_number }}</td>
+                                                    <td class="border px-3 text-xs">{{ 'S/ ' . number_format($paiment->total_amount, 2) }}</td>
+                                                    <td class="border px-3 text-xs">{{ 'S/ ' . number_format($paiment->discount, 2) }}</td>
+                                                    <td class="border px-3 text-xs">{{ 'S/ ' . number_format($paiment->amount_paid, 2) }}</td>
+                                                    <td class="border px-3 text-xs">{{ 'S/ ' . number_format($paiment->pending_amount, 2) }}</td>
+                                                    <td class="border px-3 text-xs">
+                                                        @if (isset($paiment->url_path_image_vaucher))
+                                                            <div class="whitespace-nowrap text-blue-600">
+                                                                <a href="{{ Storage::url($paiment->url_path_image_vaucher) }}" target="_blank">
+                                                                    <span class="">
+                                                                        <i class="far fa-file-image fa-lg"></i>
+                                                                    </span>
+                                                                </a>
+                                                            </div>
+                                                        @else
+                                                            <div class="text-xs">
+                                                                <p>No adjuntado</p>
+                                                            </div>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                            <tr class="hover:bg-gray-100 text-center">
+                                                <td colspan="4" class="border px-3 text-sm">
+                                                    .: no existe pagos asociados :.
+                                                </td>
+                                            </tr>
+                                            @endforelse
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                                @else
+                                    <div class="flex justify-center">
+                                        <label for="" class="mb-3">NO EXISTEN DETALLES DEL PAGO ASOCIADOS</label>
+                                    </div>
+                                @endif
                             </div>
                         </x-slot>
                     

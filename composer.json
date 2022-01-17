@@ -18,7 +18,8 @@
         "laravel/tinker": "^2.5",
         "laraveles/spanish": "^1.5",
         "livewire/livewire": "^2.0",
-        "nesbot/carbon": "^2.49"
+        "nesbot/carbon": "^2.49",
+        "pion/laravel-chunk-upload": "^1.4"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

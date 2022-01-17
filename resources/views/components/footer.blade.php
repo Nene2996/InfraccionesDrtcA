@@ -6,12 +6,15 @@
                     <a href="#">Acerca de</a>
                 </li>
                 <li class="inline-block text-md  mr-8 hover:text-gray-400">
-                    <a href="#">Ayuda</a>
+                    <a href="#">Contactar con el desarrollador</a>
+                </li>
+                <li class="inline-block text-md  mr-8 hover:text-gray-400">
+                    <a href="#">Manual del Sistema</a>
                 </li>
             </ul>
         </div>
         <div class="">
-            <p class="flex justify-end">&copy; 2021 - Unidad de Informatica</p>
+            <p class="flex justify-end">&copy; 2022 - Unidad de Informatica - Drtc Amazonas</p>
         </div>
     </div>
 </footer>

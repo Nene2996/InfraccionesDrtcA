@@ -2,10 +2,8 @@
     <x-slot name="title">
         
      </x-slot>
-
      <x-slot name="content">
          <div>
-            
              <div class="flex justify-center">
                 <table>
                     <thead></thead>
@@ -83,37 +81,68 @@
                 </tbody>
             </table>
          </div>
+         <x-jet-section-border />
+         @if ($hasPaiments)
+         <div class="flex justify-center">
+             <label for="" class="mb-3">DETALLE DEL PAGO DE INFRACCIÓN</label>
+         </div>
+         <div class="flex justify-center">
+             <table>
+                 <thead>
+                     <tr class="bg-gray-200 text-xs">
+                         <th class="border px-3">Fecha Pago</th>
+                         <th class="border px-3">Tipo Comprobante</th>
+                         <th class="border px-3">Nro Comprobante</th>
+                         <th class="border px-3">Monto infracción</th>
+                         <th class="border px-3">Descuento aplicado</th>
+                         <th class="border px-3">Monto pagado</th>
+                         <th class="border px-3">Pendiente por pagar</th>
+                         <th class="border px-3">Comprobante</th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                     @forelse ($paiments as $paiment)
+                         <tr class="text-center">
+                             <td class="border px-3 text-xs">{{ date('d/m/Y', strtotime($paiment->date_payment)) }}</td>
+                             <td class="border px-3 text-xs">{{ $paiment->typeProof->type }}</td>
+                             <td class="border px-3 text-xs">{{ $paiment->proof_number }}</td>
+                             <td class="border px-3 text-xs">{{ 'S/ ' . number_format($paiment->total_amount, 2) }}</td>
+                             <td class="border px-3 text-xs">{{ 'S/ ' . number_format($paiment->discount, 2) }}</td>
+                             <td class="border px-3 text-xs">{{ 'S/ ' . number_format($paiment->amount_paid, 2) }}</td>
+                             <td class="border px-3 text-xs">{{ 'S/ ' . number_format($paiment->pending_amount, 2) }}</td>
+                             <td class="border px-3 text-xs">
+                                @if (isset($paiment->url_path_image_vaucher))
+                                <div class="whitespace-nowrap text-blue-600 py-1">
+                                    <a href="{{ Storage::url($paiment->url_path_image_vaucher) }}" target="_blank">
+                                        <span class="">
+                                            <i class="far fa-file-image fa-lg"></i>
+                                        </span>
+                                    </a>
+                                </div>
+                                @else
+                                    <div class="text-xs py-1">
+                                        <p>No adjuntado</p>
+                                    </div>
+                                @endif
+                             </td>
+                         </tr>
+                     @empty
+                     <tr class="hover:bg-gray-100 text-center">
+                         <td colspan="4" class="border px-3 text-sm">
+                             .: no existe pagos asociados :.
+                         </td>
+                     </tr>
+                     @endforelse
+                     
+                 </tbody>
+             </table>
+         </div>
+         @else
+             <div class="flex justify-center">
+                 <label for="" class="mb-3">NO EXISTEN DETALLES DEL PAGO ASOCIADOS</label>
+             </div>
+         @endif
          
-        @if ($this->estado == 'CANCELADO')
-            <div class="flex justify-center mt-5">
-                <table class="text-xs">
-                    <thead>
-                        <tr class="bg-gray-200">
-                            <th class="px-3">MONTO PAGADO</th>
-                            <th class="px-3">TIPO DE COMPROBANTE</th>
-                            <th class="px-4">NRO. COMPROBANTE</th>
-                            <th class="px-3">FECHA PAGO</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($paiments as $paiment)
-                            <tr>
-                                <td class="border px-3 text-center">{{ 'S/. ' . number_format($paiment->amount_paid, 2) }}</td>
-                                <td class="border px-3 text-center">{{ $paiment->typeProof->type }}</td>
-                                <td class="border px-3 text-center">{{ $paiment->proof_number }}</td>
-                                <td class="border px-3 text-center">{{ date('d/m/Y', strtotime($paiment->date_payment)) }}</td>
-                            </tr>
-                        @endforeach
-                        
-                    </tbody>
-                </table>
-            </div>
-        @elseif($this->estado == 'FALTA CANCELAR')
-            <div class="flex justify-center text-sm mt-5">
-                <h3>No existe detalles de pago</h3>
-            </div>
-        @endif
-        
          <x-jet-section-border />
     </x-slot>
 

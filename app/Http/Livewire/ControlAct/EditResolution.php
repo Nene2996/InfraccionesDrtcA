@@ -28,7 +28,7 @@ class EditResolution extends Component
             $nro_tarjeta_vehicular,
             $codigo_infraccion,
             $sancion_administrativa,
-            $sancion_pecuniaria,
+            $uit_penalty,
             $agente_infractor,
             $descripcion,
             $monto_uit,
@@ -64,14 +64,14 @@ class EditResolution extends Component
         $this->controlAct = $controlAct;
         $this->control_act_id = $controlAct->id;
         $this->ruc_dni = $controlAct->ruc_dni;
-        $this->dni_conductor = $controlAct->dni_conductor;
+        $this->dni_conductor = $controlAct->nro_dni_conductor;
         $this->razon_social_nombre = $controlAct->razon_social_nombre;
         $this->placa_vehiculo = $controlAct->placa_vehiculo;
         $this->lugar_intervencion = $controlAct->lugar_intervencion;
         $this->origen = $controlAct->origen;
         $this->destino = $controlAct->destino;
-        $this->nro_acta = $controlAct->nro_acta;
-        $this->nombre_apellidos_conductor = $controlAct->nombre_apellidos_conductor;
+        $this->nro_acta = $controlAct->numero_acta;
+        $this->nombre_apellidos_conductor = $controlAct->apellidos_nombres_conductor;
         $this->nro_licencia = $controlAct->nro_licencia;
         $this->fecha_infraccion = $controlAct->fecha_infraccion;
         $this->hora_infraccion = $controlAct->hora_infraccion;
@@ -79,7 +79,7 @@ class EditResolution extends Component
         $this->estado_actual = $controlAct->estado_actual;
         $this->codigo_infraccion = $controlAct->infractions->code;
         $this->sancion_administrativa = $controlAct->infractions->administrative_sanction;
-        $this->sancion_pecuniaria = $controlAct->infractions->pecuniary_sanction;
+        $this->uit_penalty = $controlAct->infractions->uit_penalty;
         $this->agente_infractor = $controlAct->infractions->infringement_agent;
         $this->descripcion = $controlAct->infractions->description;
         $this->monto_uit = $controlAct->infractions->monto_uit;
