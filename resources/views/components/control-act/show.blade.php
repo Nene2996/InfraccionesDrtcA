@@ -46,8 +46,7 @@
              </div>
             
          </div>
-         <x-jet-section-border />
-         <div class="flex justify-center">
+         <div class="flex justify-center mt-2">
             <table class="text-xs">
                 <thead>
                     <tr class="bg-gray-200">
@@ -76,15 +75,15 @@
                         <td class="border px-3 text-center">{{ $this->hora_infraccion }}</td>
                         <td class="border px-3 text-center">{{ $this->tipo_servicio }}</td>
                         <td class="border px-3 text-center">{{ $this->sede_infraccion }}</td>
-                        <td class="border px-3 text-center">{{ $this->estado }}</td>
+                        <td class="border px-3 text-center text-xs">{{ $this->estado }}</td>
                     </tr>
                 </tbody>
             </table>
          </div>
-         <x-jet-section-border />
+         <!-- <x-jet-section-border /> -->
          @if ($hasPaiments)
-         <div class="flex justify-center">
-             <label for="" class="mb-3">DETALLE DEL PAGO DE INFRACCIÓN</label>
+         <div class="flex justify-center mt-3">
+             <label for="" class="mb-1 text-xs font-bold">DETALLE DEL PAGO DE INFRACCIÓN</label>
          </div>
          <div class="flex justify-center">
              <table>
@@ -138,12 +137,60 @@
              </table>
          </div>
          @else
-             <div class="flex justify-center">
-                 <label for="" class="mb-3">NO EXISTEN DETALLES DEL PAGO ASOCIADOS</label>
-             </div>
+
          @endif
          
-         <x-jet-section-border />
+        <!-----------------------------------------MOSTRAR DETALLES DE RESOLUCIONES ASOCIADAS----------------------------->
+         @if ($hasResolutions)
+            <div class="flex justify-center mt-2">
+                <label for="" class="mb-1 font-bold text-xs">DETALLE DE LAS RESOLUCIONES ASOCIADAS</label>
+            </div>
+            <div class="flex justify-center">
+                <table>
+                    <thead>
+                        <tr class="bg-gray-200 text-xs">
+                            <th class="border px-3">Tipo de Resolucion</th>
+                            <th class="border px-3">Fecha Emision</th>
+                            <th class="border px-3">Nombre Resolucion</th>
+                            <th class="border px-3">Documento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($resolutions as $resolution)
+                            <tr class="text-center">
+                                <td class="border px-3 text-xs">{{ $resolution->type }}</td>
+                                <td class="border px-3 text-xs">{{ date('d/m/Y', strtotime($resolution->date_resolution)) }}</td>
+                                <td class="border px-3 text-xs">{{ $resolution->title }}</td>
+                                <td class="border px-3 text-xs">
+                                @if (isset($resolution->url))
+                                <div class="px-6 py-1 whitespace-nowrap text-red-600">
+                                    <a href="{{ Storage::url($resolution->url) }}" target="_blank">
+                                        <span class="">
+                                            <i class="far fa-file-pdf fa-lg"></i>
+                                        </span>
+                                    </a>
+                                </div>
+                                @else
+                                    <div class="text-xs py-1">
+                                        <p>No adjuntado</p>
+                                    </div>
+                                @endif
+                                </td>
+                            </tr>
+                        @empty
+                        <tr class="hover:bg-gray-100 text-center">
+                            <td colspan="4" class="border px-3 text-sm">
+                                .: no existe resoluciones asociadas :.
+                            </td>
+                        </tr>
+                        @endforelse
+                        
+                    </tbody>
+                </table>
+            </div>
+         @else
+
+         @endif
     </x-slot>
 
     <x-slot name="footer">

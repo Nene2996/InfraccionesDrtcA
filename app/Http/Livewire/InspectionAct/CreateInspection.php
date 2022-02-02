@@ -178,7 +178,6 @@ class CreateInspection extends Component
         
         $response = Http::withToken('673dda73ae6223bd300b6db984f3ac6a125b2b8b9ed9ae9bffed87bfcb4b4b84')->get('https://apiperu.dev/api/dni/'.$this->document_number);
 
-        //dd($response);
         if($response->getStatusCode() == 200){
             $this->dataReniec = (json_decode($response->getBody(), true));
             if($this->dataReniec['success'] == true){

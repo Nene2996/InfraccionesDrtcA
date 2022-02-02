@@ -168,9 +168,9 @@ class PaimentInspectionAct extends Component
 
                 //Verificar si existe resolucion de sancion asociada
                 if($this->inspection->hasResolutionSancion($this->inspection->id)){
+                    $inpectionActResolution = InspectionActResolution::where('inspection_act_id', $this->inspection->id)->first();
+                    $this->fecha_notificacion_sancion = $inpectionActResolution->date_notification_driver;
                     if($date_paiment >= Carbon::parse($this->fecha_notificacion_sancion)){
-                        $inpectionActResolution = InspectionActResolution::where('inspection_act_id', $this->inspection->id)->first();
-                        $this->fecha_notificacion_sancion = $inpectionActResolution->date_notification_driver;
                         $this->dias_habiles_notificacion = $this->getDiasHabiles($this->fecha_notificacion_sancion, $this->fecha_pago);
 
                         if($this->dias_habiles_notificacion >= 0 && $this->dias_habiles_notificacion <= 15){
@@ -307,7 +307,7 @@ class PaimentInspectionAct extends Component
                 Storage::delete($url_path_before);
 
                 $extension = $this->file_img->extension();
-                $folder_name = 'public/ActasDeFiscalizacion/ACTA-00' . $this->act_number . '-' . $user->campus->alias . '/COMPROBANTE_PAGO';
+                $folder_name = 'public/ActasDeFiscalizacion/ACTA-00' . $this->act_number . '-' . $this->inspection->campus->alias . '/COMPROBANTE_PAGO';
                 $url_path = $this->file_img->storeAs($folder_name, $paiment->typeProof->type .' - '. $paiment->proof_number .'.'. $extension);
     
                 $saved = $paiment->update([
@@ -321,7 +321,7 @@ class PaimentInspectionAct extends Component
                 
             }else{
                 $extension = $this->file_img->extension();
-                $folder_name = 'public/ActasDeFiscalizacion/ACTA-00' . $this->act_number . '-' . $user->campus->alias . '/COMPROBANTE_PAGO';
+                $folder_name = 'public/ActasDeFiscalizacion/ACTA-00' . $this->act_number . '-' . $this->inspection->campus->alias  . '/COMPROBANTE_PAGO';
                 $url_path = $this->file_img->storeAs($folder_name, $paiment->typeProof->type .' - '. $paiment->proof_number .'.'. $extension);
     
                 $saved = $paiment->update([

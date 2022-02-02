@@ -199,8 +199,6 @@
 @push('styles')
     @once
         <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" /> 
-        <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet"/>
-        <link href="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css" rel="stylesheet"/>
         <style>
             .filepond--panel-root {
                 background-color: transparent;
@@ -216,10 +214,6 @@
         
         <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
         <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
-        <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-        <script src="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.js"></script>
-        <script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js"></script>
-        <script src="https://unpkg.com/filepond-plugin-image-crop/dist/filepond-plugin-image-crop.js"></script>
         <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
         
         <script>
@@ -253,11 +247,6 @@
             // Register the plugin
             FilePond.registerPlugin(FilePondPluginFileValidateType);
             FilePond.registerPlugin(FilePondPluginFileValidateSize);
-
-            FilePond.registerPlugin(FilePondPluginImagePreview);
-            FilePond.registerPlugin(FilePondPluginImageEdit);
-            FilePond.registerPlugin(FilePondPluginImageExifOrientation);
-            FilePond.registerPlugin(FilePondPluginImageCrop);
         </script>
     @endonce
 @endpush

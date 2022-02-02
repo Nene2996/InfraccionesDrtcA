@@ -28,7 +28,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::middleware(['auth:sanctum', 'verified', 'ipaddress', 'user_active_check'])->get('/dashboard', function () {
+    //return view('dashboard');
     return view('redirect');
 })->name('dashboard');
 

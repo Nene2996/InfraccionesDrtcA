@@ -1,4 +1,7 @@
-<div>
+
+@if ($radioValue == 3)
+<div class="h-screen">
+@endif
     <div class="py-12">
         <div class="mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
@@ -21,8 +24,11 @@
                         </div>
                     </div>
                 @endif
+                <div class="flex justify-center mt-4">
+                    <p class="capitalize font-bold">registros de actas de control</p>
+                </div>
                 <div class="flex">
-                    <div class="flex-col w-4/6 px-8 pt-8">
+                    <div class="flex-col w-4/6 px-8 pt-3 text-sm">
                         <div>
                             <h3 class="text-gray-600 font-semibold">Tipo de busqueda:</h3>
                             <ul class="flex">
@@ -148,7 +154,7 @@
                                     <td class="border px-3 text-xs">
                                         <div class="flex item-center space-x-1">
                                             <!-------------------------------------------------------------------------------->
-                                            @if (auth()->user()->role == 'Administrador' || auth()->user()->role == 'Asistente Administrativo')
+                                            @if (auth()->user()->role == 'Asistente Administrativo')
                                                 @if (auth()->user()->campus->alias == $controlAct->campus->alias)
                                                     <a type="button" title="MODIFICAR ACTA" class="md:w-auto border-2 border-gray-600 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-600 hover:text-gray-200" href="{{ route('actasDeControl.edit', $controlAct) }}">
                                                         <span>
@@ -161,7 +167,13 @@
                                             @endif
                                             @if (auth()->user()->role == 'Administrador')
                                                 
-                                                
+                                                    <a type="button" title="MODIFICAR ACTA" class="md:w-auto border-2 border-gray-600 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-600 hover:text-gray-200" href="{{ route('actasDeControl.edit', $controlAct) }}">
+                                                        <span>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                            </svg>
+                                                        </span>
+                                                    </a>
                                                     <a type="button" title="REALIZAR PAGO" class="md:w-auto py-2 border-2 border-gray-600 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-600 hover:text-gray-200" href="{{ route('actaControl.pagar', $controlAct) }}">
                                                         <span>
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -231,10 +243,12 @@
                 </div>
                 @if ($controlActs->hasPages())
                     <div class="pb-6 px-5 bg-white my-6">
-                        {{ $controlActs->links() }}
+                        {{ $controlActs->links() }} 
                     </div> 
                 @endif
             </div>
         </div>
     </div>
+@if ($radioValue == 3)
 </div>
+@endif

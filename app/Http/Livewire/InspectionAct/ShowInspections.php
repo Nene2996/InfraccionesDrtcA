@@ -38,10 +38,10 @@ class ShowInspections extends Component
             $proof_number;
 
     //variable para comprobar si tiene pagos asociados
-    public  $hasPaiments;
+    public  $hasPaiments, $hasResolutions;
 
-    //variable para pagos
-    public  $paiments;
+    //variable para pagos y resoluciones;
+    public  $paiments, $resolutions;
 
     public  $campus,
             $act_number;
@@ -208,18 +208,14 @@ class ShowInspections extends Component
         }else{
             $this->hasPaiments = false;
         }
-/*
-        if($inspection->paiments){
-            
-            $this->proof_number = '0001';
-            $this->total_amount = 1000;
-            $this->date_payment = '20/02/2022';
+
+        if($inspection->hasResolutionSancion($inspection->id)){
+            $this->hasResolutions = true;
+            $this->resolutions = $inspection->resolutions;
         }else{
-            $this->proof_number = '0001';
-            $this->total_amount = null;
-            $this->date_payment = null;
+            $this->hasResolutions = false;
         }
-*/
+
         $this->openModalShow();
     }
 

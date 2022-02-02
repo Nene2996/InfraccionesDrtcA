@@ -27,7 +27,7 @@ class Welcome extends Component
     public $ballot, $apellidos_nombres_conductor, $placa_vehiculo, $origen, $destino, $nombre_conductor, $direccion_infractor, $nro_licencia, $fecha_infraccion, $hora_infraccion, $clase_categoria_licencia, $nro_tarjeta_vehicular, $manifestacion_usuario, $numero_acta, $tipo_servicio, $estado_actual, $sede_infraccion, $id_district, $informacion_adicional, $referencia, $descripcion, $ruc_dni, $nro_dni_conductor, $razon_social_nombre, $lugar_intervencion, $codigo_infraccion, $nro_comprobante;
 
     //atributos del acta de fiscalizacion
-    public $act_number, $names_business_name, $document_number, $address, $licence_number, $date_infraction, $hour_infraction, $description, $status, $typeNames_id, $typeDocument_id, $inspector_surnames_and_names, $operator_surnames_and_names, $inspection_created_at, $inspection_campus, $infraction_code, $infraction_description, $infraction_infringement_agent, $infraction_uit_penalty, $infraction_administrative_sanction, $place, $district, $province, $department, $vehicle_plate_number, $vehicle_identification_card_number, $hasPaiments;
+    public $inspection, $act_number, $names_business_name, $document_number, $address, $licence_number, $date_infraction, $hour_infraction, $description, $status, $typeNames_id, $typeDocument_id, $inspector_surnames_and_names, $operator_surnames_and_names, $inspection_created_at, $inspection_campus, $infraction_code, $infraction_description, $infraction_infringement_agent, $infraction_uit_penalty, $infraction_administrative_sanction, $place, $district, $province, $department, $vehicle_plate_number, $vehicle_identification_card_number, $discount_five_days, $discount_fifteen_days, $hasPaiments;
 
     //informacion de pagos
     public  $paiments;
@@ -162,6 +162,7 @@ class Welcome extends Component
     public function showInspectionAct($id)
     {
         $inspection = Inspection::findOrFail($id);
+        $this->inspection = $inspection;
         //==============================================================
         $this->typeNames_id = $inspection->typeNames_id;
         $this->names_business_name = $inspection->names_business_name;

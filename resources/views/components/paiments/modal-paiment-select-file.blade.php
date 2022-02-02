@@ -28,7 +28,7 @@
                 @endif
 
                     <div 
-                    class="mt-3"
+                    class="mt-3 mb-3"
                     wire:ignore
                     x-data
                     x-init="() => {
@@ -48,10 +48,6 @@
                             maxFileSize: '3MB',
                             labelMaxFileSizeExceeded: 'El archivo es demasiado grande',
                             labelMaxFileSize: 'El tamaño máximo de archivo es {filesize}',
-                            allowImagePreview: true,
-                            imagePreviewMinHeight: 100,
-                            imagePreviewMaxHeight: 500,
-                            
 
                         }); 
 

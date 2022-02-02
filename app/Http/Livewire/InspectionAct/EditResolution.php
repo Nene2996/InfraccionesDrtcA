@@ -39,10 +39,12 @@ class EditResolution extends Component
             $infringement_agent, 
             $uit_penalty, 
             $pecuniary_sanction, 
-            $administrative_sanction, 
-            $discount_five_days, 
-            $discount_fifteen_days, 
-            $status;
+            $administrative_sanction,  
+            $status,
+            $resolutions_name;
+
+    //
+    public $something = null;
 
     protected $rules = [
         'resolution_id' => 'required',
@@ -68,15 +70,17 @@ class EditResolution extends Component
         $this->uit_penalty = $inspection->infraction->uit_penalty;
         $this->pecuniary_sanction = $inspection->infraction->pecuniary_sanction;
         $this->administrative_sanction = $inspection->infraction->administrative_sanction;
-        $this->discount_five_days = $inspection->infraction->discount_five_days;
-        $this->discount_fifteen_days = $inspection->infraction->discount_fifteen_days;
         $this->status = $inspection->status;
+
+        $this->something = 'Nene';
+        $this->resolutions_name = ['au' => 'Australia', 'be' => 'Belgium', 'cn' => 'China']; 
     }
 
     public function render()
     {
         $associated_resolutions = Inspection::find($this->inspection_act_id)->resolutions;
         $resolutions = Resolution::all(); 
+        
         $this->status = $this->inspection->status;
 
         return view('livewire.inspection-act.edit-resolution', ['associated_resolutions' => $associated_resolutions, 'resolutions' => $resolutions]);

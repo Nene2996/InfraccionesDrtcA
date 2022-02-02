@@ -1,5 +1,4 @@
-
-<header class="bg-trueGray-700 ">
+<header class="bg-trueGray-700 "> 
     <div class="sticky top-0">
         <div class="container flex h-16">
             @auth
@@ -12,49 +11,62 @@
                 <nav class="flex-1">
                     <ul class="flex justify-end">
                         <li>
-                            <div>
-                                <x-jet-dropdown align="right" width="48">
+                            <div class=" relative">
+                                <x-jet-dropdown>
                                     <x-slot name="trigger">
-                                        <a class="hover:bg-trueGray-400 hover:text-black px-4 py-2 rounded-md">Papeletas</a>
+                                        @if (request()->routeIs('actasDeControl.show') || request()->routeIs('actasDeFiscalizacion.show'))
+                                            <a class="hover:bg-trueGray-400 hover:text-black px-4 py-2 rounded-md bg-trueGray-400 text-black">Papeletas</a>
+                                        @else 
+                                        <div class="mr-4">
+                                            <a href="hover:bg-trueGray-400 hover:text-black py-2 rounded-md">Papeletas</a>
+                                        </div>
+                                        @endif
                                     </x-slot>
-                
                                     <x-slot name="content">
-                                        <x-jet-dropdown-link href="{{ route('actasDeControl.show') }}">
+                                        <div class="block px-4 py-2 text-xs text-gray-400">
+                                            {{ __('Seleccionar el tipo de acta') }}
+                                        </div>
+                                        <x-jet-dropdown-link href="{{ route('actasDeControl.show') }} ">
                                             {{ __('Actas de Control') }}
                                         </x-jet-dropdown-link>
                                         <x-jet-dropdown-link href="{{ route('actasDeFiscalizacion.show') }}">
                                             {{ __('Actas de Fiscalizacion') }}
                                         </x-jet-dropdown-link>
-                                        
                                     </x-slot>
                                 </x-jet-dropdown>
                             </div>
                         </li>
-                        <li>
-                            <a class="hover:bg-trueGray-400 hover:text-black px-4 py-2 rounded-md" href="{{ route('MostrarResoluciones') }}">Resoluciones</a>
+                        <li class="px-1">
+                            <x-jet-nav-link href="{{ route('MostrarResoluciones') }}" :active="request()->routeIs('MostrarResoluciones')">
+                                {{ __('Resoluciones') }}
+                            </x-jet-nav-link>
                         </li>
                         <li>
-                            <a class="hover:bg-trueGray-400 hover:text-black px-4 py-2 rounded-md" href="{{ route('MostrarTablaInfracciones') }}">Tabla de Infracciones</a>
+                            <x-jet-nav-link href="{{ route('MostrarTablaInfracciones') }}" :active="request()->routeIs('MostrarTablaInfracciones')">
+                                {{ __('Tabla de Infracciones') }}
+                            </x-jet-nav-link>
+                        </li>
+                        <li class="px-1">
+                            <x-jet-nav-link href="#" :active="request()->routeIs('Mostrar_')">
+                                {{ __('Inspectores') }}
+                            </x-jet-nav-link>
                         </li>
                         <li>
-                            <a class="hover:bg-trueGray-400 hover:text-black px-4 py-2 rounded-md" href="hover:bg-red-200">Inspectores</a>
-                        </li>
-                        <li>
-                            <a class="hover:bg-trueGray-400 hover:text-black px-4 py-2 rounded-md" href="hover:bg-red-200">Sedes</a>
-                        </li>
-                        <li>
-                            <a class="hover:bg-trueGray-400 hover:text-black px-4 py-2 rounded-md" href="hover:bg-red-200">Reportes</a>
+                            <x-jet-nav-link href="#" :active="request()->routeIs('Mostrar_')">
+                                {{ __('Reportes') }}
+                            </x-jet-nav-link>
                         </li>
                         <li>
                             <span class="border-r border-white mx-1"></span>
                         </li>
                     </ul>
                 </nav>
-                <div class="ml-3">
+                <!-- Settings Dropdown -->
+                <div class="ml-3 relative">
                     <x-jet-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                                <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                                <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none transition">
                                     <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
                                 </button>
                             @else
@@ -93,14 +105,14 @@
                                 @csrf
 
                                 <x-jet-dropdown-link href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
+                                         onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                    {{ __('Salir') }}
+                                    {{ __('Salir del sistema') }}
                                 </x-jet-dropdown-link>
                             </form>
                         </x-slot>
                     </x-jet-dropdown>
-                </div>   
+                </div>  
             </div>
             @else
             <div class="flex items-center">
@@ -123,7 +135,7 @@
                             <x-jet-dropdown-link href="{{ route('register') }}">
                                 {{ __('Registrarse') }}
                             </x-jet-dropdown-link>
-                            -->
+                            --->
                             
                         </x-slot>
                     </x-jet-dropdown>

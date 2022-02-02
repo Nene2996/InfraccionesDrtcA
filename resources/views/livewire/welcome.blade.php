@@ -1,6 +1,29 @@
+
 <main>
     @auth
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
+                    <div class="mb-30">
+                        <h1 x-data="{ message: 'Buenos dias preciosa. 🤗 👷 ' }" x-text="message">
+                            (stareyes)
+                        </h1>
+                        <div x-data="{ val: request()->routeIs('welcome') }">
 
+                            <template x-if="val">
+                    
+                                <div>Renders on x-if directive.</div>
+                    
+                            </template>
+                    
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
     @else
     <div>
         <div class="flex flex-col text-center bg-195% md:bg-175% pt-10 px-4">

@@ -44,10 +44,11 @@ class ShowControlAct extends Component
             $fecha_pago_infraccion;
 
     //variable para comprobar si tiene pagos asociados
-    public  $hasPaiments;
+    public  $hasPaiments,
+            $hasResolutions;
 
-    //variable para pagos
-    public  $paiments;
+    //variable para pagos y resoluciones;
+    public  $paiments, $resolutions;
 
     public $cant = 10;
 
@@ -56,7 +57,7 @@ class ShowControlAct extends Component
     protected $rules = [];
     protected $messages = [];
 
-    public function updatingSearchName()
+    public function updatingSearchValue()
     {
         $this->resetPage();
     }
@@ -159,6 +160,12 @@ class ShowControlAct extends Component
             $this->hasPaiments = false;
         }
 
+        if($controlAct->hasResolutionSancion($controlAct->id)){
+            $this->hasResolutions = true;
+            $this->resolutions = $controlAct->resolutions;
+        }else{
+            $this->hasResolutions = false;
+        }
         $this->openModalShow();
     }
 }

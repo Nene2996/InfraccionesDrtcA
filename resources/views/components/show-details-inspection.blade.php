@@ -92,6 +92,8 @@
                                 <th>DESCRIPCION</th>
                                 <th>AGENTE INFRACTOR</th>
                                 <th>MULTA UIT</th>
+                                <th>DESC. 5 DIAS</th>
+                                <th>DESC. 15 DIAS(Resolucion)</th>
                                 <th>SANCION ADMINISTRATIVA</th>
                             </tr>
                         </thead>
@@ -101,6 +103,9 @@
                                 <td class="border px-3 text-xs">{{ $infraction_description }}</td>
                                 <td class="border px-3 text-xs">{{ $infraction_infringement_agent }}</td>
                                 <td class="border px-3 text-xs">{{ $infraction_uit_penalty }}</td>
+                                <td class="border px-3 text-xs">
+                                    {{ 'S/.'. number_format($this->inspection->infraction->discount_five_days * 4600, 2) }}</td>
+                                <td class="border px-3 text-xs">{{ 'S/.'. number_format($this->inspection->infraction->discount_fifteen_days * 4600, 2) }}</td>
                                 <td class="border px-3 text-xs">{{ $infraction_administrative_sanction }}</td>
                             </tr>
                         </tbody>

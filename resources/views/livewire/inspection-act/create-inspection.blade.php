@@ -98,14 +98,14 @@
                     <div class="grid grid-cols-1">
                         <label for="" class="font-semibold">Uit:</label>
                         @if ($infraction_id)
-                            <span>{{ $this->infraction->uit_penalty }}</span> 
+                            <span> {{ $this->infraction->uit_penalty }}</span> 
                         @else
                             <span>-------</span>
                         @endif
                     </div><div class="grid grid-cols-1">
                         <label for="" class="font-semibold">Monto:</label>
                         @if ($infraction_id)
-                            <span>S/. {{ $this->infraction->pecuniary_sanction }}</span> 
+                            <span>S/.{{ number_format($this->infraction->uit_percentage * 4600, 2) }}</span> 
                         @else 
                             <span>-------</span>
                         @endif

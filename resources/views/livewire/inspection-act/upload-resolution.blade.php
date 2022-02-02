@@ -59,8 +59,6 @@
                             <h3 class="px-3 py-2 rounded-md bg-gray-300">{{ $status }}</h3>
                         </div>
                     </div>
-                    <x-jet-section-border />
-
                     <form wire:submit.prevent="uploadToServer">
                         
                         <div class="grid grid-cols-1">

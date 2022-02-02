@@ -51,14 +51,98 @@ class UpdateResolution extends Component
         $rules = $this->rules;
         $messages = $this->messages;
         
-        
         $resolution = Resolution::find($this->resolution_id);
+        $type_resolution = $resolution->type;
         $url_path = $resolution->url;
         $url = Storage::url($url_path);
         $storageName = basename($url);
         
         $data = [];
 
+        //detectar si cambia de tipo de resolucion
+        if( $this->type_resolution == $type_resolution ){
+            dd($this->url_path);
+            if(Storage::exists( $this->url_path )){
+                
+                $data['url'] = $this->url_path;
+                $data['size'] = $this->size;
+            }else{
+
+                if( $this->type_resolution == 'RESOLUCIÓN DE SANCION' ){
+                    $fileName = $this->url_path->storeAs('public/ResolucionesSancion', $this->url_path->getClientOriginalName());
+                }elseif( $this->type_resolution == 'RESOLUCIÓN DE NULIDAD' ){
+                    $fileName = $this->url_path->storeAs('public/ResolucionesNulidad', $this->url_path->getClientOriginalName());
+                }elseif( $this->type_resolution == 'RESOLUCIÓN DE PRESCRIPCION' ){
+                    $fileName = $this->url_path->storeAs('public/ResolucionesPrescripcion', $this->url_path->getClientOriginalName());
+                }
+                $data['url'] = $fileName;
+                $data['size'] = $this->url_path->getSize();
+                Storage::delete($url_path);
+            }  
+        }else{ // obligatoriamente se va mover el archivo pdf
+            if( $this->type_resolution == 'RESOLUCIÓN DE SANCION' ){
+
+                if(Storage::exists( $this->url_path )){
+                    $data['url'] = 'public/ResolucionesSancion/' . $storageName;
+                    $data['size'] = $this->size;
+                    if(Storage::exists( $data['url'] )){
+                        $data['url'] = $url_path;
+                    }else{
+                        Storage::move($url_path, 'public/ResolucionesSancion/'.$storageName);
+                    }
+
+                }else{
+                    dd();
+                    $fileName = $this->url_path->storeAs('public/ResolucionesSancion', $this->url_path->getClientOriginalName());
+                    $data['url'] = $fileName;
+                    $data['size'] = $this->url_path->getSize();
+                    Storage::delete($url_path);
+                }  
+            }elseif( $this->type_resolution == 'RESOLUCIÓN DE NULIDAD' ){
+
+                if(Storage::exists( $this->url_path )){
+                    $data['url'] = 'public/ResolucionesNulidad/' . $storageName;
+                    $data['size'] = $this->size;
+                    if(Storage::exists( $data['url'] )){
+                        $data['url'] = $url_path;
+                    }else{
+                        Storage::move($url_path, 'public/ResolucionesNulidad/'.$storageName);
+                    }
+                }else{
+                    $fileName = $this->url_path->storeAs('public/ResolucionesNulidad/', $this->url_path->getClientOriginalName());
+                    $data['url'] = $fileName;
+                    $data['size'] = $this->url_path->getSize();
+                    Storage::delete($url_path);
+                }  
+            }elseif( $this->type_resolution == 'RESOLUCIÓN DE PRESCRIPCION' ){
+
+                if(Storage::exists( $this->url_path )){
+                    $data['url'] = 'public/ResolucionesPrescripcion/' . $storageName;
+                    $data['size'] = $this->size;
+                    if(Storage::exists( $data['url'] )){
+                        $data['url'] = $url_path;
+                    }else{
+                        Storage::move($url_path, 'public/ResolucionesPrescripcion/'.$storageName);
+                    }
+                }else{
+                    $fileName = $this->url_path->storeAs('public/ResolucionesPrescripcion/', $this->url_path->getClientOriginalName());
+                    $data['url'] = $fileName;
+                    $data['size'] = $this->url_path->getSize();
+                    Storage::delete($url_path);
+                }  
+            }
+        }
+        $data['title'] = $this->title;
+        $data['date_resolution'] = $this->date_resolution;
+        $data['type'] = $this->type_resolution;
+        $resolution->fill($data);
+        $saved = $resolution->save();
+        if($saved)
+            session()->flash('message', 'Se ha realizado correctamente la actualizacion de datos.');
+            $this->clearInputs();
+            $this->redirect('/resoluciones');
+
+/*
         if( $this->type_resolution == 'RESOLUCIÓN DE SANCION' ){
             
             if(isset($this->url_path)){
@@ -69,7 +153,7 @@ class UpdateResolution extends Component
                 $data['size'] = $this->url_path->getSize();
                 
             }else{
-                $data['url'] = 'public/ResolucionesSancion/'.$storageName;
+                $data['url'] = 'public/ResolucionesSancion/' . $storageName;
                 $data['size'] = $this->size;
                 if(Storage::exists( $data['url'] )){
                     $data['url'] = $url_path;
@@ -80,6 +164,8 @@ class UpdateResolution extends Component
              
         }elseif($this->type_resolution == 'RESOLUCIÓN DE NULIDAD'){
 
+            //si o si va existir una url_path
+
             if(isset($this->url_path)){
                 $fileName = $this->url_path->storeAs('public/ResolucionesNulidad', $this->url_path->getClientOriginalName());
                 Storage::delete($url_path);
@@ -87,13 +173,7 @@ class UpdateResolution extends Component
                 $data['size'] = $this->url_path->getSize();
                
             }else{
-                $data['url'] = 'public/ResolucionesNulidad/'.$storageName;
-                $data['size'] = $this->size;
-                if(Storage::exists( $data['url'] )){
-                    $data['url'] = $url_path;
-                }else{
-                    Storage::move($url_path, 'public/ResolucionesNulidad/'.$storageName);
-                }
+
             }
 
         }elseif($this->type_resolution == 'RESOLUCIÓN DE PRESCRIPCION'){
@@ -126,6 +206,7 @@ class UpdateResolution extends Component
             session()->flash('message', 'Se ha realizado la actualizacion de la resolucion correctamente.');
             $this->clearInputs();
             $this->redirect('/resoluciones');
+*/
     }
 
     public function clearInputs()
@@ -134,7 +215,7 @@ class UpdateResolution extends Component
         $this->title = '';
         $this->type_act = '';
         $this->date_resolution = '';
-        $this->url_path = null;
+        $this->url_path = '';
         $this->size = 0;
         $this->iteration++;
     }

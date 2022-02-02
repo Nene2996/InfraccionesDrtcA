@@ -216,9 +216,10 @@ class PaimentControlAct extends Component
 
                 //Verificar si existe resolucion de sancion asociada
                 if($this->controlAct->hasResolutionSancion($this->controlAct->id)){
+                    $controlActResolution = ControlActResolution::where('control_act_id', $this->controlAct->id)->first();
+                    $this->fecha_notificacion_sancion = $controlActResolution->date_notification_driver;
                     if($date_paiment >= Carbon::parse($this->fecha_notificacion_sancion)){
-                        $controlActResolution = ControlActResolution::where('control_act_id', $this->controlAct->id)->first();
-                        $this->fecha_notificacion_sancion = $controlActResolution->date_notification_driver;
+
                         $this->dias_habiles_notificacion = $this->getDiasHabiles($this->fecha_notificacion_sancion, $this->fecha_pago);
 
                         if( $this->dias_habiles_notificacion >= 0 && $this->dias_habiles_notificacion <= 15){
@@ -274,89 +275,6 @@ class PaimentControlAct extends Component
                     }
                 }
 
-//=============================================================================================================================
-/*
-                if($descuento_cinco_dias > 0.1){
-
-                    $this->aplica_descuento_cinco = 'Si.';
-
-
-                    if($this->dias_habiles > 5){
-                        
-                        //Verificar si tiene resolucion de sancion
-                        if($this->controlAct->hasResolutionSancion($this->controlAct->id)){
-                            
-                            $controlActResolution = ControlActResolution::where('control_act_id', $this->controlAct->id)->first();
-                            $this->fecha_notificacion_sancion = $controlActResolution->date_notification_driver;
-
-                            if($descuento_quince_dias > 0.1){
-                                
-                                $this->dias_habiles_notificacion = $this->getDiasHabiles($this->fecha_notificacion_sancion, $this->fecha_pago);
-                                if($this->dias_habiles_notificacion > 15){
-                                    $this->aplica_descuento_quince = 'Ya trancurrio mas de 15 dias hábiles.';
-                                    $this->descuento_quince_dias = 0;
-                                }else{
-                                    $this->aplica_descuento_quince = 'Si.';
-                                    $this->descuento_quince_dias = $this->monto_infraccion * $descuento_quince_dias;
-                                }
-                            }else{
-                                $this->aplica_descuento_quince = 'La infracción no admite descuento.';
-                            }
-                        }else{
-                            
-                            $this->aplica_descuento_quince = 'La infracción no tiene Resolución de Sanción asignada.';
-                            $this->dias_habiles_notificacion = 'La infracción no tiene Resolución de Sanción asignada.';
-                            $this->descuento_quince_dias = 0;
-                        }
-
-                        $this->aplica_descuento_cinco = 'Ya trancurrio mas de 5 dias hábiles.';
-                        $this->descuento_cinco_dias = 0;
-                        $this->monto_total_infraccion = $this->monto_infraccion;
-                        $this->monto_total_pagar = ($this->monto_infraccion - ($this->descuento_cinco_dias + $this->descuento_quince_dias));
-                        
-                    }else{
-                        
-                        $this->descuento_cinco_dias = $this->monto_infraccion * $descuento_cinco_dias;
-                        $this->descuento_quince_dias = 0;
-                        $this->monto_total_infraccion = $this->monto_infraccion;
-                        $this->monto_total_pagar = ($this->monto_infraccion - ($this->descuento_cinco_dias + $this->descuento_quince_dias));
-
-                    }
-                    
-                }else{
-                    
-                    //Verificar si tiene resolucion de sancion
-                    if($this->controlAct->hasResolutionSancion($this->controlAct->id)){
-                            
-                        $controlActResolution = ControlActResolution::where('control_act_id', $this->controlAct->id)->first();
-                        $this->fecha_notificacion_sancion = $controlActResolution->date_notification_driver;
-
-                        if($descuento_quince_dias > 0.1){
-                            
-                            $this->dias_habiles_notificacion = $this->getDiasHabiles($this->fecha_notificacion_sancion, $this->fecha_pago);
-                            if($this->dias_habiles_notificacion > 15){
-                                $this->aplica_descuento_quince = 'Ya trancurrio mas de 15 dias hábiles.';
-                                $this->descuento_quince_dias = 0;
-                            }else{
-                                $this->aplica_descuento_quince = 'Si.';
-                                $this->descuento_quince_dias = $this->monto_infraccion * $descuento_quince_dias;
-                            }
-                        }else{
-                            $this->aplica_descuento_quince = 'La infracción no admite descuento.';
-                        }
-                    }else{
-                        
-                        $this->aplica_descuento_quince = 'La infracción no tiene Resolución de Sanción asignada.';
-                        $this->dias_habiles_notificacion = 'La infracción no tiene Resolución de Sanción asignada.';
-                        $this->descuento_quince_dias = 0;
-                    }
-
-                    $this->aplica_descuento_cinco = 'La infracción no admite descuento.';
-                    $this->descuento_cinco_dias = 0;
-                    $this->monto_total_infraccion = $this->monto_infraccion;
-                    $this->monto_total_pagar = ($this->monto_infraccion - ($this->descuento_cinco_dias + $this->descuento_quince_dias));
-                }
-*/
                 
             }else{
                 $this->dias_habiles = '-';
@@ -366,8 +284,6 @@ class PaimentControlAct extends Component
             }
         }
     }
-
-
 
     public function getDiasHabiles($fechaInicio, $fechaFin)
     {
@@ -561,7 +477,7 @@ class PaimentControlAct extends Component
                 Storage::delete($url_path_before);
 
                 $extension = $this->file_img->extension();
-                $folder_name = 'public/ActasDeControl/ACTA-00' . $this->numero_acta . '-' . $user->campus->alias . '/COMPROBANTE_PAGO';
+                $folder_name = 'public/ActasDeControl/ACTA-00' . $this->numero_acta . '-' . $this->controlAct->campus->alias . '/COMPROBANTE_PAGO';
                 $url_path = $this->file_img->storeAs($folder_name, $paiment->typeProof->type .' - '. $paiment->proof_number .'.'. $extension);
     
                 $saved = $paiment->update([
@@ -575,7 +491,7 @@ class PaimentControlAct extends Component
                 
             }else{
                 $extension = $this->file_img->extension();
-                $folder_name = 'public/ActasDeControl/ACTA-00' . $this->numero_acta . '-' . $user->campus->alias . '/COMPROBANTE_PAGO';
+                $folder_name = 'public/ActasDeControl/ACTA-00' . $this->numero_acta . '-' . $this->controlAct->campus->alias . '/COMPROBANTE_PAGO';
                 $url_path = $this->file_img->storeAs($folder_name, $paiment->typeProof->type .' - '. $paiment->proof_number .'.'. $extension);
     
                 $saved = $paiment->update([

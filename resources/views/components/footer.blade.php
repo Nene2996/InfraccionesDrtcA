@@ -3,13 +3,10 @@
         <div>
             <ul>
                 <li class="inline-block text-md  mr-8 hover:text-gray-400">
-                    <a href="#">Acerca de</a>
+                    <a href="#"></a>
                 </li>
                 <li class="inline-block text-md  mr-8 hover:text-gray-400">
-                    <a href="#">Contactar con el desarrollador</a>
-                </li>
-                <li class="inline-block text-md  mr-8 hover:text-gray-400">
-                    <a href="#">Manual del Sistema</a>
+                    <a href="#"></a>
                 </li>
             </ul>
         </div>
