@@ -34,24 +34,21 @@ class IPAddress
             return 'UNKNOWN';   
     }
 
-    //Ip pública
-    protected $valid_ips = [
-        '127.0.0.1',
-        '179.5.85.156'
-    ];
+     //Ip pública
+     protected $valid_ips = [
+          '127.0.0.1',
+          '190.119.175.43',
+          '190.187.46.171',
+     ];
 
-    public function handle(Request $request, Closure $next)
-    {
-        $ip = $this->checkIp();
-        foreach($this->valid_ips as $valid_ip){
-            if($valid_ip == $ip){
-                return $next($request);
-            }
-        }
-
-        abort(403, "La direccion IP actual no esta autorizada.");
-        //return response()->json('La direccion IP actual no esta autorizada. Comuniquese con el administrador del sistema');
-
-        
-    }
+     public function handle(Request $request, Closure $next)
+     {
+          $ip = $this->checkIp();
+          foreach($this->valid_ips as $valid_ip){
+          if($valid_ip == $ip){
+               return $next($request);
+          }
+          }
+          abort(403, "La direccion IP actual no esta autorizada. Comuniquese con el administrador del sistema");
+     }
 }

@@ -1,4 +1,4 @@
-<div class="@if (!$isOpenModalAssociateAct) hidden @endif flex items-baseline pt-32 justify-center fixed left-0 bottom-0 w-full h-full bg-gray-600 bg-opacity-75">
+<div class="@if (!$isOpenModalAssociateAct) hidden @endif flex items-baseline pt-24 justify-center fixed left-0 bottom-0 w-full h-full bg-gray-600 bg-opacity-75">
     <div class="bg-white rounded-lg w-9/12">
         <div class="flex flex-col p-4">
             

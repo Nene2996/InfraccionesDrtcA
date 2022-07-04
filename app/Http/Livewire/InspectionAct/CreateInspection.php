@@ -45,7 +45,6 @@ class CreateInspection extends Component
 
     public  $iteration;
 
-    
     public  $act_number, 
             $names_business_name, 
             $address, 
@@ -74,7 +73,6 @@ class CreateInspection extends Component
     //tabla de evidencias
     public  $evidencesFiles = [''],
             $file_evidence;
-
 
     protected $rules = [
         'act_number' => 'required|regex:/^[0-9]+$/',
@@ -189,9 +187,8 @@ class CreateInspection extends Component
             '_document_number' => 'required'
         ]);
         $response = Http::withToken('673dda73ae6223bd300b6db984f3ac6a125b2b8b9ed9ae9bffed87bfcb4b4b84')->get('https://apiperu.dev/api/ruc/'.$this->_document_number);
-        /*
-        $response02 = Http::get('https://dniruc.apisperu.com/api/v1/ruc/'.$this->_document_number.'?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Imd1ZXZhcmFyb2phc2Rlbm5pc0BnbWFpbC5jb20ifQ.Mq9O3DdlzIIoaWHIkSFskEmQ8ulfGfYEuzB7jW7aKzA');*/
-        //dd(json_decode($response->getBody(), true));
+        
+        //dd(json_decode($response02->getBody(), true));
         if($response->getStatusCode() == 200){
             $this->dataSunat = (json_decode($response->getBody(), true));
             if($this->dataSunat['success'] == true){
