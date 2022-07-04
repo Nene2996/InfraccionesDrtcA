@@ -50,6 +50,8 @@ class EditResolution extends Component
 
     //pivot table
     public  $control_act_resolution_id;
+    
+    public $tipo_res = 'RESOLUCIÓN DE SANCION';
 
     protected $rules = [
         'resolution_id' => 'required',
@@ -83,14 +85,6 @@ class EditResolution extends Component
         $this->agente_infractor = $controlAct->infractions->infringement_agent;
         $this->descripcion = $controlAct->infractions->description;
         $this->monto_uit = $controlAct->infractions->monto_uit;
-        /*
-        foreach($controlAct->resolutions as $resolution){
-            
-            $this->resolution_id = $resolution->id;
-            $this->date_notification_driver = $resolution->pivot->date_notification_driver;
-            $this->control_act_resolution_id = $resolution->pivot->id;
-        }
-        */
     }
 
     public function render()
@@ -101,7 +95,7 @@ class EditResolution extends Component
 
         return view('livewire.control-act.edit-resolution', ['associated_resolutions' => $associated_resolutions, 'resolutions' => $resolutions]);
     }
-
+    
     public function getResolutionProperty()
     {
         return Resolution::find($this->resolution_id); 
@@ -123,11 +117,10 @@ class EditResolution extends Component
         foreach($this->resolution->controlActs as $inspection){
             $this->date_notification_driver = $inspection->pivot->date_notification_driver;
         }
-        
     }
 
     public function saveCreateResolution()
-    {
+    {   
         $this->validate();
         if(!empty($this->resolution_id))
         {
@@ -140,7 +133,6 @@ class EditResolution extends Component
 
             if($exists){
                 if($resolutionType == 'RESOLUCIÓN DE SANCION'){
-
                     $tomorrow = Carbon::tomorrow('America/Lima');
                     $date_limit = $tomorrow->subYear()->format('d-m-Y');
         
@@ -163,10 +155,16 @@ class EditResolution extends Component
                     $this->controlAct->estado_actual = 'ANULADO MEDIANTE '.$resolutionName;
                     $this->controlAct->save();
         
-                }else{
+                }elseif($resolutionType == 'RESOLUCIÓN DE PRESCRIPCION'){
         
                     $data['date_notification_driver'] = null;
                     $this->controlAct->estado_actual = 'PRESCRITA MEDIANTE '.$resolutionName;
+                    $this->controlAct->save();
+                }
+                elseif($resolutionType == 'RESOLUCIÓN DE IMPROCEDENCIA'){
+        
+                    $data['date_notification_driver'] = null;
+                    $this->controlAct->estado_actual = 'DECLARADO IMPROCEDENTE MEDIANTE '.$resolutionName;
                     $this->controlAct->save();
                 }
 
@@ -180,10 +178,8 @@ class EditResolution extends Component
             } 
         }
     }
-
-    public function saveUpdateResolution()
+        public function saveUpdateResolution()
     {
-        
         $this->validate();
         if(!empty($this->resolution_id))
         {
@@ -195,7 +191,6 @@ class EditResolution extends Component
             $resolutionName = $resolution->title;
             $data = [];
             
-
             $rules['resolution_id'] = Rule::unique('control_act_resolution', 'resolution_id')->ignore($this->resolution_id_edit, 'resolution_id');
             $messages['resolution_id.unique'] = 'La resolucion que ha seleccionado ya fue asociada anteriormente.';
 
@@ -223,10 +218,15 @@ class EditResolution extends Component
                 $this->controlAct->estado_actual = 'ANULADO MEDIANTE '.$resolutionName;
                 $this->controlAct->save();
 
-            }else{
+            }elseif($resolutionType == 'RESOLUCIÓN DE PRESCRIPCION'){
 
                 $data['date_notification_driver'] = null;
                 $this->controlAct->estado_actual = 'PRESCRITA MEDIANTE '.$resolutionName;
+                $this->controlAct->save();
+            }elseif($resolutionType == 'RESOLUCIÓN DE IMPROCEDENCIA'){
+
+                $data['date_notification_driver'] = null;
+                $this->controlAct->estado_actual = 'DECLARADO IMPROCEDENTE MEDIANTE '.$resolutionName;
                 $this->controlAct->save();
             }
             
@@ -235,9 +235,7 @@ class EditResolution extends Component
             $index[$this->resolution_id] = $data;
 
             $this->controlAct->resolutions()->sync($index);
-
             $this->closeUpdateModal();
-
         }
     }
 
@@ -248,9 +246,8 @@ class EditResolution extends Component
             $resolution->controlActs()->detach($this->control_act_id);
             $this->resolution_id = '';
         }
-        
     }
-    private function getIdResolutions()
+        private function getIdResolutions()
     {
         $datas = [];
 
@@ -259,13 +256,11 @@ class EditResolution extends Component
             $data['date_notification_driver'] = $resolution->pivot->date_notification_driver;
             $data['created_at'] = $resolution->pivot->created_at;
             $datas[$resolution->id] = $data;
-
         }
-
+        
         $value = $datas[intval($this->resolution_id_edit)];
         $this->created_at = $value['created_at'];
         unset( $datas[intval($this->resolution_id_edit)] );
-        
         return $datas;
     }
 
@@ -293,7 +288,6 @@ class EditResolution extends Component
         $exists = ControlActResolution::where('resolution_id', $this->resolution_id)
                 ->where('control_act_id', $this->control_act_id)
                 ->exists();
-
         return !$exists; 
     }
 }

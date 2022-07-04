@@ -84,17 +84,10 @@ class Inspection extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-    /*
-    public function paiments()
-    {
-        return $this->hasOne('App\Models\Paiment', 'inspection_act_id', 'id');
-    }
-    */
     //Relacion muchos a muchos
     public function resolutions()
     {
         return $this->belongsToMany(Resolution::class, 'inspection_act_resolution', 'inspection_act_id', 'resolution_id')->withPivot('inspection_act_id', 'id', 'date_notification_driver','type_act', 'created_at', 'updated_at')->withTimestamps()->orderBy('inspection_act_resolution.created_at','asc');
-       
     }
 
     //verificar si existe la resolución
@@ -132,5 +125,4 @@ class Inspection extends Model
         $inspection = Inspection::findOrFail($inspectionId);
         return $inspection::paiments()->exists();
     }
-
 }

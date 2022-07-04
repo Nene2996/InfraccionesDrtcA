@@ -2,7 +2,6 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-
                 <div class="grid grid-cols-4">
                     <div class="grid grid-cols-1">
                         <label for="" class="font-semibold">Nro de Acta de Fiscalización:</label>
@@ -30,7 +29,6 @@
                                 wire:loading.attr="disabled"
                                 wire:target="getApiReniec"
                                 wire:click="getApiReniec">CONSULTAR RENIEC</x-jet-button>
-                            
                             @error('document_number') <span class="text-red-500 text-sm italic ml-2">{{ $message }}</span> @enderror
                         </div>
                         <div class="py-4 ml-6">
@@ -38,7 +36,6 @@
                                 <span class="text-red-500 text-sm italic ml-2"> {{ $messageApi }}</span><br/>
                             @endif
                             <input wire:model='names_business_name' type="text" class="rounded-md md:w-1/2" placeholder="Escribe los apellidos y nombres" >
-                            
                             @error('names_business_name') <span class="text-red-500 text-sm italic ml-2">{{ $message }}</span> @enderror
                         </div>
                     @endif
@@ -55,14 +52,12 @@
                             @if ($messageApi)
                                 <span class="text-red-500 text-sm italic ml-2"> {{ $messageApi }}</span><br/>
                             @endif
-                            <input wire:model='_names_business_name' type="text" class="rounded-md md:w-1/2" placeholder="Escribe la Razón Social">
+                            <input wire:model='_names_business_name' type="text" class="rounded-md md:w-4/5" placeholder="Escribe la Razón Social">
                             @error('_names_business_name') <span class="text-red-500 text-sm italic ml-2">{{ $message }}</span> @enderror
                         </div>
-                        
                     @endif
                     </fieldset>
                 </div>
-
                 <div class="grid grid-cols-1 my-2">
                     <label for="" class="font-semibold">Domicilio:</label>
                     <input type="text" wire:model="address" class="rounded-md">
@@ -84,11 +79,9 @@
                                 <option value="{{ $infraction->id }}">{{ $infraction->code }}</option>
                             @endforeach
                         </select>
-                        
                     </div>
                     <div class="grid grid-cols-1">
                         <label for="" class="font-semibold">Calificación:</label>
-                        
                         @if ($infraction_id)
                             <span>{{ $this->infraction->qualification }}</span> 
                         @else
@@ -98,18 +91,17 @@
                     <div class="grid grid-cols-1">
                         <label for="" class="font-semibold">Uit:</label>
                         @if ($infraction_id)
-                            <span> {{ $this->infraction->uit_penalty }}</span> 
+                            <span>{{ $this->infraction->uit_penalty }}</span> 
                         @else
                             <span>-------</span>
                         @endif
                     </div><div class="grid grid-cols-1">
                         <label for="" class="font-semibold">Monto:</label>
                         @if ($infraction_id)
-                            <span>S/.{{ number_format($this->infraction->uit_percentage * 4600, 2) }}</span> 
+                            <span>S/. {{ number_format($this->infraction->uit_percentage * 4600, 2) }}</span> 
                         @else 
                             <span>-------</span>
                         @endif
-                        
                     </div>
                     <div class="grid grid-cols-1">
                         <label for="" class="font-semibold">Fecha:</label>
@@ -119,8 +111,6 @@
                         <label for="" class="font-semibold">Hora:</label>
                         <input type="time" wire:model="hour_infraction" class="rounded-md">
                     </div>
-                    
-                    
                 </div>
                 <div class="grid grid-cols-1 gap-3 my-2">
                     <li class="flex flex-col">
@@ -129,7 +119,6 @@
                         @error('date_infraction') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                         @error('hour_infraction') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                     </li>
-                    
                 </div>
                 <div class="grid grid-cols-1">
                     <label for="" class="font-semibold">Información Adicional</label>
@@ -158,7 +147,6 @@
                             @endforeach
                         </select>
                     </div>
-                    
                     <div class="grid grid-cols-1">
                         <label for="" class="font-semibold">Distrito:</label>
                         <select name="" id="" wire:model="district_id" class="rounded-md">
@@ -179,7 +167,6 @@
                         @error('district_id') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                     </div>
                 </div>
-                
                 <div class="grid grid-cols-1 my-2">
                     <label for="" class="font-semibold">Referencia:</label>
                     <input type="text" wire:model="reference" class="rounded-md">
@@ -193,7 +180,6 @@
                         <label for="" class="font-semibold">Número de placa única nacional de Rodaje:</label>
                         <input type="text" wire:model="plate_number" class="rounded-md">
                     </div>
-                    
                     <div class="grid grid-cols-1">
                         <label for="" class="font-semibold">Número de Tarjeta de Identificación vehicular:</label>
                         <input type="text" wire:model="identification_card_number" class="rounded-md">
@@ -207,7 +193,6 @@
                         @error('identification_card_number') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                     </div>
                 </div>
-                
                 <div class="grid grid-col-1">
                     <label for="description" class="font-semibold">Descripcion de la Infracción</label>
                     <textarea name="" id="" cols="30" rows="10" wire:model="description" class="rounded-md"></textarea>
@@ -218,7 +203,6 @@
                         <label for="" class="font-semibold">Sede:</label>
                         @error('campus_id') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                         <h3 class="px-3 py-2 rounded-md bg-gray-200">{{ auth()->user()->campus->campus_name }}</h3>
-                        
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-3 mt-3">
@@ -228,9 +212,7 @@
                     <select name="" id="" wire:model="inspector_id" class="rounded-md">
                         <option value="" selected disabled>Selecciona el inspector</option>
                         @foreach ($inspectors as $inspector)
-                            
                             <option value="{{ $inspector->id }} ">{{ $inspector->surnames_and_names }}</option>
-                            
                         @endforeach
                     </select>
                     </div>
@@ -260,7 +242,6 @@
                             pdfPreviewHeight: 700,
                             pdfComponentExtraParams: 'toolbar=0&view=fit&page=1' 
                         }); 
-
                     }"
                 >
                     <label for="" class="font-semibold">Archivo digitalizado del Acta de Fiscalización:</label>
@@ -277,14 +258,12 @@
                 </div>
                 <div class="flex items-center">
                     <div class="flex justify-center flex-1 mt-8">
-
                         <x-jet-button class="mx-4"
                             wire:loading.attr="disabled"
                             wire:target="save"
                             wire:click="save">
                             Guardar datos
                         </x-jet-button>
-
                         <a href="{{ route('actasDeFiscalizacion.show') }}" class="flex items-center p-4 px-7 bg-blue-200 rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100 mx-4">
                             <div>
                               <p class="text-xs font-medium ml-2">
@@ -298,7 +277,6 @@
         </div>
     </div>
 </div>
-
 
 @push('styles')
     @once 
@@ -349,18 +327,10 @@
 
             FilePond.setOptions(labels_es);
 
-
             // Register the plugin
             FilePond.registerPlugin(FilePondPluginFileValidateType);
             FilePond.registerPlugin(FilePondPluginFileValidateSize);
             FilePond.registerPlugin(FilePondPluginPdfPreview);
-
-            //validate
-
-        
         </script>
-        
     @endonce
 @endpush
-
-

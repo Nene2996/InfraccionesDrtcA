@@ -130,16 +130,12 @@
                                             <tr class="hover:bg-gray-100 text-center">
                                                 <td colspan="4" class="border p-3 text-sm">.:No existen resoluciones asociadas:.</td>
                                             </tr>
-                                            
                                             @endforelse
                                         </tr>
                                     </tbody>
                                 </table>
                             </div> 
-                            <!-------------------------------------------------------------------------------------------------->
-                            
                             <div class="my-3">
-                                
                                 <a type="button" href="{{ route('actasDeControl.show') }}" class="inline-flex items-center px-4 py-2 bg-gray-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">REGRESAR</a>
                             </div>
                         </div>

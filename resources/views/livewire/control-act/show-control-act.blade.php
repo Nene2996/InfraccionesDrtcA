@@ -1,7 +1,7 @@
-
 @if ($radioValue == 3)
 <div class="h-screen">
 @endif
+<div>
     <div class="py-12">
         <div class="mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
@@ -99,8 +99,7 @@
                     </select>
                     <span>registros</span>
                 </div>
-                
-                <div class="py-2 px-5 bg-white flex justify-center">
+                <div class="py-2 px-2 flex justify-center">
                     <table class="w-full">
                         <thead>
                             <tr class="bg-gray-200 text-xs">
@@ -111,9 +110,6 @@
                                 <th class="border px-3">Placa Vehiculo</th>
                                 <th class="border px-3">Fecha. Infracción</th>
                                 <th class="border px-3">Cod. Infracción</th>
-                                <th class="border px-3">Tipo de Infracción</th>
-                                <th class="border px-3">Sancion Pecuniaria</th>
-                                <th class="border px-3">Sancion Administrativa</th>
                                 <th class="border px-3">Estado Actual</th>
                                 <th class="border px-3">Sede Infracción</th>
                                 <th class="border px-3">Archivo digital</th>
@@ -122,7 +118,6 @@
                         </thead>
                         <tbody>
                             @forelse ($controlActs as $controlAct)
-                                
                                 <tr class="hover:bg-gray-100">
                                     <td class="border px-3 text-xs text-center">{{ $controlAct->numero_acta }}</td>
                                     <td class="border px-3 text-xs">{{ $controlAct->apellidos_nombres_conductor }}</td>
@@ -131,9 +126,6 @@
                                     <td class="border text-center text-xs text-center">{{ $controlAct->placa_vehiculo }}</td>
                                     <td class="border text-center text-xs">{{ date('d/m/Y', strtotime($controlAct->fecha_infraccion)) }}</td>
                                     <td class="border px-3 text-xs text-center">{{ $controlAct->infractions->code }}</td>
-                                    <td class="border px-3 text-xs text-center">{{ $controlAct->infractions->type }}</td>
-                                    <td class="border px-3 text-xs">{{ $controlAct->infractions->uit_penalty }}</td>
-                                    <td class="border px-3 text-xs text-center">{{ $controlAct->infractions->administrative_sanction }}</td>
                                     <td class="border px-3 text-xs text-center">{{ $controlAct->estado_actual }}</td>
                                     <td class="border px-3 text-xs text-center">{{ $controlAct->campus->alias }}</td>
                                     <td class="border px-3 px-6 py-4 text-center">
@@ -153,7 +145,6 @@
                                     </td>
                                     <td class="border px-3 text-xs">
                                         <div class="flex item-center space-x-1">
-                                            <!-------------------------------------------------------------------------------->
                                             @if (auth()->user()->role == 'Asistente Administrativo')
                                                 @if (auth()->user()->campus->alias == $controlAct->campus->alias)
                                                     <a type="button" title="MODIFICAR ACTA" class="md:w-auto border-2 border-gray-600 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-600 hover:text-gray-200" href="{{ route('actasDeControl.edit', $controlAct) }}">
@@ -166,7 +157,6 @@
                                                 @endif
                                             @endif
                                             @if (auth()->user()->role == 'Administrador')
-                                                
                                                     <a type="button" title="MODIFICAR ACTA" class="md:w-auto border-2 border-gray-600 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-600 hover:text-gray-200" href="{{ route('actasDeControl.edit', $controlAct) }}">
                                                         <span>
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -181,9 +171,7 @@
                                                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd" />
                                                               </svg>
                                                         </span>
-                                                
                                                     </a>
-
                                                     @if ($controlAct->hasResolution($controlAct->id))
                                                     <a type="button" title="MODIFICAR RESOLUCIÓN" class="md:w-auto border-2 border-gray-600 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-600 hover:text-gray-200" href="{{ route('actasDeControl.EditarResolucion', $controlAct) }}">
                                                         <span>
@@ -201,13 +189,9 @@
                                                         </span>
                                                     </a> 
                                                     @endif
-
-                                                
-
                                             @endif
                                             <!------------------------------------------------------------------------------>
                                             @if (auth()->user()->role == 'Asistente de Caja')
-                                                
                                                 <a type="button" title="REALIZAR PAGO" class="md:w-auto py-2 border-2 border-gray-600 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-600 hover:text-gray-200" href="{{ route('actaControl.pagar', $controlAct) }}">
                                                     <span>
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -216,7 +200,6 @@
                                                           </svg>
                                                     </span>
                                                 </a>
-                                                
                                             @endif
                                             <!-------------------------------------------------------------------------------->
                                             <button title="VER DETALLES" wire:click="loadControlActId({{ $controlAct->id }})" class="md:w-auto border-2 border-gray-600 rounded-lg px-3 py-1 text-gray-600 cursor-pointer hover:bg-gray-600 hover:text-gray-200">
@@ -227,28 +210,26 @@
                                                       </svg>
                                                 </span>
                                             </button>
-
                                         </div>
                                     </td>
                                 </tr>
                             @empty
-
                             <tr class="text-center">
-                                <td colspan="12" class="py-3 italic">No hay registro de Infracciones.</td>
+                                <td colspan="12" class="py-3 italic">.: No se encontraron registros de Actas de Control :.</td>
                             </tr>
-                                
                             @endforelse
                         </tbody>
                     </table>
                 </div>
                 @if ($controlActs->hasPages())
                     <div class="pb-6 px-5 bg-white my-6">
-                        {{ $controlActs->links() }} 
+                        {{ $controlActs->links() }}
                     </div> 
                 @endif
             </div>
         </div>
     </div>
+</div>
 @if ($radioValue == 3)
 </div>
 @endif

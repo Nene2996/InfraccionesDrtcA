@@ -57,14 +57,15 @@ class ControlAct extends Model
 
     public function hasResolutionSancion($idControlAct)
     {
-        return ControlActResolution::where('control_act_id', $idControlAct)->where('type_act', 'ACTA DE CONTROL')->exists();
+        return ControlActResolution::where('control_act_id', $idControlAct)
+                                    ->where('type_act', 'ACTA DE CONTROL')
+                                    ->exists();
     }
 
-    public function hasPaiment($controlActId)
+    public function hasPaiment($controlActId)   
     {
         $controlActId = ControlAct::findOrFail($controlActId);
         return $controlActId::paiments()->exists();
-
     }
 
     //relacion uno a uno polimorfica
@@ -94,6 +95,4 @@ class ControlAct extends Model
     {
         return $this->belongsTo('App\Models\Inspector');
     }
-
-    
 }

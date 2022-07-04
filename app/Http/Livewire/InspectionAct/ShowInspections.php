@@ -10,7 +10,8 @@ class ShowInspections extends Component
 {
     use WithPagination;
 
-    public  $names_business_name,
+    public  $act_number,
+            $names_business_name,
             $document_number,
             $licence_number,
             $address,
@@ -43,8 +44,8 @@ class ShowInspections extends Component
     //variable para pagos y resoluciones;
     public  $paiments, $resolutions;
 
-    public  $campus,
-            $act_number;
+    public  $campus;
+            
     public  $typeNames_id,
             $typeDocument_id;
 
@@ -77,7 +78,6 @@ class ShowInspections extends Component
         $this->openDivLastName();
         $this->closeDivNumberLicence();
         $this->closeDivNumberAct();
-        
     }
 
     public function updatingRadioNamesBusinessName()
@@ -103,40 +103,40 @@ class ShowInspections extends Component
     public function render()
     {
        
-            if(($this->radioValue == 0) ){
+        if(($this->radioValue == 0) ){
 
-                $this->openDivLastName();
-                $this->closeDivNumberLicence();
-                $this->closeDivNumberAct();
-                
-                if(strlen($this->radio_names_business_name) > 5)
-                {
-                    $inspections = Inspection::where('names_business_name', 'LIKE' , '%' . $this->radio_names_business_name. '%')->paginate(20);
-                    return view('livewire.inspection-act.show-inspections', ['inspections' => $inspections]);
-                }else
-                {
-                    $inspections = Inspection::orderBy('act_number', 'asc')->paginate(20);
-                    return view('livewire.inspection-act.show-inspections', ['inspections' => $inspections]);
-                }
-
-            }elseif($this->radioValue == 1 ){
-               
-                $this->closeDivLastName();
-                $this->openDivNumberLicence();
-                $this->closeDivNumberAct();
-
-                $inspections = Inspection::where('document_number', $this->radio_dni_number)->paginate(20);
+            $this->openDivLastName();
+            $this->closeDivNumberLicence();
+            $this->closeDivNumberAct();
+            
+            if(strlen($this->radio_names_business_name) > 5)
+            {
+                $inspections = Inspection::where('names_business_name', 'LIKE' , '%' . $this->radio_names_business_name. '%')->paginate(20);
                 return view('livewire.inspection-act.show-inspections', ['inspections' => $inspections]);
-
-            }else{
-
-                $this->closeDivLastName();
-                $this->closeDivNumberLicence();
-                $this->openDivNumberAct();
-
-                $inspections = Inspection::where('act_number', $this->radio_act_number)->paginate(20);
+            }else
+            {
+                $inspections = Inspection::orderBy('act_number', 'asc')->paginate(20);
                 return view('livewire.inspection-act.show-inspections', ['inspections' => $inspections]);
             }
+
+        }elseif($this->radioValue == 1 ){
+            
+            $this->closeDivLastName();
+            $this->openDivNumberLicence();
+            $this->closeDivNumberAct();
+
+            $inspections = Inspection::where('document_number', $this->radio_dni_number)->paginate(20);
+            return view('livewire.inspection-act.show-inspections', ['inspections' => $inspections]);
+
+        }else{
+
+            $this->closeDivLastName();
+            $this->closeDivNumberLicence();
+            $this->openDivNumberAct();
+
+            $inspections = Inspection::where('act_number', $this->radio_act_number)->paginate(20);
+            return view('livewire.inspection-act.show-inspections', ['inspections' => $inspections]);
+        }
     }
 
     public function submit()
@@ -171,6 +171,7 @@ class ShowInspections extends Component
     public function loadModelId($id)
     {
         $inspection = Inspection::findOrFail($id);
+        $this->act_number = $inspection->act_number;
         $this->typeNames_id = $inspection->typeNames_id;
         $this->names_business_name = $inspection->names_business_name;
         $this->typeDocument_id = $inspection->typeDocument_id;
@@ -208,14 +209,12 @@ class ShowInspections extends Component
         }else{
             $this->hasPaiments = false;
         }
-
         if($inspection->hasResolutionSancion($inspection->id)){
             $this->hasResolutions = true;
             $this->resolutions = $inspection->resolutions;
         }else{
             $this->hasResolutions = false;
         }
-
         $this->openModalShow();
     }
 
@@ -261,8 +260,4 @@ class ShowInspections extends Component
     {
         $this->isOpendivNumberAct  = false;
     }
-
-
-
-    
 }

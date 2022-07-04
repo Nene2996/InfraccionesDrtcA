@@ -66,24 +66,6 @@
                         <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ $codigo_infraccion }}</h3>
                     </div>
                 </div>
-<!--
-                <div class="grid grid-cols-1 gap-3">
-                    <div class="grid grid-col-1 pb-2" >
-                        <label for="">Lugar de Intervención:</label>
-                        <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ $lugar_intervencion }}</h3>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div class="grid grid-col-1 pb-2" >
-                        <label for="">Origen:</label>
-                        <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ $origen }}</h3>
-                    </div>
-                    <div class="grid grid-col-1 pb-2" >
-                        <label for="">Destino:</label>
-                        <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ $destino }}</h3>
-                    </div>
-                </div>
--->
                 @if ($controlAct->hasPaiment($controlAct->id))
                     @if ($monto_total_pagar > 0)
                     <button wire:click.prevent="OpenModalPaimentControlAct"
@@ -103,9 +85,6 @@
                         </div>
                     @endif
                 @endif
-
-                
-
                 <fieldset class="border-2 border-gray-400 rounded-md px-3 pb-3">
                     <legend class="ml-5 px-3 font-extrabold">Detalles de pago</legend>
                     <div>
@@ -194,7 +173,6 @@
         </div>
     </div>
 </div>
-
 
 @push('styles')
     @once

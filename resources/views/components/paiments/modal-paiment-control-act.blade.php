@@ -41,9 +41,7 @@
                             <label for="">Porcentaje UIT:</label>
                             <h3 class="px-3 py-2 rounded-md bg-gray-100 border-double border-2">{{ $uit_penalty }}</h3>
                         </div>
-                        
                     </div>
-
                     <div class="grid grid-cols-4 my-2 gap-2">
                         <div class="grid grid-cols-1">
                             <label for="">Fecha de Pago:</label>
@@ -63,11 +61,10 @@
                             <input type="text" class="rounded-md" wire:model="numero_comprobante">
                         </div>
                         <div class="grid grid-cols-1">
-                            <label for="">Monto a pagar:</label>
+                            <label for="">Monto pagado:</label>
                             <input type="text" class="rounded-md" wire:model="monto_pagado">
                         </div>
                     </div>
-
                     <div class="flex justify-center text-sm underline">
                         <h3><strong>DETALLES DE LOS DESCUENTOS A APLICAR EN CASO CORRESPONDA:</strong></h3>
                     </div>
@@ -112,7 +109,6 @@
                             </tbody>
                         </table>
                     </div>
-                    
                     <div class="border-t-2 mt-5 mb-5">
                         <div class="flex justify-end font-semibold pt-3 text-sm uppercase mr-5">
                             <span class="text-xs">Monto de Infracción : S/ </span>
@@ -133,7 +129,6 @@
                                 <span class="font-bold text-xs">{{ number_format($descuento_quince_dias, 2) }}</span>
                             </div>
                         @endif
-                        
                         <div class="flex justify-end font-bold pt-3 text-sm uppercase mr-5 ">
                             <span>@if ($controlAct->hasPaiment($controlAct->id)) Pendiente por pagar : S/ @else Total a pagar : S/  @endif </span>
                             <span class="">{{ number_format($monto_total_pagar, 2) }}</span>

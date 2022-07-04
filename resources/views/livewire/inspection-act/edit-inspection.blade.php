@@ -2,7 +2,6 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-
                 <div class="grid grid-cols-4">
                     <div class="grid grid-cols-1">
                         <label for="">Acta de Fiscalización:</label>
@@ -54,7 +53,6 @@
                                 <option value="{{ $infraction->id }}">{{ $infraction->code }}</option>
                             @endforeach
                         </select>
-                        
                     </div>
                     <div class="grid grid-cols-1">
                         <label for="" class="font-semibold">Calificación:</label>
@@ -75,7 +73,6 @@
                         @if ($this->infraction->id)
                             <span>S/. {{ $this->infraction->pecuniary_sanction }}</span> 
                         @endif
-                        
                     </div>
                     <div class="grid grid-cols-1">
                         <label for="">Fecha:</label>
@@ -85,8 +82,6 @@
                         <label for="">Hora:</label>
                         <input type="time" wire:model="inspection.hour_infraction" class="rounded-md">
                     </div>
-                    
-                    
                 </div>
                 <div class="grid grid-cols-1 gap-3 my-2">
                     <li class="flex flex-col">
@@ -95,7 +90,6 @@
                         @error('inspection.date_infraction') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                         @error('inspection.hour_infraction') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                     </li>
-                    
                 </div>
                 <div class="grid grid-cols-1">
                     <label for="">Información Adicional</label>
@@ -125,7 +119,6 @@
                         </select>
                         @error('province_id') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                     </div>
-                    
                     <div class="grid grid-cols-1">
                         <label for="">Distrito:</label>
                         <select name="" id="" wire:model="inspection.district_id" class="rounded-md">
@@ -150,30 +143,15 @@
                         <label for="">Número de placa única nacional de Rodaje:</label>
                         <input type="text" wire:model="plate_number" class="rounded-md">
                     </div>
-                    
                     <div class="grid grid-cols-1">
                         <label for="">Número de Tarjeta de Identificación vehicular:</label>
                         <input type="text" wire:model="identification_card_number" class="rounded-md">
                     </div>
-                    
                 </div>
                 <div class="grid grid-cols-1 gap-3">
                     @error('plate_number') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                     @error('identification_card_number') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                 </div>
-                <!--
-                <div class="grid grid-cols-4 my-2">
-                    <div>
-                        <label for="">Descripcion del medio probatorio:</label>
-                        <select name="" id="" wire:model="inspection.evidence_id" class="rounded-md">
-                            <option value="" selected disabled>Selecciona el medio</option>
-                            @foreach ($evidences as $evidence)
-                                <option value="{{ $evidence->id }}">{{ $evidence->description }}</option>
-                            @endforeach
-                        </select>
-                    </div> 
-                </div>
-                -->
                 <div class="grid grid-cols-3 gap-3">
                     @error('inspection.evidence_id') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                 </div>
@@ -249,14 +227,12 @@
                 </div>
                 <div class="flex items-center">
                     <div class="flex justify-center flex-1 mt-8">
-
                         <x-jet-button class="mx-4"
                             wire:loading.attr="disabled"
                             wire:target="save"
                             wire:click="save">
                             Actualizar datos
                         </x-jet-button>
-
                         <a href="{{ route('actasDeFiscalizacion.show') }}" class="flex items-center p-4 px-7 bg-blue-200 rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100 mx-4">
                             <div>
                               <p class="text-xs font-medium ml-2">
@@ -264,14 +240,12 @@
                               </p>
                             </div>
                         </a>
-                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 @push('styles')
     @once 
@@ -320,19 +294,10 @@
             };
 
             FilePond.setOptions(labels_es);
-
-
             // Register the plugin
             FilePond.registerPlugin(FilePondPluginFileValidateType);
             FilePond.registerPlugin(FilePondPluginFileValidateSize);
             FilePond.registerPlugin(FilePondPluginPdfPreview);
-
-            //validate
-
-        
         </script>
-        
     @endonce
 @endpush
-
-

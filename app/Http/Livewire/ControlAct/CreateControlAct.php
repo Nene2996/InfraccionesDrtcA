@@ -36,26 +36,6 @@ class CreateControlAct extends Component
     public  $posee_licencia,
             $isDisabled;
 
-/*
-    public  $numero_acta,
-            $value_dni_ruc,
-            $value_nombre_razonsocial,
-            $tipo_servicio = '',
-            $placa_vehiculo,
-            $lugar_intervencion,
-            $origen,
-            $destino,
-            $nro_dni_conductor,
-            $apellidos_conductor,
-            $nombres_conductor,
-            $nro_licencia,
-            $clase_cat_licencia = '',
-            $fecha_infraccion,
-            $hora_infraccion,
-            $descripcion_infraccion,
-            $manifestacion_usuario;
-*/
-
     //Acta de control atributos
     public  $numero_acta,
             $value_dni_ruc,
@@ -128,7 +108,6 @@ class CreateControlAct extends Component
         $this->posee_licencia = 0;
         
         $this->inspectors = Campus::find(auth()->user()->campus->id)->inspectors;
-
     }
 
     public function render()
@@ -160,9 +139,6 @@ class CreateControlAct extends Component
     {
         $rules = $this->rules;
         $messages = $this->messages;
-
-        
-        
 
         if($this->select_dni_ruc == 0) {
             $rules['value_dni_ruc'] = 'required|regex:/^[0-9]{8}$/';
@@ -210,7 +186,7 @@ class CreateControlAct extends Component
         $infraction = Infraction::find($this->infraction_id);
         if($infraction){
             if($infraction->pecuniary_sanction == 0){
-                $estado_actual_infraction = 'PENDIENTE DE RESOLUCION DE SANCIÓN';
+                $estado_actual_infraction = 'PENDIENTE DE RESOLUCIÓN';
                 $nro_boleta_pago = 'NO APLICA';
             }else{
                 $estado_actual_infraction = 'FALTA CANCELAR';
@@ -229,7 +205,7 @@ class CreateControlAct extends Component
             'origen' => $this->origen,
             'destino' => $this->destino,
             'nro_dni_conductor' => $this->nro_dni_conductor,
-            'apellidos_nombres_conductor' => $this->apellidos_conductor.', '.$this->nombres_conductor,
+            'apellidos_nombres_conductor' => $this->apellidos_conductor.' '.$this->nombres_conductor,
             'nro_licencia' => $this->nro_licencia,
             'clase_categoria_licencia' => $this->clase_categoria_licencia,
             'fecha_infraccion' => $this->fecha_infraccion,
@@ -242,7 +218,6 @@ class CreateControlAct extends Component
             'infraction_id' => $this->infraction_id,
             'inspector_id' => $this->inspector_id,
             'campus_id' => $this->campus_id,
-            
         ]);
 
         $campus = Campus::find($this->campus_id);
@@ -256,5 +231,4 @@ class CreateControlAct extends Component
             session()->flash('message', 'Infracción con acta número '.$this->numero_acta.' registrada correctamente.');
             return redirect('/actas-de-control'); 
     }
-
 }

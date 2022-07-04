@@ -1,4 +1,3 @@
-
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
@@ -7,7 +6,6 @@
                     <div class="grid grid-cols-1">
                         <label for="" class="font-semibold">Numero de Acta de Control:</label>
                         <input type="text" wire:model="controlAct.numero_acta" class="rounded-md">
-                        
                     </div>
                 </div>
                 <div class="grid grid-cols-1">
@@ -69,7 +67,6 @@
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-2 my-2">
-                    
                     <div class="grid grid-cols-1">
                         <label for="" class="font-semibold">Origen:</label>
                         <input type="text" wire:model="controlAct.origen" class="rounded-md">
@@ -97,7 +94,7 @@
                             </div>
                         </div>
                         <div class="grid grid-cols-1">
-                            @error('controlAct.dni_conductor') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
+                            @error('controlAct.nro_dni_conductor') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                         </div>
                         <div class="grid grid-cols-2 gap-2 my-2">
                             <div class="grid grid-cols-1">
@@ -131,17 +128,14 @@
                         <div class="grid grid-cols-2 gap-2">
                             <div class="grid grid-cols-1">
                                 <label for="" class="font-semibold">Nro Licencia:</label>
-                                
                                 <input 
                                     type="text" 
                                     wire:model="nro_licencia_conductor" 
-                                    
                                     @if ( $isDisabled_input_select )
                                         class="rounded-md bg-gray-200 text-sm" disabled
                                     @else
                                         class="rounded-md text-sm"
                                     @endif
-
                                 >
                             </div>
                             <div class="grid grid-cols-1">
@@ -237,13 +231,12 @@
                 <div class="grid grid-cols-2 gap-3 mt-3">
                     <div class="grid grid-col-1">
                         <label for="" class="font-semibold">Inspector de Transporte:</label>
-                        
-                    <select name="" id="" wire:model="inspector_id" class="rounded-md">
-                        <option value="" selected disabled>Selecciona</option>
-                        @foreach ($inspectors as $inspector)
-                            <option value="{{ $inspector->id }}">{{ $inspector->surnames_and_names }}</option>
-                        @endforeach
-                    </select>
+                        <select name="" id="" wire:model="inspector_id" class="rounded-md">
+                            <option value="" selected disabled>Selecciona</option>
+                            @foreach ($inspectors as $inspector)
+                                <option value="{{ $inspector->id }}">{{ $inspector->surnames_and_names }}</option>
+                            @endforeach
+                        </select>
                     @error('inspector_id') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                     </div>
                 </div>
@@ -287,14 +280,12 @@
         </div>
                 <div class="flex items-center">
                     <div class="flex justify-center flex-1 mt-8">
-
                         <x-jet-button class="mx-4"
                             wire:loading.attr="disabled"
                             wire:target="save"
                             wire:click="save">
                             Actualizar datos
                         </x-jet-button>
-
                         <a href="{{ route('actasDeControl.show') }}" class="flex items-center p-4 px-7 bg-blue-200 rounded-lg shadow-xs cursor-pointer hover:bg-blue-500 hover:text-gray-100 mx-4">
                             <div>
                                 <p class="text-xs font-medium ml-2">
@@ -302,14 +293,12 @@
                                 </p>
                             </div>
                         </a>
-                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 @push('styles')
     @once 
@@ -320,7 +309,6 @@
                 background-color: transparent;
                 border: 2px solid #2c3340;
             }
-            
         </style>
     @endonce
 @endpush
@@ -357,14 +345,11 @@
             labelButtonRetryItemProcessing: "Reintentar", 
             labelButtonProcessItem: "Cargar",
             };
-
             FilePond.setOptions(labels_es);
-
             // Register the plugin
             FilePond.registerPlugin(FilePondPluginFileValidateType);
             FilePond.registerPlugin(FilePondPluginFileValidateSize);
             FilePond.registerPlugin(FilePondPluginPdfPreview);
-        
         </script>
     @endonce
 @endpush

@@ -146,7 +146,6 @@ class PaimentInspectionAct extends Component
     {
         //obtener precios de UIT en base al fecha de pago
         if(isset($this->date_infraction)){
-            $date_infraction = Carbon::parse($this->date_infraction);
             $date_paiment = Carbon::parse($this->fecha_pago);
 
             $year_paiment = $date_paiment->year;
@@ -168,32 +167,70 @@ class PaimentInspectionAct extends Component
 
                 //Verificar si existe resolucion de sancion asociada
                 if($this->inspection->hasResolutionSancion($this->inspection->id)){
-                    $inpectionActResolution = InspectionActResolution::where('inspection_act_id', $this->inspection->id)->first();
-                    $this->fecha_notificacion_sancion = $inpectionActResolution->date_notification_driver;
-                    if($date_paiment >= Carbon::parse($this->fecha_notificacion_sancion)){
-                        $this->dias_habiles_notificacion = $this->getDiasHabiles($this->fecha_notificacion_sancion, $this->fecha_pago);
 
-                        if($this->dias_habiles_notificacion >= 0 && $this->dias_habiles_notificacion <= 15){
-                            if($descuento_quince_dias > 0.1){
-                                $this->aplica_descuento_quince = 'Si.';
-                                $this->descuento_quince_dias = $this->monto_infraccion * $descuento_quince_dias;
-    
-                                $this->monto_total_infraccion = $this->monto_infraccion;
-                                $this->monto_total_pagar = ($this->monto_infraccion -  $this->descuento_quince_dias);
+                    foreach ($this->inspection->resolutions as $resolution) {
+                        if ($resolution->type == 'RESOLUCIÓN DE SANCION') {
+                            $this->fecha_notificacion_sancion = $resolution->pivot->date_notification_driver;
+                            $anio_informe_sancion = $resolution->document_year;
+                        }
+                    }
+                    //validar que la fecha de pago sea mayor o igual a la fecha de notificación
+                    if ($date_paiment >= Carbon::parse($this->fecha_notificacion_sancion)) {
+                        //validar la sede del Acta
+                        if ($this->inspection->campus->id == 1) {
+                            if(in_array($anio_informe_sancion, $year_uit)){
+                                $monto_uit = Uit::where('year', $anio_informe_sancion)->first();
+                                $total_pagar_sindescuento = $this->inspection->infraction->uit_percentage * $monto_uit->amount_uit;
+                            }
+                            $this->dias_habiles_notificacion = $this->getDiasHabiles($this->fecha_notificacion_sancion, $this->fecha_pago);
+                            $descuento_quince_dias = $this->inspection->infraction->discount_fifteen_days;
+                            if($this->dias_habiles_notificacion >= 0 && $this->dias_habiles_notificacion <= 15){
+                                if($descuento_quince_dias > 0.1){
+                                    $this->aplica_descuento_cinco = 'No Aplica';
+                                    $this->aplica_descuento_quince = 'Si Aplica.';
+                                    $this->descuento_quince_dias = $total_pagar_sindescuento * 0.3;
+                                    $this->monto_total_infraccion = $total_pagar_sindescuento;
+                                    $this->monto_total_pagar = ($total_pagar_sindescuento - $this->descuento_quince_dias);
+                                    //consultar a Lila
+                                }else{
+                                    $this->aplica_descuento_cinco = 'No Aplica';
+                                    $this->aplica_descuento_quince = 'La infracción no admite descuento.';
+                                    $this->descuento_quince_dias = 0;
+                                    $this->monto_total_infraccion = $total_pagar_sindescuento;
+                                    $this->monto_total_pagar = ($total_pagar_sindescuento - $this->descuento_quince_dias);
+                                }
                             }else{
-                                $this->aplica_descuento_quince = 'La infracción no admite descuento.';
+                                $this->aplica_descuento_cinco = 'No Aplica';
+                                $this->aplica_descuento_quince = 'Ya trancurrio mas de 15 dias hábiles.';
                                 $this->descuento_quince_dias = 0;
-    
+                                $this->monto_total_infraccion = $total_pagar_sindescuento;
+                                $this->monto_total_pagar = ($total_pagar_sindescuento - $this->descuento_quince_dias);
+                            }
+                        } elseif ($this->inspection->campus->id == 2) {
+
+                            $this->dias_habiles_notificacion = $this->getDiasHabiles($this->fecha_notificacion_sancion, $this->fecha_pago);
+                            $descuento_quince_dias = $this->inspection->infraction->discount_fifteen_days;
+                            if($this->dias_habiles_notificacion >= 0 && $this->dias_habiles_notificacion <= 15){
+                                if($descuento_quince_dias > 0.1){
+                                    $this->aplica_descuento_cinco = 'No Aplica';
+                                    $this->aplica_descuento_quince = 'Si Aplica.';
+                                    $this->descuento_quince_dias = $this->monto_infraccion * $descuento_quince_dias;
+                                    $this->monto_total_infraccion = $this->monto_infraccion;
+                                    $this->monto_total_pagar = ($this->monto_infraccion -  $this->descuento_quince_dias);
+                                }else{
+                                    $this->aplica_descuento_quince = 'La infracción no admite descuento.';
+                                    $this->descuento_quince_dias = 0;
+                                    $this->monto_total_infraccion = $this->monto_infraccion;
+                                    $this->monto_total_pagar = ($this->monto_infraccion -  $this->descuento_quince_dias);
+                                }
+                            }else{
+                                $this->aplica_descuento_cinco = 'No Aplica';
+                                $this->aplica_descuento_cinco = 'No Aplica.';
+                                $this->aplica_descuento_quince = 'Ya trancurrio mas de 15 dias hábiles.';
+                                $this->descuento_quince_dias = 0;
                                 $this->monto_total_infraccion = $this->monto_infraccion;
                                 $this->monto_total_pagar = ($this->monto_infraccion -  $this->descuento_quince_dias);
                             }
-                        }else{
-                            $this->aplica_descuento_cinco = 'Ya trancurrio mas de 5 dias hábiles.';
-                            $this->aplica_descuento_quince = 'Ya trancurrio mas de 15 dias hábiles.';
-                            $this->descuento_quince_dias = 0;
-    
-                            $this->monto_total_infraccion = $this->monto_infraccion;
-                            $this->monto_total_pagar = ($this->monto_infraccion -  $this->descuento_quince_dias);
                         }
                     }
                 }else{
@@ -349,7 +386,7 @@ class PaimentInspectionAct extends Component
     public function OpenModalPaimentInspectionAct()
     {
         $this->isOpenModalPaimentInspectionAct = true;
-        //$this->monto_total_pagar = $this->controlAct->infractions->pecuniary_sanction;
+        //$this->monto_total_pagar = $this->inspection->infractions->pecuniary_sanction;
     }
 
     public function CloseOpenModalPaimentInspectionAct()

@@ -11,26 +11,36 @@ class Welcome extends Component
     public $search = '';
     public $typeSearch;
 
-    public $isModalOpen = 0;
+    public $isModalControlActOpen = 0; 
     public $isModalInspectionActOpen = 0;
     public $isOpendivLastName = 0;
     public $isOpendivNumberLicence = 0;
     public $isOpendivNumberAct = 0;
+    public $isOpendivPlateNumber = 0;
 
     public $lastName = '';
     public $numberLicence = '';
     public $numberActa = '';
+    public $plateNumber = '';
 
     public $selectValue = '';
 
     //atributos del acta de control
-    public $ballot, $apellidos_nombres_conductor, $placa_vehiculo, $origen, $destino, $nombre_conductor, $direccion_infractor, $nro_licencia, $fecha_infraccion, $hora_infraccion, $clase_categoria_licencia, $nro_tarjeta_vehicular, $manifestacion_usuario, $numero_acta, $tipo_servicio, $estado_actual, $sede_infraccion, $id_district, $informacion_adicional, $referencia, $descripcion, $ruc_dni, $nro_dni_conductor, $razon_social_nombre, $lugar_intervencion, $codigo_infraccion, $nro_comprobante;
+    public $ballot, $apellidos_nombres_conductor, $placa_vehiculo, $origen, $destino, $nombre_conductor, $direccion_infractor, $nro_licencia, $fecha_infraccion, $hora_infraccion, $clase_categoria_licencia, $nro_tarjeta_vehicular, $manifestacion_usuario, $numero_acta, $tipo_servicio, $estado_actual, $sede_infraccion, $id_district, $informacion_adicional, $referencia, $descripcion, $ruc_dni, $nro_dni_conductor, $razon_social_nombre, $lugar_intervencion, $nro_comprobante;
 
     //atributos del acta de fiscalizacion
-    public $inspection, $act_number, $names_business_name, $document_number, $address, $licence_number, $date_infraction, $hour_infraction, $description, $status, $typeNames_id, $typeDocument_id, $inspector_surnames_and_names, $operator_surnames_and_names, $inspection_created_at, $inspection_campus, $infraction_code, $infraction_description, $infraction_infringement_agent, $infraction_uit_penalty, $infraction_administrative_sanction, $place, $district, $province, $department, $vehicle_plate_number, $vehicle_identification_card_number, $discount_five_days, $discount_fifteen_days, $hasPaiments;
+    public $act_number, $names_business_name, $document_number, $address, $licence_number, $date_infraction, $hour_infraction, $description, $status, $typeNames_id, $typeDocument_id, $inspector_surnames_and_names, $operator_surnames_and_names, $inspection_created_at, $inspection_campus, $place, $district, $province, $department, $vehicle_plate_number, $vehicle_identification_card_number;
 
-    //informacion de pagos
-    public  $paiments;
+    //atributos de la tabla infracciones
+    public $infraction_code, $infraction_description, $infraction_infringement_agent, $infraction_uit_penalty, $pecuniary_sanction, $infraction_administrative_sanction;
+
+    //atributos de pagos
+    public $paiments;
+    public $hasPaiments;
+
+    //atributos de las resoluciones asociadas
+    public $resolutions;
+    public $hasResolutions;
 
     protected $rules = [
         'numberLicence' => 'required|regex:/^[A-Z,a-z]{1}[0-9]{8}$/',
@@ -64,6 +74,7 @@ class Welcome extends Component
             $this->openDivLastName();
             $this->closeDivNumberLicence();
             $this->closeDivNumberAct();
+            $this->closeDivPlateNumber();
             
             if(strlen($this->lastName) > 5)
             {
@@ -90,6 +101,7 @@ class Welcome extends Component
             $this->closeDivNumberAct();
             $this->closeDivLastName();
             $this->openDivNumberLicence();
+            $this->closeDivPlateNumber();
 
             if($this->selectValue == ""){
                 $this->addError('numberLicence', 'Es obligatorio seleccionar el Tipo de Acta');
@@ -102,11 +114,12 @@ class Welcome extends Component
                 $ballots = Inspection::where('licence_number', $this->numberLicence)->get(); 
                 return view('livewire.welcome', ['ballots' => $ballots]);
             }
-        }else
+        }elseif($this->typeSearch == 2)
         {
             $this->closeDivLastName();
             $this->closeDivNumberLicence();
             $this->openDivNumberAct();
+            $this->closeDivPlateNumber();
 
             if($this->selectValue == ""){
                 $this->addError('numberLicence', 'Es obligatorio seleccionar el Tipo de Acta');
@@ -119,13 +132,31 @@ class Welcome extends Component
                 $ballots = Inspection::where('act_number', $this->numberActa)->get();
                 return view('livewire.welcome', ['ballots' => $ballots]);
             }
+        }elseif($this->typeSearch == 3){
+            $this->closeDivLastName();
+            $this->closeDivNumberLicence();
+            $this->closeDivNumberAct();
+            $this->openDivPlateNumber();
+            
+            if($this->selectValue == ""){
+                $this->addError('numberLicence', 'Es obligatorio seleccionar el Tipo de Acta');
+            }
+            
+            if($this->selectValue == 1){
+                $ballots = ControlAct::where('placa_vehiculo', $this->plateNumber)->get();
+                return view('livewire.welcome', ['ballots' => $ballots]);
+            }else{
+                $ballots = Inspection::whereHas('vehicle', function($q){
+                    $q->where('plate_number', $this->plateNumber);
+                })->get();
+                return view('livewire.welcome', ['ballots' => $ballots]);
+            }
         }
     }
 
     public function searchId($id){
         $ballot = ControlAct::findOrFail($id);
         $this->lugar_intervencion = $ballot->lugar_intervencion;
-
         $this->openModalPopover();
     }
 
@@ -149,12 +180,27 @@ class Welcome extends Component
         $this->tipo_servicio = $ballot->tipo_servicio;
         $this->nro_tarjeta_vehicular = $ballot->nro_tarjeta_vehicular;
         $this->manifestacion_usuario = $ballot->manifestacion_usuario;
-        $this->codigo_infraccion = $ballot->infractions->code;
+        $this->infraction_code = $ballot->infractions->code;
+        $this->infraction_description = $ballot->infractions->description;
+        $this->infraction_uit_penalty = $ballot->infractions->uit_penalty;
+        $this->infraction_administrative_sanction = $ballot->infractions->administrative_sanction;
         $this->estado_actual = $ballot->estado_actual;
         $this->sede_infraccion = $ballot->campus->alias;
         $this->nro_comprobante = $ballot->nro_boleta_pago;
 
-        $this->paiments = ControlAct::find($ballot->id)->paiments;
+        if ($ballot->hasPaiment($ballot->id)) {
+            $this->hasPaiments = true;
+            $this->paiments = $ballot->paiments;
+        } else {
+            $this->hasPaiments = false;
+        }
+
+        if ($ballot->hasResolution($ballot->id)) {
+            $this->hasResolutions = true;
+            $this->resolutions = $ballot->resolutions;
+        } else {
+            $this->hasResolutions = false;
+        }
 
         $this->openModalPopover();
     }
@@ -162,8 +208,7 @@ class Welcome extends Component
     public function showInspectionAct($id)
     {
         $inspection = Inspection::findOrFail($id);
-        $this->inspection = $inspection;
-        //==============================================================
+        $this->act_number = $inspection->act_number;
         $this->typeNames_id = $inspection->typeNames_id;
         $this->names_business_name = $inspection->names_business_name;
         $this->inspector_surnames_and_names = $inspection->inspector->surnames_and_names;
@@ -189,27 +234,31 @@ class Welcome extends Component
         $this->vehicle_identification_card_number = $inspection->vehicle->identification_card_number;
         $this->status = $inspection->status;
 
-        if($inspection->hasPaiment($inspection->id)){
-
+        if ($inspection->hasPaiment($inspection->id)) {
             $this->hasPaiments = true;
             $this->paiments = $inspection->paiments;
-
-        }else{
+        } else {
             $this->hasPaiments = false;
         }
 
-        $this->openModalInspection();
+        if ($inspection->hasResolution($inspection->id)) {
+            $this->hasResolutions = true;
+            $this->resolutions = $inspection->resolutions;
+        } else {
+            $this->hasResolutions = false;
+        }
 
+        $this->openModalInspection();
     }
 
     public function openModalPopover()
     {
-        $this->isModalOpen = true;
+        $this->isModalControlActOpen = true;
     }
 
     public function closeModalPopover()
     {
-        $this->isModalOpen = false;
+        $this->isModalControlActOpen = false;
     }
 
     public function openModalInspection()
@@ -254,12 +303,23 @@ class Welcome extends Component
     {
         $this->isOpendivNumberAct  = false;
     }
+    
+    //Div para numero de Placa
+    public function openDivPlateNumber()
+    {
+        $this->isOpendivPlateNumber  = true;
+    }
+
+    public function closeDivPlateNumber()
+    {
+        $this->isOpendivPlateNumber  = false;
+    }
 
     public function resetInput()
     {
         $this->lastName = '';
         $this->numberLicence = '';
         $this->numberActa = '';
+        $this->plateNumber = '';
     }
- 
 }

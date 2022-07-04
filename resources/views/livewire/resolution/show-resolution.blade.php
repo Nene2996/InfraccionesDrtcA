@@ -1,7 +1,7 @@
-<div class="h-screen">
+<div class="h-auto">
     <div class="py-12 content-center">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-2 ">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg max-h-screen">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-2">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div>
                     @if ($showDeleteModal)
                     <x-jet-confirmation-modal>
@@ -35,6 +35,7 @@
                             <div x-data="{ show: true }" x-show="show"
                             class="flex justify-between items-center bg-green-200 relative text-green-700 py-3 px-3 rounded-lg border border-green-400">
                                 <div>
+                                    <span class="font-semibold text-gray-800">Bien echo !!!</span>
                                     {{ session('message') }}
                                 </div>
                                 <div>
@@ -68,7 +69,7 @@
                         <table class="divide-y divide-gray-200 w-full">
                             <thead class="bg-gray-200">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"> Titulo</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Titulo/Nombre</th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Tipo</th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Fecha de emision</th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Tamaño MB</th>
@@ -137,6 +138,11 @@
                         </table>
                     </div>
                 </div>
+                    @if ($resolutions->hasPages())
+                        <div class="pb-6 px-5 bg-white my-6">
+                            {{ $resolutions->links() }}
+                        </div> 
+                    @endif
             </div>
         </div>
     </div>

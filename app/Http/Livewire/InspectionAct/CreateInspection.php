@@ -16,13 +16,10 @@ use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-
-
 class CreateInspection extends Component
 {
     use     WithFileUploads;
     public  $file_pdf;
-    
 
     public  $infractions;
     public  $inspectors;
@@ -82,7 +79,8 @@ class CreateInspection extends Component
     protected $rules = [
         'act_number' => 'required|regex:/^[0-9]+$/',
         'address' => 'required',
-        'licence_number' => 'required|regex:/^[A-Z,a-z]{1}[0-9]{8}$/',
+        //'licence_number' => 'required|regex:/^[A-Z,a-z]{1}[0-9]{8}$/',
+        'licence_number' => 'required',
         'infraction_id' => 'required',
         //'qualification' => 'required',
         'date_infraction' => 'required|date',
@@ -133,40 +131,29 @@ class CreateInspection extends Component
         $this->infractions = Infraction::all();
         $this->departments = Department::all();
         $this->provinces = Province::all();
-        //$this->inspectors = Inspector::all();
-        //$this->campus = Campus::all();
         $this->evidences = Evidence::all();
 
         $this->inspectors = Campus::find(auth()->user()->campus->id)->inspectors->where('status', '=', 1);//->orderBy('surnames_and_names')->get();
-        //dd($this->inspectors);
         $this->select = 1;
-
     }
 
     public function render()
     {
-
         if($this->select == '1')
         {
             $this->openDivNamesDni();
             $this->closeBusinessNamesRuc();
             $this->reset('_names_business_name');
             $this->reset('_document_number');
-            
-        }else
+        }elseif($this->select == '2')
         {
             $this->closeDivNamesDni();
             $this->openDivBusinessNamesRuc();
             $this->reset('names_business_name');
             $this->reset('document_number');
-            
         }
-
         $evidencesFiles = Inspection::with('evidences')->get();
-        
-
         return view('livewire.inspection-act.create-inspection');
-        
     }
 
     public function getApiReniec()
@@ -178,19 +165,21 @@ class CreateInspection extends Component
         
         $response = Http::withToken('673dda73ae6223bd300b6db984f3ac6a125b2b8b9ed9ae9bffed87bfcb4b4b84')->get('https://apiperu.dev/api/dni/'.$this->document_number);
 
+        //dd($response);
         if($response->getStatusCode() == 200){
             $this->dataReniec = (json_decode($response->getBody(), true));
             if($this->dataReniec['success'] == true){
-                $this->names_business_name = $this->dataReniec['data']['nombre_completo'];
+                //dd($this->dataReniec['data']);
+                $this->names_business_name = str_replace(",", "", $this->dataReniec['data']['nombre_completo']);
+                $this->address = $this->dataReniec['data']['direccion_completa'];
             }else{
                 $this->messageApi = $this->dataReniec['message'];
                 $this->reset('names_business_name');
+                $this->reset('address');
             }
         }else{
             $this->messageApi = 'Error de comunicación con el servicio(API) de Reniec';
         }
-        
-       
     }
 
     public function getApiSunat()
@@ -206,10 +195,13 @@ class CreateInspection extends Component
         if($response->getStatusCode() == 200){
             $this->dataSunat = (json_decode($response->getBody(), true));
             if($this->dataSunat['success'] == true){
+                //dd($this->dataSunat['data']);
                 $this->_names_business_name = $this->dataSunat['data']['nombre_o_razon_social'];
+                $this->address = $this->dataSunat['data']['direccion_completa'];
             }else{
                 $this->messageApi = $this->dataSunat['message'];
                 $this->reset('_names_business_name');
+                $this->reset('address');
             }
         }else{
             $this->messageApi = 'Error de comunicación con el servicio(API) de Sunat';
@@ -232,13 +224,11 @@ class CreateInspection extends Component
             ]);
 
             //$inspection->evidences()->attach($this->evidence_id[$index], ['file_evidence_id' => $fileEvidence->id]);
-            
         }
     }
 
     public function save()
     {
-        
         //$nowHour = Carbon::now()->format('g:i A');
         $tomorrow = Carbon::tomorrow('America/Lima');
         $end = $tomorrow->subYear()->format('d-m-Y');
@@ -287,7 +277,6 @@ class CreateInspection extends Component
                 $messages['file_evidence.required'] = 'Es necesario adjuntar un archivo';
             }
         }
-        
 */
         $this->validate($rules, $messages);
      
@@ -320,9 +309,7 @@ class CreateInspection extends Component
             'typeNames_id' => $this->select,
             'typeDocument_id' => $typeDocument_id,
             'user_id' => $user->id
-
         ]);
-
 
         $extension = $this->file_pdf->extension();
         $folder_name = 'public/ActasDeFiscalizacion/ACTA-00' . $this->act_number. '-' . $user->campus->alias;
@@ -337,8 +324,6 @@ class CreateInspection extends Component
         */
         session()->flash('message', 'Infraccion con acta numero '.$this->act_number.' registrada correctamente.');
         return redirect('/actas-de-fiscalizacion'); 
-        
-        
     }
 
     public function getInfractionProperty()
@@ -353,10 +338,7 @@ class CreateInspection extends Component
     public function removeEvidence($index)
     {   
         unset($this->evidencesFiles[$index]);
-
     }
-
-    
 
     public function updatedProvinceId($value)
     {
@@ -392,9 +374,7 @@ class CreateInspection extends Component
     {
         $this->isOpenDivEvidenceModal = false;
     }
-
-
-
+    
     public function clearInputs()
     {
         $this->url_path = null;

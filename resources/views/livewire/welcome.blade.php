@@ -1,29 +1,6 @@
-
 <main>
     @auth
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-                    <div class="mb-30">
-                        <h1 x-data="{ message: 'Buenos dias preciosa. 🤗 👷 ' }" x-text="message">
-                            (stareyes)
-                        </h1>
-                        <div x-data="{ val: request()->routeIs('welcome') }">
 
-                            <template x-if="val">
-                    
-                                <div>Renders on x-if directive.</div>
-                    
-                            </template>
-                    
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
     @else
     <div>
         <div class="flex flex-col text-center bg-195% md:bg-175% pt-10 px-4">
@@ -72,6 +49,9 @@
                                     <label wire:model='typeSearch' class="mr-10">
                                         <input type="radio" name="myRadios" wire:click="resetInput()" class="mr-2" value="2">Por Nro. de Acta
                                     </label>
+                                    <label wire:model='typeSearch' class="mr-10">
+                                        <input type="radio" name="myRadios" wire:click="resetInput()" class="mr-2" value="3">Por Nro. de Placa
+                                    </label>
                                 </li>
                             </ul>
                         </div>
@@ -79,31 +59,21 @@
                             <div id="divLastName" class="md:w-1/2 px-3 mb-6 md:mb-0 mt-3">
                                 <input wire:model="lastName" class="w-full rounded-lg border-2 border-gray-300 p-2" id="lastName" type="text" placeholder="Escribe los Apellidos y Nombres">                             
                             </div>
-                            <!--
-                            <div>
-                                @error('lastName') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
-                            </div> 
-                            -->
                         @endif
                         @if ($isOpendivNumberLicence)
                             <div id="divNumberLicence" class="md:w-1/4 px-3 mb-6 md:mb-0 mt-3">
                                 <input wire:model="numberLicence" class="w-full rounded-lg border-2 border-gray-300 p-2" id="numberLicence" type="text" placeholder="Escribe el nro de Licencia">
                             </div>
-                            <!--
-                            <div>
-                                @error('numberLicence') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
-                            </div>
-                            -->
                         @endif
                         @if ($isOpendivNumberAct)
                             <div id="divNumberAct" class="md:w-1/6 px-3 mb-6 md:mb-0 mt-3">
                                 <input wire:model="numberActa" class="w-full rounded-lg border-2 border-gray-300 p-2" id="numberActa" type="text" placeholder="Nro de acta">
                             </div>
-                            <!--
-                            <div>
-                                @error('numberActa') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
+                        @endif
+                        @if ($isOpendivPlateNumber)
+                            <div id="divPlateNumber" class="md:w-1/6 px-3 mb-6 md:mb-0 mt-3">
+                                <input wire:model="plateNumber" class="w-full rounded-lg border-2 border-gray-300 p-2" id="plateNumber" type="text" placeholder="Nro de placa">
                             </div>
-                            -->
                         @endif
                     </div>
                 </div>
@@ -113,7 +83,7 @@
             <div class="mx-auto sm:px-6 lg:px-8 mb-5 w-auto">
                 <div class="overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="py-10 sm:px-2 bg-white border-b border-gray-200">
-                        @if ($isModalOpen)
+                        @if ($isModalControlActOpen)
                             @include('components.show-details-control')
                         @endif
                         @if ($isModalInspectionActOpen)
@@ -126,12 +96,12 @@
                                         <th class="border px-3">NRO. ACTA</th>
                                         <th class="border px-3">CONDUCTOR</th>
                                         <th class="border px-3">NRO DE LICENCIA</th>
-                                        <th class="border px-3">COD. PAPELETA</th>
+                                        <th class="border px-3">COD. INFRACCION</th>
                                         <th class="border px-3">SANCION. PECUNIARIA</th>
                                         <th class="border px-3">SANCION. ADMINISTRATIVA</th>
                                         <th class="border px-3">PLACA VEHICULO</th>
-                                        <th class="border px-3">ESTADO PAPELETA</th>
-                                        <th class="border px-3">FECHA PAPELETA</th>
+                                        <th class="border px-3">ESTADO DE ACTA</th>
+                                        <th class="border px-3">FECHA</th>
                                         <th class="border px-3">SEDE</th>
                                         <th class="border px-3"></th>
                                     </tr>
@@ -173,12 +143,20 @@
                                                 <td class="border px-3 text-xs text-center">{{ $ballot->status }}</td>
                                                 <td class="border px-3 text-xs text-center">{{ date('d/m/Y', strtotime($ballot->date_infraction)) }}</td>
                                                 <td class="border px-3 text-xs text-center">{{ $ballot->campus->alias }}</td>
-                                                <td class="border px-3"><button wire:click="showInspectionAct({{ $ballot->id }})" class="bg-blue-500 text-white font-bold py-1 px-4 rounded text-xs my-1 py-2">+Detalles</button></td>
+                                                <td class="border px-3">
+                                                    <button wire:click="showInspectionAct({{ $ballot->id }})" class="inline-flex items-center bg-blue-500 text-white font-bold py-1 px-4 hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:bg-blue-900 disabled:opacity-25 transition rounded text-xs my-1 py-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                        </svg>
+                                                        <span class="mx-1">Ver</span>
+                                                    </button>
+                                                </td>
                                             </tr>
                                         </div>
                                         @empty
                                             <tr class="text-center">
-                                                <td colspan="11" class="py-3 bg-gray-100 border font-mono text-xs">.:No existe información de Actas de Fiscalización:.</td>
+                                                <td colspan="11" class="py-3 bg-gray-100 border font-mono text-xs">.:No existe información de Actas de Fiscalizacion:.</td>
                                             </tr>
                                         @endforelse
                                     @endif
@@ -192,4 +170,3 @@
     </div>
     @endauth
 </main>
-

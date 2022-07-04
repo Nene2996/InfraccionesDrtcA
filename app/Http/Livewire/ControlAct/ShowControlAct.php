@@ -41,14 +41,18 @@ class ShowControlAct extends Component
             $estado,
             $monto_pagado,
             $nro_boleta_pago,
-            $fecha_pago_infraccion;
+            $fecha_pago_infraccion,
+            $descripcion,
+            $sancion_pecuaniaria,
+            $sancion_administrativa;
 
     //variable para comprobar si tiene pagos asociados
-    public  $hasPaiments,
-            $hasResolutions;
+    public $paiments;
+    public $hasPaiments;
 
-    //variable para pagos y resoluciones;
-    public  $paiments, $resolutions;
+    //VARIABLE RESOLUCIONES
+    public $resolutions;        
+    public $hasResolutions;
 
     public $cant = 10;
 
@@ -57,7 +61,7 @@ class ShowControlAct extends Component
     protected $rules = [];
     protected $messages = [];
 
-    public function updatingSearchValue()
+    public function updatingSearchName()
     {
         $this->resetPage();
     }
@@ -107,7 +111,6 @@ class ShowControlAct extends Component
                 $this->resetInput();
                 break;
         }
-
     }
 
     public function resetInput()
@@ -145,25 +148,25 @@ class ShowControlAct extends Component
         $this->observaciones = $controlAct->descripcion_infraccion;
         $this->manifestacion_usuario = $controlAct->manifestacion_usuario;
         $this->fecha_registro_infraccion = $controlAct->fecha_registro_infraccion;
-
         $this->sede_infraccion = $controlAct->campus->alias;
-
         $this->cod_infraccion = $controlAct->infractions->code;
+        $this->descripcion = $controlAct->infractions->description;
+        $this->sancion_pecuaniaria = $controlAct->infractions->uit_penalty;
+        $this->sancion_administrativa = $controlAct->infractions->administrative_sanction;
         $this->estado = $controlAct->estado_actual;
+        $this->nro_boleta_pago = $controlAct->nro_boleta_pago;
 
-        if($controlAct->hasPaiment($controlAct->id)){
-
+        if ($controlAct->hasPaiment($controlAct->id)) {
             $this->hasPaiments = true;
             $this->paiments = $controlAct->paiments;
-
-        }else{
+        } else {
             $this->hasPaiments = false;
         }
 
-        if($controlAct->hasResolutionSancion($controlAct->id)){
+        if ($controlAct->hasResolutionSancion($controlAct->id)) {
             $this->hasResolutions = true;
             $this->resolutions = $controlAct->resolutions;
-        }else{
+        } else {
             $this->hasResolutions = false;
         }
         $this->openModalShow();

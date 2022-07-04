@@ -1,9 +1,8 @@
 <div>
     <x-jet-dialog-modal maxWidth="6xl">
         <x-slot name="title">
-            {{ __('Detalles de la papeleta') }}
+            <strong>{{ __('Detalles del Acta de Control') }}</strong>
         </x-slot>
-
         <x-slot name="content">
             <div>
                 <div class="flex justify-center">
@@ -46,47 +45,108 @@
                        </tbody>
                    </table>
                 </div>
-                <div class="flex justify-center mt-5">
-                    <table class="text-xs">
+                <div>
+                    <div class="flex justify-center">
+                        <label for="" class="text-sm mt-3 font-extrabold">DETALLE DE LA CONDUCTA INFRACTORA DETECTADA</label>
+                    </div>
+                    <div class="flex justify-center text-xs px-2">
+                        <table>
+                            <thead>
+                                <tr class="bg-gray-200">
+                                    <th class="px-3">Nro de Acta</th>
+                                    <th class="px-3">Cod Infracción</th>
+                                    <th class="px-3">Descripcion</th>
+                                    <th class="px-3">Sancion Pecuniaria</th>
+                                    <th class="px-3">Sancion Administrativa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border px-3 text-center">{{ $numero_acta }}</td>
+                                    <td class="border px-3 text-center">{{ $infraction_code }}</td>
+                                    <td class="border px-3 text-center">{{ $infraction_description }}</td>
+                                    <td class="border px-3 text-center">{{ $infraction_uit_penalty }}</td>
+                                    <td class="border px-3 text-center">{{ $infraction_administrative_sanction }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="flex justify-center my-2">
+                        <table>
+                            <thead>
+                                <tr class="bg-gray-200 text-xs">
+                                    <th class="px-3">Lugar de Intervención</th>
+                                    <th class="px-3">Fecha</th>
+                                    <th class="px-3">Hora</th>
+                                    <th class="px-3">Nro Placa Vehículo</th>
+                                    <th class="px-3">Tipo de Servicio</th>
+                                    <th class="px-3">Estado</th>
+                                    @if ($estado_actual == 'CANCELADO' && $hasPaiments == false)
+                                        <th class="px-3">Nro de Comprobante de Pago</th>
+                                    @endif
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border px-3 text-xs text-center">{{ $lugar_intervencion }}</td>
+                                    <td class="border px-3 text-xs w-24 text-center">{{ date('d/m/Y', strtotime($fecha_infraccion)) }}</td>
+                                    <td class="border px-3 text-xs text-center">{{ $hora_infraccion }}</td>
+                                    <td class="border px-3 text-xs w-20 text-center">{{ $placa_vehiculo }}</td>
+                                    <td class="border px-3 text-xs text-center">{{ $tipo_servicio }}</td>
+                                    <td class="border px-3 text-xs">{{ $estado_actual }}</td>
+                                    @if ($estado_actual == 'CANCELADO' && $hasPaiments == false)
+                                        <td class="border px-3 text-xs">{{ $nro_comprobante }}</td>
+                                    @endif
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @if ($hasResolutions)
+                <div class="flex justify-center mt-1">
+                    <label for="" class="text-sm font-extrabold">DETALLE DE LAS RESOLUCIONES ASOCIADAS</label>
+                </div>
+                <div class="flex justify-center">
+                    <table>
                         <thead>
-                            <tr class="bg-gray-200">
-                                <th class="px-3">NRO DE ACTA</th>
-                                <th class="px-3">LUGAR DE INTERVENCION</th>
-                                <th class="px-3">ORIGEN</th>
-                                <th class="px-3">DESTINO</th>
-                                <th class="px-3">PLACA VEHICULO</th>
-                                <th class="px-3">COD. INFRACCION</th>
-                                <th class="px-3">FECHA</th>
-                                <th class="px-3">HORA</th>
-                                <th class="px-3">TIPO SERVICIO</th>
-                                <th class="px-3">SEDE</th>
-                                <th class="px-3">ESTADO</th>
-                                <th class="px-3">NRO. COMPROBANTE</th>
+                            <tr class="bg-gray-200 text-xs">
+                                <th class="border px-3">Tipo de Resolución</th>
+                                <th class="border px-3">Fecha Emisión</th>
+                                <th class="border px-3">Nombre Resolución</th>
+                                <th class="border px-3">Documento</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="border px-3 text-center">{{ $numero_acta }}</td>
-                                <td class="border px-3 text-center">{{ $lugar_intervencion }}</td>
-                                <td class="border px-3 text-center">{{ $origen }}</td>
-                                <td class="border px-3 text-center">{{ $destino }}</td>
-                                <td class="border px-3 text-center">{{ $placa_vehiculo }}</td>
-                                <td class="border px-3 text-center">{{ $codigo_infraccion }}</td>
-                                <td class="border px-3 text-center">{{ date('d/m/Y', strtotime($fecha_infraccion)) }}</td>
-                                <td class="border px-3 text-center">{{ $hora_infraccion }}</td>
-                                <td class="border px-3 text-center">{{ $tipo_servicio }}</td>
-                                <td class="border px-3 text-center">{{ $sede_infraccion }}</td>
-                                <td class="border px-3 text-center">{{ $estado_actual }}</td>
-                                <td class="border px-3 text-center">{{ $nro_comprobante }}</td>
-                            </tr>
+                            @foreach ($resolutions as $resolution)
+                                <tr class="text-center">
+                                    <td class="border px-3 text-xs text-center">{{ $resolution->type }}</td>
+                                    <td class="border px-3 text-xs text-center">{{ date('d/m/Y', strtotime($resolution->date_resolution)) }}</td>
+                                    <td class="border px-3 text-xs">{{ $resolution->title }}</td>
+                                    <td class="border px-3 text-xs text-center">
+                                    @if (isset($resolution->url))
+                                    <div class="px-6 py-1 whitespace-nowrap text-red-600">
+                                        <a href="{{ Storage::url($resolution->url) }}" target="_blank">
+                                            <span class="">
+                                                <i class="far fa-file-pdf fa-lg"></i>
+                                            </span>
+                                        </a>
+                                    </div>
+                                    @else
+                                        <div class="text-xs py-1">
+                                            <p>No adjuntado</p>
+                                        </div>
+                                    @endif
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
-                 </div>
-            </div>
-            <x-jet-section-border />
-            @if ($ballot->hasPaiment($ballot->id))
+                </div>
+                @endif
+            @if ($hasPaiments)
             <div class="flex justify-center">
-                <label for="" class="mb-3">DETALLE DEL PAGO DE INFRACCIÓN</label>
+                <label for="" class="text-sm font-extrabold">DETALLE DE LOS PAGOS ASOCIADOS</label>
             </div>
             <div class="flex justify-center">
                 <table>
@@ -103,7 +163,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($paiments as $paiment)
+                        @foreach ($paiments as $paiment)
                             <tr class="text-center">
                                 <td class="border px-3 text-xs">{{ date('d/m/Y', strtotime($paiment->date_payment)) }}</td>
                                 <td class="border px-3 text-xs">{{ $paiment->typeProof->type }}</td>
@@ -128,21 +188,10 @@
                                    @endif
                                 </td>
                             </tr>
-                        @empty
-                        <tr class="hover:bg-gray-100 text-center">
-                            <td colspan="4" class="border px-3 text-sm">
-                                .: no existe pagos asociados :.
-                            </td>
-                        </tr>
-                        @endforelse
-                        
+                        @endforeach
                     </tbody>
                 </table>
             </div>
-            @else
-                <div class="flex justify-center">
-                    <label for="" class="mb-3">NO EXISTEN DETALLES DEL PAGO ASOCIADOS</label>
-                </div>
             @endif
         </x-slot>
 

@@ -1,9 +1,9 @@
-<div class="@if (!$isCreateModalOpen) hidden @endif flex items-center justify-center fixed left-0 bottom-0 w-full h-full bg-gray-600 bg-opacity-75">
-    <div class="bg-white rounded-lg w-1/2">
+<div class="@if (!$isCreateModalOpen) hidden @endif flex items-baseline pt-16 justify-center fixed left-0 bottom-0 w-full h-full bg-gray-600 bg-opacity-75">
+    <div class="bg-white rounded-lg w-9/12">
         <form wire:submit.prevent="saveCreateResolution" class="w-full">
             <div class="flex flex-col items-start p-4">
                 <div class="flex items-center w-full border-b pb-4">
-                    <div class="text-gray-900 font-medium text-lg font-semibold">Agregar Resolución</div>
+                    <div class="text-gray-900 font-medium text-lg font-semibold">Agregar Resolucion</div>
                     <svg wire:click="closeCreateModal"
                             class="ml-auto fill-current text-gray-700 w-6 h-6 cursor-pointer"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
@@ -30,7 +30,7 @@
                 @endif
                 
                 <div class="grid grid-cols-1 text-sm mt-2 w-full">
-                    <label for=""><strong>Nombre de Resolución:</strong> </label>
+                    <label for=""><strong>Nombre de la Resolucion:</strong> </label>
                     <select name="" id="" wire:model="resolution_id" class="h-10 pl-3 pr-6 border rounded-lg text-xs">
                         <option value="" disabled selected>Selecciona</option>
                         
@@ -58,7 +58,7 @@
                 </div>
                 <div class="grid grid-cols-1">
                     @if ($resolution_id)
-                        @if ($this->resolution->type == 'RESOLUCIÓN DE SANCION')
+                        @if ($this->resolution->type == $tipo_res)
                             <div class="grid grid-cols-1 gap-3 my-2 text-sm">
                                 <div class="grid grid-cols-1">
                                     <label for=""><strong>Fecha de Notificacion al Infractor:</strong></label>

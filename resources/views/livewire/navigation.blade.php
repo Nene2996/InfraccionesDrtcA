@@ -52,7 +52,7 @@
                             </x-jet-nav-link>
                         </li>
                         <li>
-                            <x-jet-nav-link href="#" :active="request()->routeIs('Mostrar_')">
+                            <x-jet-nav-link href="{{ route('GenerarReportes') }}" :active="request()->routeIs('GenerarReportes')">
                                 {{ __('Reportes') }}
                             </x-jet-nav-link>
                         </li>

@@ -1,33 +1,31 @@
 <?php
 
+use App\Exports\ControlActExport;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\UploadFileServerController;
 use App\Http\Livewire\ControlAct\CreateControlAct;
 use App\Http\Livewire\ControlAct\EditControlAct;
 use App\Http\Livewire\ControlAct\EditResolution as ControlActEditResolution;
-use App\Http\Livewire\ControlAct\PaimentControlAct;
 use App\Http\Livewire\ControlAct\ShowControlAct;
-use App\Http\Livewire\ControlAct\UploadResolution as ControlActUploadResolution;
 use App\Http\Livewire\Evidence\EvidenceInspectionAct;
 use App\Http\Livewire\Infraction\ShowInfraction;
 use App\Http\Livewire\InspectionAct\CreateInspection;
 use App\Http\Livewire\InspectionAct\EditInspection;
 use App\Http\Livewire\InspectionAct\EditResolution;
-use App\Http\Livewire\InspectionAct\PaimentInspection;
 use App\Http\Livewire\InspectionAct\ShowInspections;
-use App\Http\Livewire\InspectionAct\UploadResolution;
 use App\Http\Livewire\Paiment\PaimentControlAct as PaimentPaimentControlAct;
 use App\Http\Livewire\Paiment\PaimentInspectionAct;
+use App\Http\Livewire\Reports\IndexReports;
+use App\Http\Livewire\Resolution\AttachResolution;
 use App\Http\Livewire\Resolution\CreateResolution;
 use App\Http\Livewire\Resolution\ShowResolution;
 use App\Http\Livewire\Resolution\UpdateResolution;
 use Illuminate\Support\Facades\Route;
-
+use Maatwebsite\Excel\Facades\Excel;
 
 Route::get('/', function () {
     return view('welcome');
 });
-
 
 Route::middleware(['auth:sanctum', 'verified', 'ipaddress', 'user_active_check'])->get('/dashboard', function () {
     //return view('dashboard');
@@ -60,21 +58,25 @@ Route::middleware(['auth:sanctum', 'verified', 'ipaddress', 'user_active_check']
     Route::get('/actas-de-fiscalizacion', ShowInspections::class)->name('actasDeFiscalizacion.show');
     Route::get('/actas-de-control', ShowControlAct::class)->name('actasDeControl.show');
 
-    Route::get('/actas-de-fiscalizacion/subir-resolucion/{inspection}', UploadResolution::class)->name('actasDeFiscalizacion.SubirResolucion');
+
     Route::get('/actas-de-fiscalizacion/modificar-resolucion/{inspection}', EditResolution::class)->name('actasDeFiscalizacion.EditarResolucion');
 
-    Route::get('/actas-de-control/subir-resolucion/{controlAct}', ControlActUploadResolution::class)->name('actasDeControl.SubirResolucion');
     Route::get('/actas-de-control/modificar-resolucion/{controlAct}', ControlActEditResolution::class)->name('actasDeControl.EditarResolucion');
     
+    //Crud para resoluciones
     Route::get('/subir-resolucion', CreateResolution::class)->name('SubirResolucion');
     Route::get('/resoluciones', ShowResolution::class)->name('MostrarResoluciones');
     Route::get('/editar-resolucion/{resolution}', UpdateResolution::class)->name('EditarResolucion');
+    Route::get('/adjuntar-resoluciones', AttachResolution::class)->name('AsociarResolucion');
 
     Route::get('tabla-de-infracciones', ShowInfraction::class)->name('MostrarTablaInfracciones');
 
-    Route::post('subir-acta', [UploadFileServerController::class, 'store']);
-    Route::post('file-upload/upload-large-files', [FileUploadController::class, 'uploadLargeFiles'])->name('evidenceupload');
-    
+    //Reportes 
+    Route::get('reportes', IndexReports::class)->name('GenerarReportes');
+});
+
+Route::get('/excel', function () {
+    //return Excel::download(new ControlActExport, 'products.xlsx');
 });
 
 

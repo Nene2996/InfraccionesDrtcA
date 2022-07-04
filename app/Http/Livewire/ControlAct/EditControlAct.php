@@ -113,7 +113,6 @@ class EditControlAct extends Component
                     $this->apellidos_conductor = $particion[0].' '.$particion[1];
                     $this->nombres_conductor = $particion[2].' '.$particion[3];
                     break;
-                
             } 
         }else{
             $this->apellidos_conductor = 'NO ESPECIFICADO';
@@ -144,8 +143,6 @@ class EditControlAct extends Component
         
         $this->inspectors = Campus::find(auth()->user()->campus->id)->inspectors;
         $this->inspector_id = $controlAct->inspector->id;
-        
-
     }
 
     public function render()
@@ -188,7 +185,6 @@ class EditControlAct extends Component
                 $this->label_razon_social_nombre = "Apellidos y Nombres";
                 break;
         }
-
     }
 
     public function validateGetTipoServicio()
@@ -207,7 +203,6 @@ class EditControlAct extends Component
             default: 
                 $this->tipo_servicio = "NO ESPECIFICADO";
                 break;
-
         }
     }
 
@@ -314,13 +309,12 @@ class EditControlAct extends Component
 
     public function save()
     {
-        
         $rules = $this->rules;
         $messages = $this->messages;
 
-        $rules['controlAct.numero_acta'] = Rule::unique('control_act', 'numero_acta')->ignore($this->controlAct->id)->where('campus_id', auth()->user()->campus->id);
+        //$rules['controlAct.numero_acta'] = Rule::unique('control_act', 'numero_acta')->ignore($this->controlAct->id)->where('campus_id', auth()->user()->campus->id);
                         
-        $messages['controlAct.numero_acta.unique'] = 'El nro de Acta de Control ya fue registrado anteriormente';
+        //$messages['controlAct.numero_acta.unique'] = 'El nro de Acta de Control ya fue registrado anteriormente';
 
         $data = [];
         if($this->select_dni_ruc == 0) {
@@ -361,13 +355,19 @@ class EditControlAct extends Component
         //$pecuniary_sanction = $this->controlAct->infractions->pecuniary_sanction;
 
         $infraction = Infraction::find($this->infraction_id);
-        if($infraction){
-            if($infraction->pecuniary_sanction == 0){
-                $estado_actual_infraction = 'PENDIENTE DE RESOLUCION DE SANCIÓN';
-                $nro_boleta_pago = 'NO APLICA';
+        if($this->controlAct){
+            if($this->controlAct->hasPaiment($this->controlAct->id)){
+                    $estado_actual_infraction = $this->controlAct->estado_actual;
+                    $nro_boleta_pago = $this->controlAct->nro_boleta_pago;
+                
             }else{
-                $estado_actual_infraction = 'FALTA CANCELAR';
-                $nro_boleta_pago = NULL;
+                if($infraction->pecuniary_sanction == 0){
+                    $estado_actual_infraction = 'PENDIENTE DE RESOLUCIÓN';
+                    $nro_boleta_pago = 'NO APLICA';
+                }else{
+                    $estado_actual_infraction = $this->controlAct->estado_actual;
+                    $nro_boleta_pago = $this->controlAct->nro_boleta_pago;
+                }
             }
         }
 
@@ -375,18 +375,15 @@ class EditControlAct extends Component
         $data['razon_social_nombre'] = $this->value_razon_social_nombre;
         $data['tipo_servicio'] = $this->tipo_servicio;
         $data['nro_habilitacion'] = $this->nro_habilitacion;
-        $data['apellidos_nombres_conductor'] = $this->apellidos_conductor.', '.$this->nombres_conductor;
+        $data['apellidos_nombres_conductor'] = $this->apellidos_conductor.' '.$this->nombres_conductor;
         $data['estado_actual'] = $estado_actual_infraction;
         $data['nro_boleta_pago'] = $nro_boleta_pago;
         $data['infraction_id'] = $this->infraction_id;
         $data['inspector_id'] = $this->inspector_id;
         $data['campus_id'] = $this->campus_id;
-        //dd($data);
         $this->controlAct->fill($data);
         $saved = $this->controlAct->save();
-
         $campus = Campus::find($this->campus_id);
-
         if(!is_null($this->file_pdf)){
             if(isset($this->controlAct->file->url_path)){ // modificas/eliminas porque ya existe archivo asociado
                 $url_path_before = $this->controlAct->file->url_path;
@@ -406,12 +403,8 @@ class EditControlAct extends Component
             }
         }
 
-
         if($saved )
-            
             session()->flash('message', 'Se ha realizado correctamente el proceso de actualización de la Acta de Control nro: '.$this->controlAct->numero_acta);
-
         return redirect('/actas-de-control');
-
     }
 }
