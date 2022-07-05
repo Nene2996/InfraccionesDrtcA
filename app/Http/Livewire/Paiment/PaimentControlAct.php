@@ -466,14 +466,6 @@ class PaimentControlAct extends Component
 
     public function saveFileImg()
     {
-        /*
-        $rules = $this->rules;
-        $messages = $this->messages;
-
-        $rules['file_img'] = 'required';
-        $messages['file_img.required'] = 'Es obligatorio adjuntar el comprobante de pago.';
-        $this->validate($rules, $messages);
-        */
         $paiment = Paiment::find($this->paimentId);
         $user = auth()->user();
         if(!is_null($this->file_img)){

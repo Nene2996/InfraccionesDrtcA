@@ -26,7 +26,6 @@
                         </ul>
                     </div>
                 @endif
-
                     <div 
                     class="mt-3 mb-3"
                     wire:ignore
@@ -42,15 +41,13 @@
                                     @this.removeUpload('file_img', filename, load)
                                 },
                             },
-                            acceptedFileTypes: ['image/*'],
+                            acceptedFileTypes: ['image/*', 'application/pdf'],
                             labelFileTypeNotAllowed: 'Archivo de tipo no válido',
                             fileValidateTypeLabelExpectedTypes: 'Espera archivo de tipo: {lastType}',
                             maxFileSize: '3MB',
                             labelMaxFileSizeExceeded: 'El archivo es demasiado grande',
                             labelMaxFileSize: 'El tamaño máximo de archivo es {filesize}',
-
                         }); 
-
                         }"
                     >
                     <label for="" class="font-semibold">Archivo digitalizado del comprobante de pago:</label>
@@ -58,7 +55,6 @@
                         accept="image/*" 
                         type="file" x-ref="input" 
                         wire:model="file_img" 
-                        
                     />
                 </div>
                 <div class="ml-auto">
