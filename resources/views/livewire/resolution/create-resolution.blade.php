@@ -27,7 +27,6 @@
                                     <option value="RESOLUCIÓN DE SANCION">Resolución de sancion</option>
                                     <option value="RESOLUCIÓN DE NULIDAD">Resolución de nulidad</option>
                                     <option value="RESOLUCIÓN DE PRESCRIPCION">Resolución de prescripcion</option>
-                                    <option value="RESOLUCIÓN DE IMPROCEDENCIA">Resolución de improcedencia</option>
                                 </select>
                             </div>
                             <div class="grid grid-cols-1">
@@ -76,7 +75,18 @@
                             @enderror
                         </div>
                         <div class="grid grid-cols-1">
-                            <label for="" class="font-bold">Titulo/Nombre del informe de Sanción:</label>
+                            @if ($campus_id == 1)
+                                <label for="" class="font-bold">Titulo/Nombre del informe de Sanción:</label>
+                            @endif
+                            @if ($campus_id == 2 && $type_resolution == 'RESOLUCIÓN DE SANCION')
+                                <label for="" class="font-bold">Titulo/Nombre del Informe de Técnico:</label>
+                            @endif
+                            @if ($campus_id == 2 && $type_resolution == 'RESOLUCIÓN DE NULIDAD')
+                                <label for="" class="font-bold">Titulo/Nombre del Informe Final de Etapa Instructiva:</label>
+                            @endif
+                            @if ($campus_id == 2 && $type_resolution == 'RESOLUCIÓN DE PRESCRIPCION')
+                                <label for="" class="font-bold">Titulo/Nombre del Informe de Técnico:</label>
+                            @endif
                             <input type="text" class="rounded-md" wire:model="document_title">
                         </div>
                         <div>
@@ -86,7 +96,7 @@
                         </div>
                         <div class="grid grid-cols-3 gap-3">
                             <div class="grid grid-cols-1">
-                                <label for="" class="font-bold">Año de emision del Informe de Sanción:</label>
+                                <label for="" class="font-bold">Año de emision del Informe:</label>
                                 <select name="" id="" class="rounded-md" wire:model="document_year">
                                     <option value="" selected disabled>Selecciona...</option>
                                     <option value="2015">2015</option>

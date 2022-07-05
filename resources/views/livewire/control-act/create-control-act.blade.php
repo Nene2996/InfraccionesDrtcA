@@ -218,12 +218,12 @@
                 </div>
                 <div class="grid grid-col-1 my-2">
                     <label for="" class="font-semibold">Descripcion de la Infracción:</label>
-                    <textarea name="" id="" wire:model="descripcion_infraccion" cols="30" rows="10" class="rounded-md"></textarea>
+                    <textarea name="" id="" wire:model="descripcion_infraccion" cols="10" rows="3" class="rounded-md"></textarea>
                     @error('descripcion_infraccion') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                 </div>
                 <div class="grid grid-col-1">
                     <label for="" class="font-semibold">Manifestación de Usuario:</label>
-                    <textarea name="" id="" wire:model="manifestacion_usuario" cols="30" rows="10" class="rounded-md"></textarea>
+                    <textarea name="" id="" wire:model="manifestacion_usuario" cols="10" rows="3" class="rounded-md"></textarea>
                     @error('manifestacion_usuario') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                 </div>
                 <div class="grid grid-cols-1 gap-3 mt-3">

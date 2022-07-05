@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-                <div class="grid grid-cols-4">
+                <div class="grid grid-cols-5">
                     <div class="grid grid-cols-1">
                         <label for="" class="font-semibold">Nro de Acta de Fiscalización:</label>
                         <input type="text" wire:model="act_number" class="rounded-md">
@@ -48,11 +48,11 @@
                                 wire:click="getApiSunat">CONSULTAR SUNAT</x-jet-button>
                             @error('_document_number') <span class="text-red-500 text-sm italic ml-2">{{ $message }}</span> @enderror
                         </div>
-                        <div class="py-4 ml-6">
+                        <div class="py-4 mx-6">
                             @if ($messageApi)
                                 <span class="text-red-500 text-sm italic ml-2"> {{ $messageApi }}</span><br/>
                             @endif
-                            <input wire:model='_names_business_name' type="text" class="rounded-md md:w-4/5" placeholder="Escribe la Razón Social">
+                            <input wire:model='_names_business_name' type="text" class="rounded-md md:w-full" placeholder="Escribe la Razón Social">
                             @error('_names_business_name') <span class="text-red-500 text-sm italic ml-2">{{ $message }}</span> @enderror
                         </div>
                     @endif
@@ -122,7 +122,7 @@
                 </div>
                 <div class="grid grid-cols-1">
                     <label for="" class="font-semibold">Información Adicional</label>
-                    <textarea name="" id="" cols="30" rows="4" wire:model="additional_Information" class="rounded-md"></textarea>
+                    <textarea name="" id="" cols="30" rows="2" wire:model="additional_Information" class="rounded-md"></textarea>
                 </div>
                 <div class="grid grid-cols-1 my-2">
                     <label for="" class="font-semibold">Lugar de la Infracción:</label>
@@ -173,7 +173,7 @@
                 </div>
                 <div class="grid grid-cols-1 my-2">
                     <label for="" class="font-semibold">Observaciones del Intervenido:</label>
-                    <textarea name="" id="" cols="30" rows="4" wire:model="observation" class="rounded-md"></textarea>
+                    <textarea name="" id="" cols="30" rows="2" wire:model="observation" class="rounded-md"></textarea>
                 </div>
                 <div class="grid grid-cols-3 gap-3">
                     <div class="grid grid-cols-1">
@@ -195,7 +195,7 @@
                 </div>
                 <div class="grid grid-col-1">
                     <label for="description" class="font-semibold">Descripcion de la Infracción</label>
-                    <textarea name="" id="" cols="30" rows="10" wire:model="description" class="rounded-md"></textarea>
+                    <textarea name="" id="" cols="10" rows="4" wire:model="description" class="rounded-md"></textarea>
                     @error('description') <span class="text-red-500 text-sm italic">{{ $message }}</span> @enderror
                 </div>
                 <div class="grid grid-cols-1 gap-3 mt-3">
