@@ -1,8 +1,5 @@
 <?php
 
-use App\Exports\ControlActExport;
-use App\Http\Controllers\FileUploadController;
-use App\Http\Controllers\UploadFileServerController;
 use App\Http\Livewire\ControlAct\CreateControlAct;
 use App\Http\Livewire\ControlAct\EditControlAct;
 use App\Http\Livewire\ControlAct\EditResolution as ControlActEditResolution;

@@ -33,6 +33,7 @@ class IPAddress
             return 'UNKNOWN';   
     }
 
+    //Ips permitidas
      protected $valid_ips = [
           '127.0.0.1',
           '190.119.175.43',
@@ -49,7 +50,5 @@ class IPAddress
           }
 
           abort(403, "La direccion IP actual no esta autorizada. Comuniquese con el administrador del sistema");
-
-          
      }
 }

@@ -1,4 +1,4 @@
-<header class="bg-trueGray-700 "> 
+<header class="bg-trueGray-600 "> 
     <div class="sticky top-0">
         <div class="container flex h-16">
             @auth
@@ -39,6 +39,11 @@
                         <li class="px-1">
                             <x-jet-nav-link href="{{ route('MostrarResoluciones') }}" :active="request()->routeIs('MostrarResoluciones')">
                                 {{ __('Resoluciones') }}
+                            </x-jet-nav-link>
+                        </li>
+                        <li class="px-1">
+                            <x-jet-nav-link href="#" >
+                                {{ __('Directivas') }}
                             </x-jet-nav-link>
                         </li>
                         <li>

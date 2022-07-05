@@ -162,6 +162,10 @@
                                                 </td>
                                             </tr>
                                         </div>
+
+
+
+                                        
                                         @empty
                                             <tr class="text-center">
                                                 <td colspan="11" class="py-3 bg-gray-100 border font-mono text-xs">.:No existe información de Actas de Fiscalizacion:.</td>
