@@ -38,7 +38,7 @@ class IPAddress
           '127.0.0.1',
           '190.119.175.43',
           '190.187.46.171',
-          '192.168.10.205'
+          '179.6.85.219'
      ];
      public function handle(Request $request, Closure $next)
      {

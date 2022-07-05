@@ -35,7 +35,6 @@
                                 <option value="2">Acta de Fiscalizacion</option>
                             </select>
                         </div>
-
                         <div>
                             <h3 class="text-gray-600 font-extrabold">Tipo de busqueda:</h3>
                             <ul>
@@ -162,10 +161,6 @@
                                                 </td>
                                             </tr>
                                         </div>
-
-
-
-                                        
                                         @empty
                                             <tr class="text-center">
                                                 <td colspan="11" class="py-3 bg-gray-100 border font-mono text-xs">.:No existe información de Actas de Fiscalizacion:.</td>
